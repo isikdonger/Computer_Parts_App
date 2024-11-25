@@ -1,8 +1,9 @@
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
-public class HardwareComponent {
+public abstract class HardwareComponent implements HardwarePart {
 	protected double recommendedPrice;
 	protected String releaseDate;
 	protected String brand;
@@ -20,34 +21,38 @@ public class HardwareComponent {
 	public String getReleaseDate() {
 		return releaseDate;
 	}
-	
-	private boolean isGetter(Method method) {
-		return method.getName().startsWith("get");
-	}
-	
-	public <T> ArrayList<T> getValues() {
-		ArrayList<T> values = new ArrayList<T>();
-		Class<?> currentClass = this.getClass();
-		while (currentClass!=Objects.class) {
-			Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-			for (Method method: methods) {
-				if(isGetter(method)) {
-					try {
-						T value = (T)method.invoke(this);
-						values.add(value);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			currentClass = currentClass.getSuperclass();
-		}
-		return values;
-	}
 
 	@Override
 	public String toString() {
 		return "HardwareComponent:\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
 				+ "\nbrand: " + brand;
+	}
+
+	@Override
+	public boolean isGetter(Method method) {
+		// TODO Auto-generated method stub
+		return method.getName().endsWith("get");
+	}
+
+	@Override
+	public <T> Map<String, T> getSuperClassValues() {
+		return null;
+	}
+
+	@Override
+	public <T> Map<String, T> getValues() {
+		Map<String, T>  values = this.getSuperClassValues();
+		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
+		for (Method method: methods) {
+			if(isGetter(method) && !(method.getName().endsWith("Values"))) {
+				try {
+					T value = (T)method.invoke(this);
+					values.put(method.getName().substring(3), value);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return values;
 	}
 }

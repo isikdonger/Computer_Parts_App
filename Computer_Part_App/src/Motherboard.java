@@ -1,6 +1,7 @@
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class Motherboard extends HardwareComponent {
 	private String chipset;
@@ -30,6 +31,11 @@ public class Motherboard extends HardwareComponent {
 		this.bluetooth = bluetooth;
 		this.soundCard = soundCard;
 		this.ioPorts = ioPorts;
+	}
+	
+	@Override
+	public <T> Map<String, T> getSuperClassValues() {
+		return super.getValues();
 	}
 
 	public String getChipset() {

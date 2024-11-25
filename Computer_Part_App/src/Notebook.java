@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Map;
 
 public class Notebook extends Computer {
 	private String screenResolution;
@@ -9,8 +10,19 @@ public class Notebook extends Computer {
 		this.screenResolution = screenResolution;
 	}
 	
+	@Override
+	public <T> Map<String, T> getSuperClassValues() {
+		// TODO Auto-generated method stub
+		return super.getValues();
+	}
+	
 	public String getScreenResolution() {
 		return screenResolution;
+	}
+	
+	@Override
+	public Computer buildComputer() {
+		return null;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class PowerSupply extends HardwareComponent {
 	private int wattage;
@@ -12,6 +13,11 @@ public class PowerSupply extends HardwareComponent {
 		this.wattage = wattage;
 		this.formFactor = formFactor;
 		this.efficiencyTier = efficiencyTier;
+	}
+	
+	@Override
+	public <T> Map<String, T> getSuperClassValues() {
+		return super.getValues();
 	}
 
 	public int getWattage() {

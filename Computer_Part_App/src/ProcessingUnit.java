@@ -1,7 +1,8 @@
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Map;
 
-public class ProcessingUnit extends HardwareComponent {
+public abstract class ProcessingUnit extends HardwareComponent {
 	protected double baseClockSpeed;
 	protected double turboClockSpeed;
 	protected String architecture;
@@ -13,6 +14,11 @@ public class ProcessingUnit extends HardwareComponent {
 		this.turboClockSpeed = turboClockSpeed;
 		this.architecture = architecture;
 		this.benchmarkScore = benchmarkScore;
+	}
+	
+	@Override
+	public <T> Map<String, T> getSuperClassValues() {
+		return super.getValues();
 	}
 
 	public String getArchitecture() {

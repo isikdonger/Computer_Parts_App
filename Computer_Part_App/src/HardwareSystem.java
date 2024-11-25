@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class DataSystem {
+public class HardwareSystem {
 	private static ArrayList<Computer> Computers;
 	private static ArrayList<HardwareComponent> HardwareComponents;
 	
@@ -130,5 +130,53 @@ public class DataSystem {
 			}
 		}
 		return components;
+	}
+	
+	public static Object findHardwarePart(Object part) {
+		if (part instanceof HardwareComponent) {
+			for (HardwareComponent component: HardwareComponents) {
+				if (component.equals(part)) {
+					return component;
+				}
+			}
+		}
+		else if (part instanceof Computer) {
+			for (Computer computer: Computers) {
+				if (computer.equals(part)) {
+					return computer;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static boolean removeHardwarePart(Object part) {
+		if (part instanceof HardwareComponent) {
+			HardwareComponents.remove(part);
+			return true;
+		}
+		else if (part instanceof Computer) {
+			Computers.remove(part);
+			return true;
+		}
+		return false;
+	}
+	
+	public static String displayHardwarePart(HardwareComponent part) {
+		return part.toString();
+	}
+	
+	public static String displayHardwarePart(Computer part) {
+		return part.toString();
+	}
+	
+	public static <T> String displayHardwarePartList(ArrayList<T> partList) {
+		String str = "";
+		for (Object part: partList) {
+			if (part instanceof HardwareComponent || part instanceof Computer) {
+				str += part.toString();
+			}
+		}
+		return str;
 	}
 }

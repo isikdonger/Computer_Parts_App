@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Map;
 
 public class PersonelComputer extends Computer {
 	private boolean monitorConnected;
@@ -8,9 +9,20 @@ public class PersonelComputer extends Computer {
 		super(brand, devicePrice, cpu, gpu, ram, ssd, motherboard, powerSupply, Case);
 		this.monitorConnected = monitorConnected;
 	}
+	
+	@Override
+	public <T> Map<String, T> getSuperClassValues() {
+		// TODO Auto-generated method stub
+		return super.getValues();
+	}
 
 	public boolean isMonitorConnected() {
 		return monitorConnected;
+	}
+	
+	@Override
+	public Computer buildComputer() {
+		return null;
 	}
 
 	@Override

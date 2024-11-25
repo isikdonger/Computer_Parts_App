@@ -1,9 +1,10 @@
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
 
-public class Computer {
+public abstract class Computer implements HardwarePart {
 	protected String brand;
 	protected double devicePrice;
 	protected CPU cpu;
@@ -25,6 +26,34 @@ public class Computer {
 		this.motherboard = motherboard;
 		this.powerSupply = powerSupply;
 		this.Case = Case;
+	}
+	
+	@Override
+	public boolean isGetter(Method method) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public <T> Map<String, T> getSuperClassValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public <T> Map<String, T>  getValues() {
+		Map<String, T>  values = this.getSuperClassValues();
+		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
+		for (Method method: methods) {
+			if(isGetter(method) && !(method.getName().endsWith("Values"))) {
+				try {
+					T value = (T)method.invoke(this);
+					values.put(method.getName().substring(3), value);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return values;
 	}
 
 	public String getBrand() {
@@ -63,29 +92,7 @@ public class Computer {
 		return Case;
 	}
 	
-	private boolean isGetter(Method method) {
-		return method.getName().startsWith("get");
-	}
-	
-	public <T> ArrayList<T> getValues() {
-		ArrayList<T> values = new ArrayList<T>();
-		Class<?> currentClass = this.getClass();
-		while (currentClass!=Objects.class) {
-			Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-			for (Method method: methods) {
-				if(isGetter(method)) {
-					try {
-						T value = (T)method.invoke(this);
-						values.add(value);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			currentClass = currentClass.getSuperclass();
-		}
-		return values;
-	}
+	public abstract Computer buildComputer();
 
 	@Override
 	public String toString() {

@@ -1,5 +1,6 @@
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Case extends HardwareComponent {
 	private String formFactor;
@@ -14,9 +15,9 @@ public class Case extends HardwareComponent {
 		this.durability = findDurability();
 	}
 	
-	public Case(double recommendedPrice, String releaseDate, String brand) {
-		super(recommendedPrice, releaseDate, brand);
-		// TODO Auto-generated constructor stub
+	@Override
+	public <T> Map<String, T> getSuperClassValues() {
+		return super.getValues();
 	}
 	
 	public String getFormFactor() {
