@@ -15,22 +15,6 @@ public class SSD extends MemoryUnit {
 		this.formFactor = formFactor;
 		this.interfaceName = interfaceName;
 	}
-	
-	public <T> ArrayList<T> getSuperCLassMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
-	}
 
 	public int getReadSpeed() {
 		return readSpeed;
@@ -46,22 +30,6 @@ public class SSD extends MemoryUnit {
 
 	public String getInterfaceName() {
 		return interfaceName;
-	}
-	
-	public <T> ArrayList<T> getMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
 	}
 
 	@Override

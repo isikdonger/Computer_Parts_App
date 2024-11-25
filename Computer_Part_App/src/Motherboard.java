@@ -31,22 +31,6 @@ public class Motherboard extends HardwareComponent {
 		this.soundCard = soundCard;
 		this.ioPorts = ioPorts;
 	}
-	
-	public <T> ArrayList<T> getSuperCLassMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
-	}
 
 	public String getChipset() {
 		return chipset;
@@ -90,22 +74,6 @@ public class Motherboard extends HardwareComponent {
 
 	public String[] getIoPorts() {
 		return ioPorts;
-	}
-	
-	public <T> ArrayList<T> getMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
 	}
 
 	@Override

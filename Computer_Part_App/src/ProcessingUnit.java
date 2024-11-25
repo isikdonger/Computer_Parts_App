@@ -14,22 +14,6 @@ public class ProcessingUnit extends HardwareComponent {
 		this.architecture = architecture;
 		this.benchmarkScore = benchmarkScore;
 	}
-	
-	public <T> ArrayList<T> getSuperCLassMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
-	}
 
 	public String getArchitecture() {
 		return architecture;
@@ -38,7 +22,7 @@ public class ProcessingUnit extends HardwareComponent {
 	public int getBenchmarkScore() {
 		return benchmarkScore;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "ProcessingUnit:\nbaseClockSpeed: " + baseClockSpeed + "\nturboClockSpeed: " + turboClockSpeed

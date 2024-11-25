@@ -25,22 +25,6 @@ public class GPU extends ProcessingUnit {
 	public int getPsu() {
 		return psu;
 	}
-	
-	public <T> ArrayList<T> getMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
-	}
 
 	@Override
 	public String toString() {

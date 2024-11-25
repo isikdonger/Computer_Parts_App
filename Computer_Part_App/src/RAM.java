@@ -11,22 +11,6 @@ public class RAM extends MemoryUnit {
 		this.technology = technology;
 		this.transferSpeed = transferSpeed;
 	}
-	
-	public <T> ArrayList<T> getSuperCLassMethods() {
-		ArrayList<T> values = new ArrayList();
-		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
-	}
 
 	public String getTechnology() {
 		return technology;
@@ -34,22 +18,6 @@ public class RAM extends MemoryUnit {
 
 	public int getTransferSpeed() {
 		return transferSpeed;
-	}
-	
-	public <T> ArrayList<T> getMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
 	}
 
 	@Override

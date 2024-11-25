@@ -14,22 +14,6 @@ public class Case extends HardwareComponent {
 		this.durability = findDurability();
 	}
 	
-	public <T> ArrayList<T> getSuperCLassMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
-	}
-	
 	public Case(double recommendedPrice, String releaseDate, String brand) {
 		super(recommendedPrice, releaseDate, brand);
 		// TODO Auto-generated constructor stub
@@ -41,22 +25,6 @@ public class Case extends HardwareComponent {
 
 	public String findDurability() {
 		return "strong";
-	}
-	
-	public <T> ArrayList<T> getMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
 	}
 
 	@Override

@@ -18,22 +18,6 @@ public class CPU extends ProcessingUnit {
 		this.maxMemorySize = maxMemorySize;
 		this.ramCompatibility = ramCompatibility;
 	}
-	
-	public <T> ArrayList<T> getSuperCLassMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
-	}
 
 	public int getMemoryChannel() {
 		return memoryChannel;
@@ -57,22 +41,6 @@ public class CPU extends ProcessingUnit {
 
 	public String getRamCompatibility() {
 		return ramCompatibility;
-	}
-	
-	public <T> ArrayList<T> getMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
 	}
 
 	@Override

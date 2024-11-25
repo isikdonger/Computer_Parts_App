@@ -1,4 +1,7 @@
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Computer {
 	protected String brand;
@@ -58,6 +61,30 @@ public class Computer {
 
 	public Case getCase() {
 		return Case;
+	}
+	
+	private boolean isGetter(Method method) {
+		return method.getName().startsWith("get");
+	}
+	
+	public <T> ArrayList<T> getValues() {
+		ArrayList<T> values = new ArrayList<T>();
+		Class<?> currentClass = this.getClass();
+		while (currentClass!=Objects.class) {
+			Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
+			for (Method method: methods) {
+				if(isGetter(method)) {
+					try {
+						T value = (T)method.invoke(this);
+						values.add(value);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			currentClass = currentClass.getSuperclass();
+		}
+		return values;
 	}
 
 	@Override

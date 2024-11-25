@@ -8,22 +8,6 @@ public class MemoryUnit extends HardwareComponent {
 		super(recommendedPrice, releaseDate, brand);
 		this.capacity = capacity;
 	}
-	
-	public <T> ArrayList<T> getSuperCLassMethods() {
-		ArrayList<T> values = new ArrayList<T>();
-		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method)) {
-				try {
-					T value = (T)method.invoke(this);
-					values.add(value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
-	}
 
 	public int getCapacity() {
 		return capacity;
