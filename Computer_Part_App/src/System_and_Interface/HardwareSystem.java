@@ -1,15 +1,89 @@
 package System_and_Interface;
 import Computer.*;
 import HardwareComponent.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 public class HardwareSystem {
 	private static ArrayList<Computer> Computers;
 	private static ArrayList<HardwareComponent> HardwareComponents;
 	private final String FILENAME = "data.txt";
 	
-	public static boolean readFileData() {
-		return false;
+	public static boolean readFileData() throws FileNotFoundException {
+		File file = new File("data.txt");
+		if (!file.exists()) {
+			System.out.println("File does not exists!");
+			return false;
+		}
+		
+		Scanner input = new Scanner(file);
+		
+		while (input.hasNext()) {
+			String[] data = input.nextLine().split("::");
+			if (data[0].equalsIgnoreCase("HardwareComponent")) {
+				HardwareComponent hardW = null;
+				switch (data[1]) {
+				case "CPU":
+					hardW = new CPU(Double.parseDouble(data[2]), data[3], data[4], 
+							Double.parseDouble(data[5]), Double.parseDouble(data[6]), 
+							data[7], Integer.parseInt(data[8]), Integer.parseInt(data[9]), 
+							Integer.parseInt(data[10]), Integer.parseInt(data[11]),
+							Integer.parseInt(data[12]), data[13]);
+					break;
+				case "RAM":
+					hardW = new RAM(Double.parseDouble(data[2]), data[3], data[4], 
+							Integer.parseInt(data[5]), data[6], Integer.parseInt(data[7]));
+					break;
+				case "Motherboard":
+					String[] arr = data[10].split("-");
+					hardW = new Motherboard(Double.parseDouble(data[2]), data[3], data[4], 
+							data[5], Integer.parseInt(data[6]), Integer.parseInt(data[7]),
+							Integer.parseInt(data[8]), Integer.parseInt(data[9]), 
+							arr, Integer.parseInt(data[11]), Boolean.parseBoolean(data[12]),
+							Boolean.parseBoolean(data[13]), Boolean.parseBoolean(data[14]), 
+							data);
+					break;
+				case "SSD":
+					hardW = new SSD(Double.parseDouble(data[2]), data[3], data[4],
+						Integer.parseInt(data[5]), Integer.parseInt(data[6]), 
+						Integer.parseInt(data[7]), data[8], data[9]);
+					break;
+				case "GPU":
+					hardW = new GPU(Double.parseDouble(data[2]), data[3], data[4],
+							Double.parseDouble(data[5]), Double.parseDouble(data[6]), 
+							data[7], Integer.parseInt(data[8]), data[9], 
+							Integer.parseInt(data[10]), Integer.parseInt(data[11]));
+					break;
+				case "Case":
+					hardW = new Case(Double.parseDouble(data[2]), data[3], data[4],
+							data[5], data[6], data[7]);
+					break;
+				case "PowerSupply":
+					hardW = new PowerSupply(Double.parseDouble(data[2]), data[3], data[4],
+							Integer.parseInt(data[5]), data[6], data[7]);
+				}
+				HardwareComponents.add(hardW);
+			}
+			else {
+				Computer comp = null;
+				switch ((data[1])) {
+				case "Laptop":
+					break;
+				case "PersonelComputer":
+					comp = new PersonelComputer();
+					break;
+				case "Notebook":
+				}
+				Computers.add(comp);
+			}
+		}
+		input.close();
+		return true;
 	}
 	
 	public static boolean addData() {

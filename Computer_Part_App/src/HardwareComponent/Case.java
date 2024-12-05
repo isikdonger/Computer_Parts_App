@@ -13,7 +13,7 @@ public class Case extends HardwareComponent {
 		super(recommendedPrice, releaseDate, brand);
 		this.formFactor = formFactor;
 		this.material = material;
-		this.durability = findDurability();
+		//this.durability = findDurability();
 	}
 	
 	@Override
@@ -26,7 +26,7 @@ public class Case extends HardwareComponent {
 	}
 
 	public String findDurability() {
-		return "strong";
+		return null;
 	}
 
 	@Override

@@ -1,0 +1,11 @@
+
+1) RAM: data[6] is extra+ int capacity type mismatch
+2) Motherboard: boolean bluetooth, boolean soundCard, String[] ioPorts are missing
+3) SSD: int capacity type mismatch
+4) GPU: many missing data + type mismatch
+5) Case: findDurabilty
+6) PowerSupply: int wattage type mismatch
+
+Computer Data 
+
+Compare
