@@ -1,8 +1,24 @@
+package System_and_Interface;
+import Computer.*;
+import HardwareComponent.*;
 import java.util.ArrayList;
 
 public class HardwareSystem {
 	private static ArrayList<Computer> Computers;
 	private static ArrayList<HardwareComponent> HardwareComponents;
+	private final String FILENAME = "data.txt";
+	
+	public static boolean readFileData() {
+		return false;
+	}
+	
+	public static boolean addData() {
+		return false;
+	}
+	
+	public static Object Compare(Object o1, Object o2) {
+		return null;
+	}
 	
 	public static ArrayList<Computer> getComputers() {
 		return Computers;

@@ -1,7 +1,10 @@
+package HardwareComponent;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Motherboard extends HardwareComponent {
 	private String chipset;
@@ -15,6 +18,7 @@ public class Motherboard extends HardwareComponent {
 	private boolean bluetooth;
 	private boolean soundCard;
 	private String[] ioPorts;
+	private final String FILENAME = "cpuComptability.txt";
 
 	public Motherboard(double recommendedPrice, String releaseDate, String brand, String chipset, int memorySlots,
 			int maxMemory, int hdmiPorts, int displayPorts, String[] storageSlot, int ethernetCapacity, boolean wifi,
@@ -36,6 +40,24 @@ public class Motherboard extends HardwareComponent {
 	@Override
 	public <T> Map<String, T> getSuperClassValues() {
 		return super.getValues();
+	}
+	
+	public boolean cpuCompatibility(CPU cpu) throws FileNotFoundException {
+		File file = new File(FILENAME);
+		Scanner scanner = new Scanner(file);
+		while (scanner.hasNext()) {
+			String[] line = scanner.nextLine().split("::");
+			String chipset = line[0];
+			if (this.chipset.equalsIgnoreCase(chipset)) {
+				for (int i=1;i<line.length;i++) {
+					String architecture = line[i];
+					if (cpu.getArchitecture().equalsIgnoreCase(architecture)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	public String getChipset() {

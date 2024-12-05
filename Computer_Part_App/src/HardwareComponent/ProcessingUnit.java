@@ -1,3 +1,4 @@
+package HardwareComponent;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Map;
@@ -35,5 +36,4 @@ public abstract class ProcessingUnit extends HardwareComponent {
 				+ "\narchitecture: " + architecture + "\nbenchmarkScore: " + benchmarkScore + "\nrecommendedPrice: "
 				+ recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand;
 	}
-	
 }

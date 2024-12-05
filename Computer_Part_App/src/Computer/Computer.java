@@ -1,10 +1,12 @@
+package Computer;
+import System_and_Interface.HardwarePart;
+import HardwareComponent.*;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Objects;
 
 public abstract class Computer implements HardwarePart {
+	protected static int count=0;
 	protected String brand;
 	protected double devicePrice;
 	protected CPU cpu;
@@ -15,8 +17,13 @@ public abstract class Computer implements HardwarePart {
 	protected PowerSupply powerSupply;
 	protected Case Case;
 	
+	public Computer() {
+		count++;
+	}
+	
 	public Computer(String brand, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd, Motherboard motherboard,
 			PowerSupply powerSupply, Case Case) {
+		this();
 		this.brand = brand;
 		this.devicePrice = devicePrice;
 		this.cpu = cpu;
@@ -31,7 +38,7 @@ public abstract class Computer implements HardwarePart {
 	@Override
 	public boolean isGetter(Method method) {
 		// TODO Auto-generated method stub
-		return false;
+		return method.getName().endsWith("get");
 	}
 
 	@Override
@@ -54,6 +61,12 @@ public abstract class Computer implements HardwarePart {
 			}
 		}
 		return values;
+	}
+	
+	public abstract Computer buildComputer();
+	
+	public static int getCount() {
+		return count;
 	}
 
 	public String getBrand() {
@@ -91,8 +104,6 @@ public abstract class Computer implements HardwarePart {
 	public Case getCase() {
 		return Case;
 	}
-	
-	public abstract Computer buildComputer();
 
 	@Override
 	public String toString() {

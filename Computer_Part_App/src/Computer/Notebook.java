@@ -1,13 +1,19 @@
+package Computer;
+import HardwareComponent.*;
 import java.util.Arrays;
 import java.util.Map;
 
-public class PersonelComputer extends Computer {
-	private boolean monitorConnected;
-
-	public PersonelComputer(String brand, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd,
-			Motherboard motherboard, PowerSupply powerSupply, Case Case, boolean monitorConnected) {
+public class Notebook extends Computer {
+	private String screenResolution;
+	
+	public Notebook() {
+		super();
+	}
+	
+	public Notebook(String brand, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd, Motherboard motherboard,
+			PowerSupply powerSupply, Case Case, String screenResolution) {
 		super(brand, devicePrice, cpu, gpu, ram, ssd, motherboard, powerSupply, Case);
-		this.monitorConnected = monitorConnected;
+		this.screenResolution = screenResolution;
 	}
 	
 	@Override
@@ -15,9 +21,9 @@ public class PersonelComputer extends Computer {
 		// TODO Auto-generated method stub
 		return super.getValues();
 	}
-
-	public boolean isMonitorConnected() {
-		return monitorConnected;
+	
+	public String getScreenResolution() {
+		return screenResolution;
 	}
 	
 	@Override
@@ -27,7 +33,7 @@ public class PersonelComputer extends Computer {
 
 	@Override
 	public String toString() {
-		return "PersonelComputer:\nmonitorConnected: " + monitorConnected + "\nbrand: " + brand + "\ndevicePrice: "
+		return "Notebook:\nscreenResolution: " + screenResolution + "\nbrand: " + brand + "\ndevicePrice: "
 				+ devicePrice + "\ncpu: " + cpu + "\ngpu: " + gpu + "\nram: " + Arrays.toString(ram) + "\nssd: "
 				+ Arrays.toString(ssd) + "\nmotherboard: " + motherboard + "\npowerSupply: " + powerSupply + "\nCase: "
 				+ Case;

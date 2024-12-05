@@ -1,0 +1,3 @@
+AM4::Zen 4
+AM5::Zen 5::Zen 4
+LGA1700::Alder Lake::Raptor Lake

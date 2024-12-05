@@ -1,33 +1,21 @@
+package HardwareComponent;
+import System_and_Interface.HardwarePart;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 
 public abstract class HardwareComponent implements HardwarePart {
+	protected static int count=0;
 	protected double recommendedPrice;
 	protected String releaseDate;
 	protected String brand;
 	
 	public HardwareComponent(double recommendedPrice, String releaseDate, String brand) {
+		count++;
 		this.recommendedPrice = recommendedPrice;
 		this.releaseDate = releaseDate;
 		this.brand = brand;
 	}
-
-	public double getRecommendedPrice() {
-		return recommendedPrice;
-	}
-
-	public String getReleaseDate() {
-		return releaseDate;
-	}
-
-	@Override
-	public String toString() {
-		return "HardwareComponent:\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
-				+ "\nbrand: " + brand;
-	}
-
+	
 	@Override
 	public boolean isGetter(Method method) {
 		// TODO Auto-generated method stub
@@ -54,5 +42,23 @@ public abstract class HardwareComponent implements HardwarePart {
 			}
 		}
 		return values;
+	}
+	
+	public static int getCount() {
+		return count;
+	}
+
+	public double getRecommendedPrice() {
+		return recommendedPrice;
+	}
+
+	public String getReleaseDate() {
+		return releaseDate;
+	}
+	
+	@Override
+	public String toString() {
+		return "HardwareComponent:\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
+				+ "\nbrand: " + brand;
 	}
 }
