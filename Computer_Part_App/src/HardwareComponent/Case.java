@@ -2,18 +2,19 @@ package HardwareComponent;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
 public class Case extends HardwareComponent {
 	private String formFactor;
 	private String material;
-	private String durability;
+	private int durability;
 	
-	public Case(double recommendedPrice, String releaseDate, String brand, String formFactor, String material,
-			String durability) {
+	public Case(double recommendedPrice, String releaseDate, String brand, String formFactor, String material) {
 		super(recommendedPrice, releaseDate, brand);
 		this.formFactor = formFactor;
 		this.material = material;
-		//this.durability = findDurability();
+		this.durability = findDurability();
 	}
 	
 	@Override
@@ -25,8 +26,12 @@ public class Case extends HardwareComponent {
 		return formFactor;
 	}
 
-	public String findDurability() {
-		return null;
+	public int findDurability() {
+		List<String> materialOrder = Arrays.asList("Plastic", "Glass", "Aluminum", "Steel");
+		List<String> formOrder = Arrays.asList("Mini-ITX", "Micro-ATX", "E-ATX", "ATX");
+		int index1 = materialOrder.indexOf("material");
+		int index2 = formOrder.indexOf("formFactor");
+		return index1 * index2;
 	}
 
 	@Override

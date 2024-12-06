@@ -3,6 +3,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class CPU extends ProcessingUnit {
+	protected String architecture;
 	private int threadCount;
 	private int coreCount;
 	private int memoryChannel;
@@ -10,14 +11,19 @@ public class CPU extends ProcessingUnit {
 	private String ramCompatibility;
 
 	public CPU(double recommendedPrice, String releaseDate, String brand, double baseClockSpeed, double turboClockSpeed,
-			String architecture, int benchmarkScore, int threadCount, int coreCount,
-			int memoryChannel, int maxMemorySize, String ramCompatibility) {
-		super(recommendedPrice, releaseDate, brand, baseClockSpeed,turboClockSpeed, architecture, benchmarkScore);
+			int benchmarkScore, String architecture, int threadCount, int coreCount, int memoryChannel,
+			int maxMemorySize, String ramCompatibility) {
+		super(recommendedPrice, releaseDate, brand, baseClockSpeed, turboClockSpeed, benchmarkScore);
+		this.architecture = architecture;
 		this.threadCount = threadCount;
 		this.coreCount = coreCount;
 		this.memoryChannel = memoryChannel;
 		this.maxMemorySize = maxMemorySize;
 		this.ramCompatibility = ramCompatibility;
+	}
+	
+	public String getArchitecture() {
+		return architecture;
 	}
 
 	public int getMemoryChannel() {
@@ -48,7 +54,7 @@ public class CPU extends ProcessingUnit {
 	public String toString() {
 		return "CPU:\nthreadCount: " + threadCount + "\ncoreCount: " + coreCount + "\nmemoryChannel: " + memoryChannel
 				+ "\nmaxMemorySize: " + maxMemorySize + "\nramCompatibility: " + ramCompatibility + "\nbaseClockSpeed: "
-				+ baseClockSpeed + "\nturboClockSpeed: " + turboClockSpeed + "\narchitecture: " + architecture
+				+ baseClockSpeed + "\nturboClockSpeed: " + turboClockSpeed + "\nArchitecture: " + architecture
 				+ "\nbenchmarkScore: " + benchmarkScore + "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: "
 				+ releaseDate + "\nbrand: " + brand;
 	}

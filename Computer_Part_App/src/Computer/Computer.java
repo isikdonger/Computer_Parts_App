@@ -17,13 +17,10 @@ public abstract class Computer implements HardwarePart {
 	protected PowerSupply powerSupply;
 	protected Case Case;
 	
-	public Computer() {
-		count++;
-	}
+	public Computer() {}
 	
 	public Computer(String brand, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd, Motherboard motherboard,
 			PowerSupply powerSupply, Case Case) {
-		this();
 		this.brand = brand;
 		this.devicePrice = devicePrice;
 		this.cpu = cpu;
@@ -37,13 +34,11 @@ public abstract class Computer implements HardwarePart {
 	
 	@Override
 	public boolean isGetter(Method method) {
-		// TODO Auto-generated method stub
 		return method.getName().endsWith("get");
 	}
 
 	@Override
 	public <T> Map<String, T> getSuperClassValues() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

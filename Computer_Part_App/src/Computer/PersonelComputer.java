@@ -6,9 +6,7 @@ import java.util.Map;
 public class PersonelComputer extends Computer {
 	private boolean monitorConnected;
 
-	public PersonelComputer() {
-		super();
-	}
+	public PersonelComputer() {}
 
 	public PersonelComputer(String brand, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd,
 			Motherboard motherboard, PowerSupply powerSupply, Case Case, boolean monitorConnected) {
@@ -18,7 +16,6 @@ public class PersonelComputer extends Computer {
 	
 	@Override
 	public <T> Map<String, T> getSuperClassValues() {
-		// TODO Auto-generated method stub
 		return super.getValues();
 	}
 

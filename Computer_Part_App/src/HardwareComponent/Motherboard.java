@@ -18,7 +18,7 @@ public class Motherboard extends HardwareComponent {
 	private boolean bluetooth;
 	private boolean soundCard;
 	private String[] ioPorts;
-	private final String FILENAME = "cpuComptability.txt";
+	private static final String FILENAME = "cpuComptability.txt";
 
 	public Motherboard(double recommendedPrice, String releaseDate, String brand, String chipset, int memorySlots,
 			int maxMemory, int hdmiPorts, int displayPorts, String[] storageSlot, int ethernetCapacity, boolean wifi,

@@ -1,21 +1,33 @@
 package System_and_Interface;
 import Computer.*;
 import HardwareComponent.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 public class HardwareSystem {
 	private static ArrayList<Computer> Computers;
 	private static ArrayList<HardwareComponent> HardwareComponents;
-	private final String FILENAME = "data.txt";
+	private static final List<String> BRAND_ORDER = Arrays.asList("Nvidia", "AMD", "Intel", "Samsung", "Kingston", "G_SKILL", "Asus", "MSI", "ASROCK", "Gigabyte", "Seagate", "Lian Li", "EVGA", "Seasonic", "Cooler Master", "Corsair", "Thermaltake");
+	private static final List<String> ARCHITECTURE_ORDER = Arrays.asList("Zen 5", "Raptor Lake", "Zen 4", "Alder Lake");
+	private static final List<String> TECNHOLOGY_ORDER = Arrays.asList("DDR5", "DDR4");
+	private static final List<String> EFFICIENCY_ORDER = Arrays.asList("80+ Titanium", "80+ Platinum", "80+ Gold", "80+ Silver", "80+ Bronze");
+	private static final List<String> IOPORTS_ORDDER = Arrays.asList("VGA", "HDMI", "Display Port", "USB 2.0", "USB 3.0", "USB 3.1", "USB 3.2");
+	private static final Map<String, List<String>> ATTRIBUTE_ORDERS = Map.ofEntries(
+		Map.entry("brand", BRAND_ORDER),
+		Map.entry("architecture", ARCHITECTURE_ORDER),
+		Map.entry("technology", TECNHOLOGY_ORDER),
+		Map.entry("efficiency", EFFICIENCY_ORDER),
+		Map.entry("ioPorts", IOPORTS_ORDDER)
+	);
+	private static final String FILENAME = "data.txt";
 	
 	public static boolean readFileData() throws FileNotFoundException {
-		File file = new File("data.txt");
+		File file = new File(FILENAME);
 		if (!file.exists()) {
 			System.out.println("File does not exists!");
 			return false;
@@ -31,7 +43,7 @@ public class HardwareSystem {
 				case "CPU":
 					hardW = new CPU(Double.parseDouble(data[2]), data[3], data[4], 
 							Double.parseDouble(data[5]), Double.parseDouble(data[6]), 
-							data[7], Integer.parseInt(data[8]), Integer.parseInt(data[9]), 
+							Integer.parseInt(data[7]), data[8], Integer.parseInt(data[9]), 
 							Integer.parseInt(data[10]), Integer.parseInt(data[11]),
 							Integer.parseInt(data[12]), data[13]);
 					break;
@@ -56,12 +68,12 @@ public class HardwareSystem {
 				case "GPU":
 					hardW = new GPU(Double.parseDouble(data[2]), data[3], data[4],
 							Double.parseDouble(data[5]), Double.parseDouble(data[6]), 
-							data[7], Integer.parseInt(data[8]), data[9], 
+							Integer.parseInt(data[7]), data[8], data[9], 
 							Integer.parseInt(data[10]), Integer.parseInt(data[11]));
 					break;
 				case "Case":
 					hardW = new Case(Double.parseDouble(data[2]), data[3], data[4],
-							data[5], data[6], data[7]);
+							data[5], data[6]);
 					break;
 				case "PowerSupply":
 					hardW = new PowerSupply(Double.parseDouble(data[2]), data[3], data[4],
@@ -90,7 +102,7 @@ public class HardwareSystem {
 		return false;
 	}
 	
-	public static Object Compare(Object o1, Object o2) {
+	public static Object compare(Object o1, Object o2) {
 		return null;
 	}
 	

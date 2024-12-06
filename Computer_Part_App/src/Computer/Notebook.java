@@ -6,9 +6,7 @@ import java.util.Map;
 public class Notebook extends Computer {
 	private String screenResolution;
 	
-	public Notebook() {
-		super();
-	}
+	public Notebook() {}
 	
 	public Notebook(String brand, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd, Motherboard motherboard,
 			PowerSupply powerSupply, Case Case, String screenResolution) {
@@ -18,7 +16,6 @@ public class Notebook extends Computer {
 	
 	@Override
 	public <T> Map<String, T> getSuperClassValues() {
-		// TODO Auto-generated method stub
 		return super.getValues();
 	}
 	
