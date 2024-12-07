@@ -13,7 +13,14 @@ public class Laptop extends Computer {
 		super(brand, devicePrice, cpu, gpu, ram, ssd, motherboard, powerSupply, Case);
 		this.screenResolution = screenResolution;
 	}
-	
+
+	// For test purposes
+	public Laptop(String brand, double devicePrice, CPU cpu) {
+		this.brand = brand;
+		this.devicePrice = devicePrice;
+		this.cpu = cpu;
+	}
+	// End Test
 	@Override
 	public <T> Map<String, T> getSuperClassValues() {
 		return super.getValues();

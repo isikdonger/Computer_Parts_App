@@ -9,19 +9,22 @@ public class Case extends HardwareComponent {
 	private String formFactor;
 	private String material;
 	private int durability;
-	
+
 	public Case(double recommendedPrice, String releaseDate, String brand, String formFactor, String material) {
 		super(recommendedPrice, releaseDate, brand);
 		this.formFactor = formFactor;
 		this.material = material;
 		this.durability = findDurability();
 	}
-	
+
 	@Override
 	public <T> Map<String, T> getSuperClassValues() {
 		return super.getValues();
 	}
-	
+
+	public String getMaterial() {
+		return material;
+	}
 	public String getFormFactor() {
 		return formFactor;
 	}

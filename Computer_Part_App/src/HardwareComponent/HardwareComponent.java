@@ -55,7 +55,9 @@ public abstract class HardwareComponent implements HardwarePart {
 	public String getReleaseDate() {
 		return releaseDate;
 	}
-	
+
+	public String getBrand() { return brand; }
+
 	@Override
 	public String toString() {
 		return "HardwareComponent:\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
