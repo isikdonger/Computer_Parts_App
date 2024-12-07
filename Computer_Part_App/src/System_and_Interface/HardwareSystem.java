@@ -16,7 +16,7 @@ public class HardwareSystem {
 	private static final List<String> ARCHITECTURE_ORDER = Arrays.asList("Zen 5", "Raptor Lake", "Zen 4", "Alder Lake");
 	private static final List<String> TECNHOLOGY_ORDER = Arrays.asList("DDR5", "DDR4");
 	private static final List<String> EFFICIENCY_ORDER = Arrays.asList("80+ Titanium", "80+ Platinum", "80+ Gold", "80+ Silver", "80+ Bronze");
-	private static final List<String> IOPORTS_ORDDER = Arrays.asList("VGA", "HDMI", "Display Port", "USB 2.0", "USB 3.0", "USB 3.1", "USB 3.2");
+	private static final List<String> IOPORTS_ORDER = Arrays.asList("VGA", "HDMI", "Display Port", "USB 2.0", "USB 3.0", "USB 3.1", "USB 3.2");
 	private static final Map<String, List<String>> ATTRIBUTE_ORDERS = Map.ofEntries(
 		Map.entry("brand", BRAND_ORDER),
 		Map.entry("architecture", ARCHITECTURE_ORDER),
@@ -32,7 +32,7 @@ public class HardwareSystem {
 			System.out.println("File does not exists!");
 			return false;
 		}
-		
+
 		Scanner input = new Scanner(file);
 		
 		while (input.hasNext()) {
@@ -86,8 +86,8 @@ public class HardwareSystem {
 				switch ((data[1])) {
 				case "Laptop":
 					break;
-				case "PersonelComputer":
-					comp = new PersonelComputer();
+				case "PersonalComputer":
+					comp = new PersonalComputer();
 					break;
 				case "Notebook":
 				}
@@ -110,11 +110,11 @@ public class HardwareSystem {
 		return Computers;
 	}
 	
-	public static ArrayList<PersonelComputer> getPersonelComputers() {
-		ArrayList<PersonelComputer> computers = new ArrayList<PersonelComputer>();
+	public static ArrayList<PersonalComputer> getPersonalComputers() {
+		ArrayList<PersonalComputer> computers = new ArrayList<PersonalComputer>();
 		for (Computer computer: Computers) {
-			if (computer instanceof PersonelComputer) {
-				computers.add((PersonelComputer)computer);
+			if (computer instanceof PersonalComputer) {
+				computers.add((PersonalComputer)computer);
 			}
 		}
 		return computers;
