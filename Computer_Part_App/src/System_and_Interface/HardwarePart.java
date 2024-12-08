@@ -1,11 +1,11 @@
 package System_and_Interface;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public interface HardwarePart {
 	public boolean isGetter(Method method);
-	public <T> Map<String, T> getSuperClassValues();
-	public <T> Map<String, T> getValues();
+	public  <T> Map<String, T> getSuperClassValues();
+	public  <T> Map<String, T> getValues();
+	public Field[] getAllFields(Class<?> clazz);
 }

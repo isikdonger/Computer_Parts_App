@@ -1,6 +1,9 @@
 package HardwareComponent;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SSD extends MemoryUnit {
 	private int readSpeed;
@@ -16,6 +19,16 @@ public class SSD extends MemoryUnit {
 		this.formFactor = formFactor;
 		this.interfaceName = interfaceName;
 	}
+
+	public Field[] getAllFields(Class<?> clazz) {
+		List<Field> fields = new ArrayList<>();
+		while (clazz != null && clazz != Object.class) { // Stop at Object class
+			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+			clazz = clazz.getSuperclass();
+		}
+		return fields.toArray(new Field[0]);
+	}
+
 
 	public int getReadSpeed() {
 		return readSpeed;

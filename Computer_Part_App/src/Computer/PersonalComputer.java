@@ -1,7 +1,8 @@
 package Computer;
 import HardwareComponent.*;
-import java.util.Arrays;
-import java.util.Map;
+
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class PersonalComputer extends Computer {
 	private boolean monitorConnected;
@@ -13,7 +14,17 @@ public class PersonalComputer extends Computer {
 		super(brand, devicePrice, cpu, gpu, ram, ssd, motherboard, powerSupply, Case);
 		this.monitorConnected = monitorConnected;
 	}
-	
+
+	public Field[] getAllFields(Class<?> clazz) {
+		List<Field> fields = new ArrayList<>();
+		while (clazz != null && clazz != Object.class) { // Stop at Object class
+			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+			clazz = clazz.getSuperclass();
+		}
+		return fields.toArray(new Field[0]);
+	}
+
+
 	@Override
 	public <T> Map<String, T> getSuperClassValues() {
 		return super.getValues();

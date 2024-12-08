@@ -1,10 +1,9 @@
 package HardwareComponent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Motherboard extends HardwareComponent {
 	private String chipset;
@@ -19,6 +18,16 @@ public class Motherboard extends HardwareComponent {
 	private boolean soundCard;
 	private String[] ioPorts;
 	private static final String FILENAME = "cpuComptability.txt";
+
+	public Field[] getAllFields(Class<?> clazz) {
+		List<Field> fields = new ArrayList<>();
+		while (clazz != null && clazz != Object.class) { // Stop at Object class
+			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+			clazz = clazz.getSuperclass();
+		}
+		return fields.toArray(new Field[0]);
+	}
+
 
 	public Motherboard(double recommendedPrice, String releaseDate, String brand, String chipset, int memorySlots,
 			int maxMemory, int hdmiPorts, int displayPorts, String[] storageSlot, int ethernetCapacity, boolean wifi,

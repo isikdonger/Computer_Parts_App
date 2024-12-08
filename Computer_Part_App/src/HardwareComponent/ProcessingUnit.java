@@ -23,7 +23,15 @@ public abstract class ProcessingUnit extends HardwareComponent {
 	public int getBenchmarkScore() {
 		return benchmarkScore;
 	}
-	
+
+	public double getBaseClockSpeed() {
+		return baseClockSpeed;
+	}
+
+	public double getTurboClockSpeed() {
+		return turboClockSpeed;
+	}
+
 	@Override
 	public String toString() {
 		return "ProcessingUnit:\nbaseClockSpeed: " + baseClockSpeed + "\nturboClockSpeed: " + turboClockSpeed

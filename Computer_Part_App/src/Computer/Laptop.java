@@ -1,7 +1,9 @@
 package Computer;
 import HardwareComponent.*;
-import java.util.Arrays;
-import java.util.Map;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class Laptop extends Computer {
 	private String screenResolution;
@@ -14,6 +16,16 @@ public class Laptop extends Computer {
 		this.screenResolution = screenResolution;
 	}
 
+	public Field[] getAllFields(Class<?> clazz) {
+		List<Field> fields = new ArrayList<>();
+		while (clazz != null && clazz != Object.class) { // Stop at Object class
+			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+			clazz = clazz.getSuperclass();
+		}
+		return fields.toArray(new Field[0]);
+	}
+
+
 	// For test purposes
 	public Laptop(String brand, double devicePrice, CPU cpu) {
 		this.brand = brand;
@@ -23,8 +35,10 @@ public class Laptop extends Computer {
 	// End Test
 	@Override
 	public <T> Map<String, T> getSuperClassValues() {
+		// Call the `getValues()` implementation of the `Computer` class directly
 		return super.getValues();
 	}
+
 
 	public String getScreenResolution() {
 		return screenResolution;

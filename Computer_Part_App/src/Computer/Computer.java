@@ -3,6 +3,7 @@ import System_and_Interface.HardwarePart;
 import HardwareComponent.*;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Computer implements HardwarePart {
@@ -34,22 +35,22 @@ public abstract class Computer implements HardwarePart {
 	
 	@Override
 	public boolean isGetter(Method method) {
-		return method.getName().endsWith("get");
+		return method.getName().startsWith("get") && method.getParameterCount() == 0;
 	}
 
-	@Override
+	// Returns a map of values from the superclass
 	public <T> Map<String, T> getSuperClassValues() {
-		return null;
-	}
-	
-	public <T> Map<String, T>  getValues() {
-		Map<String, T>  values = this.getSuperClassValues();
-		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method) && !(method.getName().endsWith("Values"))) {
+		// Initialize the map
+		Map<String, T> values = new HashMap<>();
+
+		// Get declared methods of the superclass
+		Method[] methods = this.getClass().getDeclaredMethods();
+		for (Method method : methods) {
+			if (isGetter(method)) {
 				try {
-					T value = (T)method.invoke(this);
-					values.put(method.getName().substring(3), value);
+					// Invoke the getter method and store the result in the map
+					T value = (T) method.invoke(this);
+					values.put(method.getName().substring(3), value); // Remove "get" from method name
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,7 +58,32 @@ public abstract class Computer implements HardwarePart {
 		}
 		return values;
 	}
-	
+
+	// Returns a map of values from the current class, including the superclass
+	public <T> Map<String, T> getValues() {
+		Map<String, T> values = new HashMap<>(); // Initialize the map
+
+		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods(); // Get all declared methods
+		for (Method method : methods) {
+			if (isGetter(method)) { // Check if it's a getter
+				try {
+					// Skip recursive methods
+					if (method.getName().equals("getValues") || method.getName().equals("getCount") || method.getName().equals("getSuperClassValues")) {
+						continue;
+					}
+
+					System.out.println("Invoking method: " + method.getName());
+					T value = (T) method.invoke(this); // Invoke the getter
+					values.put(method.getName().substring(3), value); // Use the property name (without "get")
+				} catch (Exception e) {
+					e.printStackTrace(); // Log any errors
+				}
+			}
+		}
+		return values;
+	}
+
+
 	public abstract Computer buildComputer();
 	
 	public static int getCount() {
