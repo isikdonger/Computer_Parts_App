@@ -14,11 +14,6 @@ public abstract class ProcessingUnit extends HardwareComponent {
 		this.turboClockSpeed = turboClockSpeed;
 		this.benchmarkScore = benchmarkScore;
 	}
-	
-	@Override
-	public <T> Map<String, T> getSuperClassValues() {
-		return super.getValues();
-	}
 
 	public int getBenchmarkScore() {
 		return benchmarkScore;

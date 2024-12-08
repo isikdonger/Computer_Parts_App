@@ -10,11 +10,6 @@ public abstract class MemoryUnit extends HardwareComponent {
 		super(recommendedPrice, releaseDate, brand);
 		this.capacity = capacity;
 	}
-	
-	@Override
-	public <T> Map<String, T> getSuperClassValues() {
-		return super.getValues();
-	}
 
 	public int getCapacity() {
 		return capacity;

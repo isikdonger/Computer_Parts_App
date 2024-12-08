@@ -30,7 +30,7 @@ public class HardwareSystem {
 		Map.entry("technology", TECHNOLOGY_ORDER),
 		Map.entry("efficiency", EFFICIENCY_ORDER),
 		Map.entry("ioPorts", IOPORTS_ORDER),
-			Map.entry("materials", MATERIAL_ORDER)
+		Map.entry("materials", MATERIAL_ORDER)
 	);
 	private static final String FILENAME = "data.txt";
 	
@@ -110,18 +110,8 @@ public class HardwareSystem {
 		return false;
 	}
 
-	public Field[] getAllFields(Class<?> clazz) {
-		List<Field> fields = new ArrayList<>();
-		while (clazz != null && clazz != Object.class) { // Stop at Object class
-			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
-			clazz = clazz.getSuperclass();
-		}
-		return fields.toArray(new Field[0]);
-	}
-
-
 	// Compare method for computers and components, gets two HardwarePart objects
-	public static HardwarePart compare(HardwarePart p1, HardwarePart p2) {
+	public static HardwarePart compare(HardwarePart p1, HardwarePart p2) throws IllegalArgumentException, IllegalAccessException {
 		// Base case for type matching, p1 and p2 object should be instantiated from the same class
 		if (!(p1.getClass().equals(p2.getClass()))) {
 			System.out.println("Type mismatch");
@@ -212,93 +202,36 @@ public class HardwareSystem {
 		return points1 > points2;
 	}
 
-	public static boolean compareComponents(HardwareComponent c1, HardwareComponent c2, Field[] fields) {
+	public static boolean compareComponents(HardwareComponent c1, HardwareComponent c2, Field[] fields) throws IllegalArgumentException, IllegalAccessException {
 		int points1 = 0;
 		int points2 = 0;
 
 		// Iterate through all fields and increment points of CPUs accordingly
 		for (Field field : fields) {
-			//field.setAccessible(true); // Make private fields accessible
-
-			// Special Condition for Brand, checks the BRAND_ORDER array (Every component has this attribute)
-			if (field.getName().equals("brand")) {
-				int indexP1 = BRAND_ORDER.indexOf(c1.getBrand());
-				int indexP2 = BRAND_ORDER.indexOf(c2.getBrand());
-
-				if (indexP1 < indexP2)
+			List<String> order_list = ATTRIBUTE_ORDERS.get(field.getName());
+			
+			//For field where there is an order list
+			if (order_list!=null) {
+				field.setAccessible(true);
+				int indexP1 = order_list.indexOf(field.get(c1));
+				int indexP2 = order_list.indexOf(field.get(c2));
+				
+				if (indexP1 < indexP2) {
 					points1++;
-				else if (indexP1 > indexP2)
+				}
+				else if (indexP1 > indexP2) {
 					points2++;
+				}
 			}
-			// Special Condition for Architecture, ARCHITECTURE_ORDER the order array (Only CPU has this attribute)
-			else if (c1 instanceof CPU && field.getName().equals("architecture")) {
-				int indexP1 = ARCHITECTURE_ORDER.indexOf(((CPU) c1).getArchitecture());
-				int indexP2 = ARCHITECTURE_ORDER.indexOf(((CPU) c2).getArchitecture());
-
-				if (indexP1 < indexP2)
-					points1++;
-				else if (indexP1 > indexP2)
-					points2++;
-			}
-			// Special Condition for Ram Compatibility, checks the TECHNOLOGY_ORDER array (Only CPU has this attribute)
-			else if (c1 instanceof CPU && field.getName().equals("ramCompatibility")) {
-				int indexP1 = TECHNOLOGY_ORDER.indexOf(((CPU) c1).getRamCompatibility());
-				int indexP2 = TECHNOLOGY_ORDER.indexOf(((CPU) c2).getRamCompatibility());
-
-				if (indexP1 < indexP2)
-					points1++;
-				else if (indexP1 > indexP2)
-					points2++;
-			}
-			else if (c1 instanceof RAM && field.getName().equals("technology")) { //(RAM and SSD)
-				int indexP1 = TECHNOLOGY_ORDER.indexOf(((RAM) c1).getTechnology());
-				int indexP2 = TECHNOLOGY_ORDER.indexOf(((RAM) c2).getTechnology());
-
-				if (indexP1 < indexP2)
-					points1++;
-				else if (indexP1 > indexP2)
-					points2++;
-			}
-			// Special Condition for interface, checks the TECHNOLOGY_ORDER array (SSD)
-			else if (c1 instanceof SSD && field.getName().equals("interfaceName")) {
-				int indexP1 = TECHNOLOGY_ORDER.indexOf(((SSD) c1).getInterfaceName());
-				int indexP2 = TECHNOLOGY_ORDER.indexOf(((SSD) c2).getInterfaceName());
-
-				if (indexP1 < indexP2)
-					points1++;
-				else if (indexP1 > indexP2)
-					points2++;
-			}
-			// Special Condition for Material, checks the MATERIAL_ORDER array (Only Case has this attribute)
-			else if (c1 instanceof Case && field.getName().equals("material")) {
-				int indexP1 = MATERIAL_ORDER.indexOf(((Case) c1).getMaterial());
-				int indexP2 = MATERIAL_ORDER.indexOf(((Case) c2).getMaterial());
-
-				if (indexP1 < indexP2)
-					points1++;
-				else if (indexP1 > indexP2)
-					points2++;
-			}
-			// Special Condition for Efficiency, checks the EFFICIENCY_ORDER array ( Only Power Supply has this attribute)
-			else if (c1 instanceof PowerSupply && field.getName().equals("efficiency_tier")) {
-				int indexP1 = EFFICIENCY_ORDER.indexOf(((PowerSupply) c1).getEfficiencyTier());
-				int indexP2 = EFFICIENCY_ORDER.indexOf(((PowerSupply) c2).getEfficiencyTier());
-
-				if (indexP1 < indexP2)
-					points1++;
-				else if (indexP1 > indexP2)
-					points2++;
-			}
-
 			// Special Condition for dates
 			else if (field.getName().equals("releaseDate")) {
 				// Assuming c1.getReleaseDate() and c2.getReleaseDate() return date strings in "dd/MM/yyyy" format
 				String dateStr1 = c1.getReleaseDate();  // e.g., "12/08/2022"
 				String dateStr2 = c2.getReleaseDate();  // e.g., "15/07/2021"
-
+	
 				// Define a DateTimeFormatter to parse the date strings
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+	
 				// Parse the strings into LocalDate objects
 				LocalDate date1 = LocalDate.parse(dateStr1, formatter);
 				LocalDate date2 = LocalDate.parse(dateStr2, formatter);
@@ -306,10 +239,11 @@ public class HardwareSystem {
 				// Compare the two dates using isAfter() and isBefore()
 				if (date1.isAfter(date2)) {
 					points1++;
-				} else if (date1.isBefore(date2)) {
+				}
+				else if (date1.isBefore(date2)) {
 					points2++;
 				}
-			}
+			}			
 			else { // Integer or Double values
 				// Special condition for price
 				if (field.getName().equals("recommendedPrice")) {

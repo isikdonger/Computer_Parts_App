@@ -22,21 +22,6 @@ public class Notebook extends Computer {
 		this.cpu = cpu;
 	}
 	// End Test
-
-	public Field[] getAllFields(Class<?> clazz) {
-		List<Field> fields = new ArrayList<>();
-		while (clazz != null && clazz != Object.class) { // Stop at Object class
-			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
-			clazz = clazz.getSuperclass();
-		}
-		return fields.toArray(new Field[0]);
-	}
-
-
-	@Override
-	public <T> Map<String, T> getSuperClassValues() {
-		return super.getValues();
-	}
 	
 	public String getScreenResolution() {
 		return screenResolution;

@@ -1,6 +1,11 @@
 package HardwareComponent;
 import System_and_Interface.HardwarePart;
+
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public abstract class HardwareComponent implements HardwarePart {
@@ -16,32 +21,23 @@ public abstract class HardwareComponent implements HardwarePart {
 		this.brand = brand;
 	}
 	
+	public Field[] getAllFields(Class<?> clazz) {
+		List<Field> fields = new ArrayList<>();
+		while (clazz != null && clazz != Object.class) { // Stop at Object class
+			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+			clazz = clazz.getSuperclass();
+		}
+		return fields.toArray(new Field[0]);
+	}
+	
 	@Override
 	public boolean isGetter(Method method) {
-		// TODO Auto-generated method stub
-		return method.getName().endsWith("get");
-	}
-
-	@Override
-	public <T> Map<String, T> getSuperClassValues() {
-		return null;
+		return false;
 	}
 
 	@Override
 	public <T> Map<String, T> getValues() {
-		Map<String, T>  values = this.getSuperClassValues();
-		Method[] methods = this.getClass().getSuperclass().getDeclaredMethods();
-		for (Method method: methods) {
-			if(isGetter(method) && !(method.getName().endsWith("Values"))) {
-				try {
-					T value = (T)method.invoke(this);
-					values.put(method.getName().substring(3), value);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
+		return null;
 	}
 	
 	public static int getCount() {

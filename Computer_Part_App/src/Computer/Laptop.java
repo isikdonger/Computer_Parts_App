@@ -16,16 +16,6 @@ public class Laptop extends Computer {
 		this.screenResolution = screenResolution;
 	}
 
-	public Field[] getAllFields(Class<?> clazz) {
-		List<Field> fields = new ArrayList<>();
-		while (clazz != null && clazz != Object.class) { // Stop at Object class
-			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
-			clazz = clazz.getSuperclass();
-		}
-		return fields.toArray(new Field[0]);
-	}
-
-
 	// For test purposes
 	public Laptop(String brand, double devicePrice, CPU cpu) {
 		this.brand = brand;
@@ -33,11 +23,6 @@ public class Laptop extends Computer {
 		this.cpu = cpu;
 	}
 	// End Test
-	@Override
-	public <T> Map<String, T> getSuperClassValues() {
-		// Call the `getValues()` implementation of the `Computer` class directly
-		return super.getValues();
-	}
 
 
 	public String getScreenResolution() {

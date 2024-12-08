@@ -1,9 +1,13 @@
 package Computer;
 import System_and_Interface.HardwarePart;
 import HardwareComponent.*;
+
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class Computer implements HardwarePart {
@@ -33,30 +37,18 @@ public abstract class Computer implements HardwarePart {
 		this.Case = Case;
 	}
 	
+	public Field[] getAllFields(Class<?> clazz) {
+		List<Field> fields = new ArrayList<>();
+		while (clazz != null && clazz != Object.class) { // Stop at Object class
+			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+			clazz = clazz.getSuperclass();
+		}
+		return fields.toArray(new Field[0]);
+	}
+	
 	@Override
 	public boolean isGetter(Method method) {
 		return method.getName().startsWith("get") && method.getParameterCount() == 0;
-	}
-
-	// Returns a map of values from the superclass
-	public <T> Map<String, T> getSuperClassValues() {
-		// Initialize the map
-		Map<String, T> values = new HashMap<>();
-
-		// Get declared methods of the superclass
-		Method[] methods = this.getClass().getDeclaredMethods();
-		for (Method method : methods) {
-			if (isGetter(method)) {
-				try {
-					// Invoke the getter method and store the result in the map
-					T value = (T) method.invoke(this);
-					values.put(method.getName().substring(3), value); // Remove "get" from method name
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return values;
 	}
 
 	// Returns a map of values from the current class, including the superclass

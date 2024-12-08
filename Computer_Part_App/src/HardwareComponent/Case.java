@@ -18,21 +18,6 @@ public class Case extends HardwareComponent {
 		this.durability = findDurability();
 	}
 
-	public Field[] getAllFields(Class<?> clazz) {
-		List<Field> fields = new ArrayList<>();
-		while (clazz != null && clazz != Object.class) { // Stop at Object class
-			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
-			clazz = clazz.getSuperclass();
-		}
-		return fields.toArray(new Field[0]);
-	}
-
-
-	@Override
-	public <T> Map<String, T> getSuperClassValues() {
-		return super.getValues();
-	}
-
 	public String getMaterial() {
 		return material;
 	}

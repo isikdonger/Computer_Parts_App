@@ -19,16 +19,6 @@ public class Motherboard extends HardwareComponent {
 	private String[] ioPorts;
 	private static final String FILENAME = "cpuComptability.txt";
 
-	public Field[] getAllFields(Class<?> clazz) {
-		List<Field> fields = new ArrayList<>();
-		while (clazz != null && clazz != Object.class) { // Stop at Object class
-			fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
-			clazz = clazz.getSuperclass();
-		}
-		return fields.toArray(new Field[0]);
-	}
-
-
 	public Motherboard(double recommendedPrice, String releaseDate, String brand, String chipset, int memorySlots,
 			int maxMemory, int hdmiPorts, int displayPorts, String[] storageSlot, int ethernetCapacity, boolean wifi,
 			boolean bluetooth, boolean soundCard, String[] ioPorts) {
@@ -44,11 +34,6 @@ public class Motherboard extends HardwareComponent {
 		this.bluetooth = bluetooth;
 		this.soundCard = soundCard;
 		this.ioPorts = ioPorts;
-	}
-	
-	@Override
-	public <T> Map<String, T> getSuperClassValues() {
-		return super.getValues();
 	}
 	
 	public boolean cpuCompatibility(CPU cpu) throws FileNotFoundException {
