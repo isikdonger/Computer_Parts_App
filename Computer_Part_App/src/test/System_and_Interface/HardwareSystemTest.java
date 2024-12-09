@@ -21,7 +21,7 @@ class HardwareSystemTest {
 
         Computer comp1 = new Notebook("Asus", 600, cpu1); // 1 + 0 + 0
         Computer comp2 = new Notebook("MSI", 500, cpu2); // 0 + 1 + 1
-        // Compare the two CPU's
+        // Compare the two CPU's, testing for component
         HardwarePart result = HardwareSystem.compare(cpu1, cpu2);
         HardwarePart result2 = HardwareSystem.compare(comp1, comp2);
         // We assume that CPU should be the deciding factor, where AMD is better than Intel.
