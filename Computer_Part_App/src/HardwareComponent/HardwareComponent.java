@@ -2,6 +2,7 @@ package HardwareComponent;
 import System_and_Interface.HardwarePart;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +29,21 @@ public abstract class HardwareComponent implements HardwarePart {
 			clazz = clazz.getSuperclass();
 		}
 		return fields.toArray(new Field[0]);
+	}
+	
+	public Object getValue(String fieldName) throws IllegalAccessException, InvocationTargetException {
+		Class clazz = this.getClass();
+		while (clazz != null && clazz != Object.class) {
+			Method[] methods = clazz.getDeclaredMethods();
+			for (Method method: methods) {
+				String getter = ("get"+fieldName).toLowerCase();
+				if (method.getName().toLowerCase().contains(getter)) {
+					return method.invoke(this);
+				}
+			}
+			clazz = clazz.getSuperclass();
+		}
+		return null;
 	}
 	
 	@Override

@@ -4,7 +4,7 @@ import HardwareComponent.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -28,6 +28,7 @@ public class HardwareSystem {
 		Map.entry("brand", BRAND_ORDER),
 		Map.entry("architecture", ARCHITECTURE_ORDER),
 		Map.entry("technology", TECHNOLOGY_ORDER),
+		Map.entry("ramCompatibility", TECHNOLOGY_ORDER),
 		Map.entry("efficiency", EFFICIENCY_ORDER),
 		Map.entry("ioPorts", IOPORTS_ORDER),
 		Map.entry("materials", MATERIAL_ORDER)
@@ -111,7 +112,7 @@ public class HardwareSystem {
 	}
 
 	// Compare method for computers and components, gets two HardwarePart objects
-	public static HardwarePart compare(HardwarePart p1, HardwarePart p2) throws IllegalArgumentException, IllegalAccessException {
+	public static HardwarePart compare(HardwarePart p1, HardwarePart p2) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		// Base case for type matching, p1 and p2 object should be instantiated from the same class
 		if (!(p1.getClass().equals(p2.getClass()))) {
 			System.out.println("Type mismatch");
@@ -202,7 +203,7 @@ public class HardwareSystem {
 		return points1 > points2;
 	}
 
-	public static boolean compareComponents(HardwareComponent c1, HardwareComponent c2, Field[] fields) throws IllegalArgumentException, IllegalAccessException {
+	public static boolean compareComponents(HardwareComponent c1, HardwareComponent c2, Field[] fields) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		int points1 = 0;
 		int points2 = 0;
 
@@ -212,9 +213,8 @@ public class HardwareSystem {
 			
 			//For field where there is an order list
 			if (order_list!=null) {
-				field.setAccessible(true);
-				int indexP1 = order_list.indexOf(field.get(c1));
-				int indexP2 = order_list.indexOf(field.get(c2));
+				int indexP1 = order_list.indexOf(c1.getValue(field.getName()));
+				int indexP2 = order_list.indexOf(c2.getValue(field.getName()));		
 				
 				if (indexP1 < indexP2) {
 					points1++;
@@ -255,25 +255,25 @@ public class HardwareSystem {
 				 }
 				// For others: bigger the value, better, create dynamic getter
 				try {
-					String getterName = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
-					Method getterMethod = c1.getClass().getMethod(getterName);
+					//String getterName = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+					//Method getterMethod = c1.getClass().getMethod(getterName);
 
 					// Get the values from both c1 and c2 using their getters
-					Object value1 = getterMethod.invoke(c1);
-					Object value2 = getterMethod.invoke(c2);
+					Object value1 = c1.getValue(field.getName());
+					Object value2 = c2.getValue(field.getName());
 
 					// Compare values (adjust comparison logic as needed)
 					if (value1 instanceof Integer) {
-						if (((Integer)value1).compareTo(((Integer)value2)) < 0) {
+						if (((Integer)value1).compareTo(((Integer)value2)) > 0) {
 							points1++;
-						} else if (((Integer)value1).compareTo(((Integer)value2)) > 0) {
+						} else if (((Integer)value1).compareTo(((Integer)value2)) < 0) {
 							points2++;
 						}
 					}
 					if (value1 instanceof Double) {
-						if (((Double)value1).compareTo(((Double)value2)) < 0) {
+						if (((Double)value1).compareTo(((Double)value2)) > 0) {
 							points1++;
-						} else if (((Double)value1).compareTo(((Double)value2)) > 0) {
+						} else if (((Double)value1).compareTo(((Double)value2)) < 0) {
 							points2++;
 						}
 					}

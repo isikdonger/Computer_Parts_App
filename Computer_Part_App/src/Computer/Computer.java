@@ -3,6 +3,7 @@ import System_and_Interface.HardwarePart;
 import HardwareComponent.*;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,8 +64,6 @@ public abstract class Computer implements HardwarePart {
 					if (method.getName().equals("getValues") || method.getName().equals("getCount") || method.getName().equals("getSuperClassValues")) {
 						continue;
 					}
-
-					System.out.println("Invoking method: " + method.getName());
 					T value = (T) method.invoke(this); // Invoke the getter
 					values.put(method.getName().substring(3), value); // Use the property name (without "get")
 				} catch (Exception e) {
