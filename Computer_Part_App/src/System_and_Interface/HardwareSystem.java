@@ -3,6 +3,7 @@ import Computer.*;
 import HardwareComponent.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
@@ -39,10 +40,11 @@ public class HardwareSystem {
 		Map.entry("form", SSDFORM_ORDER),
 		Map.entry("material", MATERIAL_ORDER)
 	);
-	private static final String FILENAME = "data.txt";
+	private static final String HC_FILENAME = "data.txt";
+	private static final String C_FILENAME = "computer.txt";
 	
-	public static boolean readFileData() throws FileNotFoundException {
-		File file = new File(FILENAME);
+	public static boolean readComponentData() throws FileNotFoundException {
+		File file = new File(HC_FILENAME);
 		if (!file.exists()) {
 			System.out.println("File does not exists!");
 			return false;
@@ -52,68 +54,135 @@ public class HardwareSystem {
 		
 		while (input.hasNext()) {
 			String[] data = input.nextLine().split("::");
-			if (data[0].equalsIgnoreCase("HardwareComponent")) {
-				HardwareComponent hardW = null;
-				switch (data[1]) {
-				case "CPU":
-					hardW = new CPU(Double.parseDouble(data[2]), data[3], data[4], 
-							Double.parseDouble(data[5]), Double.parseDouble(data[6]), 
-							parseInt(data[7]), data[8], parseInt(data[9]),
-							parseInt(data[10]), parseInt(data[11]),
-							parseInt(data[12]), data[13]);
-					break;
-				case "RAM":
-					hardW = new RAM(Double.parseDouble(data[2]), data[3], data[4], 
-							parseInt(data[5]), data[6], parseInt(data[7]));
-					break;
-				case "Motherboard":
-					hardW = new Motherboard(Double.parseDouble(data[2]), data[3], data[4], 
-							data[5], parseInt(data[6]), parseInt(data[7]),
-							parseInt(data[8]), parseInt(data[9]),
-							data[10].split("-"), parseInt(data[11]), Boolean.parseBoolean(data[12]),
-							Boolean.parseBoolean(data[13]), Boolean.parseBoolean(data[14]), 
-							data[15].split("-"));
-					break;
-				case "SSD":
-					hardW = new SSD(Double.parseDouble(data[2]), data[3], data[4],
-						parseInt(data[5]), parseInt(data[6]),
-						parseInt(data[7]), data[8], data[9]);
-					break;
-				case "GPU":
-					hardW = new GPU(Double.parseDouble(data[2]), data[3], data[4],
-							Double.parseDouble(data[5]), Double.parseDouble(data[6]), 
-							parseInt(data[7]), data[8], data[9],
-							parseInt(data[10]), parseInt(data[11]));
-					break;
-				case "Case":
-					hardW = new Case(Double.parseDouble(data[2]), data[3], data[4],
-							data[5], data[6]);
-					break;
-				case "PowerSupply":
-					hardW = new PowerSupply(Double.parseDouble(data[2]), data[3], data[4],
-							parseInt(data[5]), data[6], data[7]);
-				}
-				HardwareComponents.add(hardW);
-			}
-			else {
-				Computer comp = null;
-				switch ((data[1])) {
-				case "Laptop":
-					break;
-				case "PersonalComputer":
-					comp = new PersonalComputer();
-					break;
-				case "Notebook":
-				}
-				Computers.add(comp);
-			}
+			HardwareComponent hardW = createHardwareComponent(data);
+			HardwareComponents.add(hardW);
 		}
+		
 		input.close();
 		return true;
 	}
 	
-	public static boolean addData() {
-		return false;
+	public static boolean readComputerData() throws FileNotFoundException {
+		File file = new File(C_FILENAME);
+		if (!file.exists()) {
+			System.out.println("File does not exists!");
+			return false;
+		}
+		
+		Scanner input = new Scanner(file);
+		
+		while (input.hasNext()) {
+			Computer computer = null;
+			String[] computerData = input.nextLine().split("\\|\\|");
+			String[] computerInfo = computerData[0].split("::");
+			HardwareComponent[] components = new HardwareComponent[7];
+			ArrayList<RAM> rams = new ArrayList<RAM>();
+			ArrayList<SSD> ssds = new ArrayList<SSD>();
+			for (int i=0; i<components.length; i++) {
+				if (computerData[i+1].contains("[")) {
+					computerData[i+1] = computerData[i+1].substring(1, computerData[i+1].length()-1);
+					String[] arrayData = computerData[i+1].split("<>");
+					for (String arr: arrayData) {
+						String[] componentData = arr.split("::");
+						HardwareComponent component = createHardwareComponent(componentData);
+						if (component instanceof SSD) {
+							ssds.add((SSD)component);
+						}
+						else if (component instanceof RAM) {
+							rams.add((RAM)component);
+						}
+					}
+				}
+				else {
+					String[] componentData = computerData[i+1].split("::");
+					components[i] = createHardwareComponent(componentData);
+				}
+			}
+			RAM[] r = rams.toArray(new RAM[0]);
+			SSD[] s = ssds.toArray(new SSD[0]);
+			switch (computerInfo[0]) {
+			case "Laptop":
+				computer = new Laptop(computerInfo[1], Double.parseDouble(computerInfo[2]), 
+						(CPU)components[0], (GPU)components[1], r, s,
+						(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
+						computerData[computerData.length-1]);
+				break;
+			case "PersonelComputer":
+				computer = new PersonalComputer(computerInfo[1], Double.parseDouble(computerInfo[2]), 
+						(CPU)components[0], (GPU)components[1], r, s,
+						(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
+						Boolean.parseBoolean(computerData[computerData.length-1]));
+				break;
+			case "Notebook":
+				computer = new Notebook(computerInfo[1], Double.parseDouble(computerInfo[2]), 
+						(CPU)components[0], (GPU)components[1], r, s,
+						(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
+						computerData[computerData.length-1]);
+				break;
+			}
+			Computers.add(computer);
+		}
+		
+		return true;
+	}
+	
+	public static HardwareComponent createHardwareComponent(String[] data) {
+		HardwareComponent hardW = null;
+		switch (data[1]) {
+			case "CPU":
+				hardW = new CPU(Double.parseDouble(data[2]), data[3], data[4], 
+						Double.parseDouble(data[5]), Double.parseDouble(data[6]), 
+						parseInt(data[7]), data[8], parseInt(data[9]),
+						parseInt(data[10]), parseInt(data[11]),
+						parseInt(data[12]), data[13]);
+				break;
+			case "RAM":
+				hardW = new RAM(Double.parseDouble(data[2]), data[3], data[4], 
+						parseInt(data[5]), data[6], parseInt(data[7]));
+				break;
+			case "Motherboard":
+				hardW = new Motherboard(Double.parseDouble(data[2]), data[3], data[4], 
+						data[5], parseInt(data[6]), parseInt(data[7]),
+						parseInt(data[8]), parseInt(data[9]),
+						data[10].split("-"), parseInt(data[11]), Boolean.parseBoolean(data[12]),
+						Boolean.parseBoolean(data[13]), Boolean.parseBoolean(data[14]), 
+						data[15].split("-"));
+				break;
+			case "SSD":
+				hardW = new SSD(Double.parseDouble(data[2]), data[3], data[4],
+					parseInt(data[5]), parseInt(data[6]),
+					parseInt(data[7]), data[8], data[9]);
+				break;
+			case "GPU":
+				hardW = new GPU(Double.parseDouble(data[2]), data[3], data[4],
+						Double.parseDouble(data[5]), Double.parseDouble(data[6]), 
+						parseInt(data[7]), data[8], data[9],
+						parseInt(data[10]), parseInt(data[11]));
+				break;
+			case "Case":
+				hardW = new Case(Double.parseDouble(data[2]), data[3], data[4],
+						data[5], data[6]);
+				break;
+			case "PowerSupply":
+				hardW = new PowerSupply(Double.parseDouble(data[2]), data[3], data[4],
+						parseInt(data[5]), data[6], data[7]);
+		}
+		return hardW;
+	}
+	
+	public static boolean addData(Computer computer) throws FileNotFoundException {
+		File file = new File(C_FILENAME);
+		if (!file.exists()) {
+			System.out.println("File does not exists!");
+			return false;
+		}
+		else {
+			PrintWriter pw = new PrintWriter(file);
+			pw.append(computer.toFile());
+			pw.close();
+			
+			return true;
+		}
 	}
 
 	// Compare method for computers and components, gets two HardwarePart objects

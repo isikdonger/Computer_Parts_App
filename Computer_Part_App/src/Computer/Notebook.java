@@ -39,4 +39,11 @@ public class Notebook extends Computer {
 				+ Arrays.toString(ssd) + "\nmotherboard: " + motherboard + "\npowerSupply: " + powerSupply + "\nCase: "
 				+ Case;
 	}
+
+	@Override
+	public String toFile() {
+		return "Computer::Laptop::"+ devicePrice + "::" + brand +
+				"||" + cpu + "||" + gpu + "||" + ram + "||" + ssd + "||" + motherboard + "||" + powerSupply +
+				"||" + Case + "||" + screenResolution;
+	}
 }

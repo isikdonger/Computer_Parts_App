@@ -76,6 +76,7 @@ public abstract class Computer implements HardwarePart {
 
 
 	public abstract Computer buildComputer();
+	public abstract String toFile();
 	
 	public static int getCount() {
 		return count;
