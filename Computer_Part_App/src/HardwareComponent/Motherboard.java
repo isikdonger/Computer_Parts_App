@@ -104,6 +104,6 @@ public class Motherboard extends HardwareComponent {
 				+ "\nhdmiPorts: " + hdmiPorts + "\ndisplayPorts: " + displayPorts + "\nstorageSlot: "
 				+ Arrays.toString(storageSlot) + "\nethernetCapacity: " + ethernetCapacity + "\nwifi: " + wifi
 				+ "\nbluetooth: " + bluetooth + "\nsoundCard: " + soundCard + "\nioPorts: " + Arrays.toString(ioPorts)
-				+ "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand;
+				+ "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand + "\n";
 	}
 }

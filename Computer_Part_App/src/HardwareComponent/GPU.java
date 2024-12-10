@@ -41,7 +41,7 @@ public class GPU extends ProcessingUnit {
 		return "GPU:\ngpuType: " + gpuType + "\nvram: " + vram + "\npsu: " + psu + "\nbaseClockSpeed: " + baseClockSpeed
 				+ "\nturboClockSpeed: " + turboClockSpeed + "\nName: " + gpuName + "\nbenchmarkScore: "
 				+ benchmarkScore + "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
-				+ "\nbrand: " + brand;
+				+ "\nbrand: " + brand + "\n";
 	}
 	
 }

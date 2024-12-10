@@ -1,6 +1,8 @@
-package System_and_Interface;
+package System_and_Main;
 import Computer.*;
 import HardwareComponent.*;
+import Interface.HardwarePart;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -17,8 +19,8 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class HardwareSystem {
-	private static ArrayList<Computer> Computers;
-	private static ArrayList<HardwareComponent> HardwareComponents;
+	private static ArrayList<HardwareComponent> HardwareComponents = new ArrayList<HardwareComponent>();
+	private static ArrayList<Computer> Computers = new ArrayList<Computer>();
 	private static final List<String> BRAND_ORDER = Arrays.asList("Nvidia", "AMD", "Intel", "Samsung", "Kingston", "G_SKILL", "Asus", "MSI", "ASROCK", "Gigabyte", "Seagate", "Lian Li", "EVGA", "Seasonic", "Cooler Master", "Corsair", "Thermaltake");
 	private static final List<String> ARCHITECTURE_ORDER = Arrays.asList("Zen 5", "Raptor Lake", "Zen 4", "Alder Lake");
 	private static final List<String> TECHNOLOGY_ORDER = Arrays.asList("DDR5", "DDR4", "M.2", "NVMe", "SATA");
@@ -100,25 +102,25 @@ public class HardwareSystem {
 			}
 			RAM[] r = rams.toArray(new RAM[0]);
 			SSD[] s = ssds.toArray(new SSD[0]);
-			switch (computerInfo[0]) {
-			case "Laptop":
-				computer = new Laptop(computerInfo[1], Double.parseDouble(computerInfo[2]), 
-						(CPU)components[0], (GPU)components[1], r, s,
-						(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
-						computerData[computerData.length-1]);
-				break;
-			case "PersonelComputer":
-				computer = new PersonalComputer(computerInfo[1], Double.parseDouble(computerInfo[2]), 
-						(CPU)components[0], (GPU)components[1], r, s,
-						(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
-						Boolean.parseBoolean(computerData[computerData.length-1]));
-				break;
-			case "Notebook":
-				computer = new Notebook(computerInfo[1], Double.parseDouble(computerInfo[2]), 
-						(CPU)components[0], (GPU)components[1], r, s,
-						(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
-						computerData[computerData.length-1]);
-				break;
+			switch (computerInfo[1]) {
+				case "Laptop":
+					computer = new Laptop(computerInfo[2], Double.parseDouble(computerInfo[3]), 
+							(CPU)components[0], (GPU)components[1], r, s,
+							(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
+							computerData[computerData.length-1]);
+					break;
+				case "PersonelComputer":
+					computer = new PersonalComputer(computerInfo[2], Double.parseDouble(computerInfo[3]), 
+							(CPU)components[0], (GPU)components[1], r, s,
+							(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
+							Boolean.parseBoolean(computerData[computerData.length-1]));
+					break;
+				case "Notebook":
+					computer = new Notebook(computerInfo[2], Double.parseDouble(computerInfo[3]), 
+							(CPU)components[0], (GPU)components[1], r, s,
+							(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
+							computerData[computerData.length-1]);
+					break;
 			}
 			Computers.add(computer);
 		}
@@ -563,6 +565,7 @@ public class HardwareSystem {
 				str += part.toString();
 			}
 		}
+		System.out.println(str);
 		return str;
 	}
 }

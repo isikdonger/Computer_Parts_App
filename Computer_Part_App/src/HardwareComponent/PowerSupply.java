@@ -35,6 +35,6 @@ public class PowerSupply extends HardwareComponent {
 	public String toString() {
 		return "PowerSupply:\nwattage: " + wattage + "\nformFactor: " + formFactor + "\nefficiencyTier: "
 				+ efficiencyTier + "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
-				+ "\nbrand: " + brand;
+				+ "\nbrand: " + brand + "\n";
 	}
 }

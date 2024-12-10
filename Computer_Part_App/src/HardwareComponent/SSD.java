@@ -40,7 +40,7 @@ public class SSD extends MemoryUnit {
 	public String toString() {
 		return "SSD:\nreadSpeed: " + readSpeed + "\nwriteSpeed: " + writeSpeed + "\nformFactor: " + form
 				+ "\ninterfaceName: " + interfaceName + "\ncapacity: " + capacity + "\nrecommendedPrice: "
-				+ recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand;
+				+ recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand + "\n";
 	}
 	
 }

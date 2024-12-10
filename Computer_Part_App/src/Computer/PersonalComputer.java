@@ -45,6 +45,6 @@ public class PersonalComputer extends Computer {
 	public String toFile() {
 		return "Computer::PersonelComputer::"+ devicePrice + "::" + brand +
 				"||" + cpu + "||" + gpu + "||" + ram + "||" + ssd + "||" + motherboard + "||" + powerSupply +
-				"||" + Case + "||" + monitorConnected;
+				"||" + Case + "||" + monitorConnected + "\n";
 	}
 }

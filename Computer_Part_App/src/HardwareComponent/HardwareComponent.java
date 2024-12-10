@@ -1,6 +1,4 @@
 package HardwareComponent;
-import System_and_Interface.HardwarePart;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -8,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import Interface.HardwarePart;
 
 public abstract class HardwareComponent implements HardwarePart {
 	protected static int count=0;
@@ -73,6 +73,6 @@ public abstract class HardwareComponent implements HardwarePart {
 	@Override
 	public String toString() {
 		return "HardwareComponent:\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
-				+ "\nbrand: " + brand;
+				+ "\nbrand: " + brand + "\n";
 	}
 }

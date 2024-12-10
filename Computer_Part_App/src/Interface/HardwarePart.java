@@ -1,4 +1,4 @@
-package System_and_Interface;
+package Interface;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;

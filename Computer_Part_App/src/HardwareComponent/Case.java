@@ -36,6 +36,6 @@ public class Case extends HardwareComponent {
 	@Override
 	public String toString() {
 		return "Case:\nformFactor: " + formFactor + "\nmaterial: " + material + "\ndurability: " + durability
-				+ "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand;
+				+ "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand + "\n";
 	}
 }

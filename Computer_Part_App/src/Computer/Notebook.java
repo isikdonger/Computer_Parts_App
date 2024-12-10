@@ -44,6 +44,6 @@ public class Notebook extends Computer {
 	public String toFile() {
 		return "Computer::Laptop::"+ devicePrice + "::" + brand +
 				"||" + cpu + "||" + gpu + "||" + ram + "||" + ssd + "||" + motherboard + "||" + powerSupply +
-				"||" + Case + "||" + screenResolution;
+				"||" + Case + "||" + screenResolution + "\n";
 	}
 }

@@ -1,13 +1,13 @@
 package test.System_and_Interface;
 
-import System_and_Interface.HardwarePart;
-import System_and_Interface.HardwareSystem;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.InvocationTargetException;
 
 import HardwareComponent.*;
+import Interface.HardwarePart;
+import System_and_Main.HardwareSystem;
 import Computer.*;
 
 class HardwareSystemTest {

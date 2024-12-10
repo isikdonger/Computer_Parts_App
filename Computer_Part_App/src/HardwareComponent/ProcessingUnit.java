@@ -31,6 +31,6 @@ public abstract class ProcessingUnit extends HardwareComponent {
 	public String toString() {
 		return "ProcessingUnit:\nbaseClockSpeed: " + baseClockSpeed + "\nturboClockSpeed: " + turboClockSpeed
 				+ "\narchitecture: " + "\nbenchmarkScore: " + benchmarkScore + "\nrecommendedPrice: "
-				+ recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand;
+				+ recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand + "\n";
 	}
 }

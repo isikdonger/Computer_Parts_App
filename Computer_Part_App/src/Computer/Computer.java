@@ -1,6 +1,6 @@
 package Computer;
-import System_and_Interface.HardwarePart;
 import HardwareComponent.*;
+import Interface.HardwarePart;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -141,6 +141,6 @@ public abstract class Computer implements HardwarePart {
 	public String toString() {
 		return "Computer:\nbrand: " + brand + "\ndevicePrice: " + devicePrice + "\ncpu: " + cpu + "\ngpu: " + gpu
 				+ "\nram: " + Arrays.toString(ram) + "\nssd: " + Arrays.toString(ssd) + "\nmotherboard: " + motherboard
-				+ "\npowerSupply: " + powerSupply + "\nCase: " + Case;
+				+ "\npowerSupply: " + powerSupply + "\nCase: " + Case + "\n";
 	}
 }

@@ -59,7 +59,7 @@ public class CPU extends ProcessingUnit {
 				+ "\nmaxMemorySize: " + maxMemorySize + "\nramCompatibility: " + ramCompatibility + "\nbaseClockSpeed: "
 				+ baseClockSpeed + "\nturboClockSpeed: " + turboClockSpeed + "\nArchitecture: " + architecture
 				+ "\nbenchmarkScore: " + benchmarkScore + "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: "
-				+ releaseDate + "\nbrand: " + brand;
+				+ releaseDate + "\nbrand: " + brand + "\n";
 	}
 	
 }
