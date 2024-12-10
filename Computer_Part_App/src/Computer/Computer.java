@@ -61,7 +61,10 @@ public abstract class Computer implements HardwarePart {
 			if (isGetter(method)) { // Check if it's a getter
 				try {
 					// Skip recursive methods
-					if (method.getName().equals("getValues") || method.getName().equals("getCount") || method.getName().equals("getSuperClassValues")) {
+					if (method.getName().equals("getValues") || method.getName().equals("getCount") || method.getName().equals("getSuperClassValues")
+							|| method.getName().equals("getValue") 
+							|| method.getName().equals("getRamCapacity") 
+							|| method.getName().equals("getSsdCapacity")) {
 						continue;
 					}
 					T value = (T) method.invoke(this); // Invoke the getter
@@ -116,6 +119,22 @@ public abstract class Computer implements HardwarePart {
 
 	public Case getCase() {
 		return Case;
+	}
+	
+	public int getRamCapacity() {
+		int total = 0;
+		for (RAM r: ram) {
+			total += r.getCapacity();
+		}
+		return total;
+	}
+	
+	public int getSsdCapacity() {
+		int total = 0;
+		for (SSD s: ssd) {
+			total += s.getCapacity();
+		}
+		return total;
 	}
 
 	@Override
