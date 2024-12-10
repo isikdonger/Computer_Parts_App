@@ -20,18 +20,24 @@ public class HardwareSystem {
 	private static ArrayList<HardwareComponent> HardwareComponents;
 	private static final List<String> BRAND_ORDER = Arrays.asList("Nvidia", "AMD", "Intel", "Samsung", "Kingston", "G_SKILL", "Asus", "MSI", "ASROCK", "Gigabyte", "Seagate", "Lian Li", "EVGA", "Seasonic", "Cooler Master", "Corsair", "Thermaltake");
 	private static final List<String> ARCHITECTURE_ORDER = Arrays.asList("Zen 5", "Raptor Lake", "Zen 4", "Alder Lake");
-	private static final List<String> TECHNOLOGY_ORDER = Arrays.asList("DDR5", "DDR4", "NVMe", "SATA");
+	private static final List<String> TECHNOLOGY_ORDER = Arrays.asList("DDR5", "DDR4", "M.2", "NVMe", "SATA");
 	private static final List<String> EFFICIENCY_ORDER = Arrays.asList("80+ Titanium", "80+ Platinum", "80+ Gold", "80+ Silver", "80+ Bronze");
 	private static final List<String> IOPORTS_ORDER = Arrays.asList("VGA", "HDMI", "Display Port", "USB 2.0", "USB 3.0", "USB 3.1", "USB 3.2");
+	private static final List<String> FORM_ORDER = Arrays.asList("ATX", "E-ATX", "Micro-ATX", "Mini-ITX");
+	private static final List<String> SSDFORM_ORDER = Arrays.asList("M.2", "mSATA", "U.2", "2.5");
 	private static final List<String> MATERIAL_ORDER = Arrays.asList("Steel", "Aluminium", "Glass", "Plastic");
 	private static final Map<String, List<String>> ATTRIBUTE_ORDERS = Map.ofEntries(
 		Map.entry("brand", BRAND_ORDER),
 		Map.entry("architecture", ARCHITECTURE_ORDER),
 		Map.entry("technology", TECHNOLOGY_ORDER),
 		Map.entry("ramCompatibility", TECHNOLOGY_ORDER),
-		Map.entry("efficiency", EFFICIENCY_ORDER),
+		Map.entry("storageSlot", TECHNOLOGY_ORDER),
+		Map.entry("interfaceName", TECHNOLOGY_ORDER),
+		Map.entry("efficiencyTier", EFFICIENCY_ORDER),
 		Map.entry("ioPorts", IOPORTS_ORDER),
-		Map.entry("materials", MATERIAL_ORDER)
+		Map.entry("formFactor", FORM_ORDER),
+		Map.entry("form", SSDFORM_ORDER),
+		Map.entry("material", MATERIAL_ORDER)
 	);
 	private static final String FILENAME = "data.txt";
 	
@@ -61,13 +67,12 @@ public class HardwareSystem {
 							parseInt(data[5]), data[6], parseInt(data[7]));
 					break;
 				case "Motherboard":
-					String[] arr = data[10].split("-");
 					hardW = new Motherboard(Double.parseDouble(data[2]), data[3], data[4], 
 							data[5], parseInt(data[6]), parseInt(data[7]),
 							parseInt(data[8]), parseInt(data[9]),
-							arr, parseInt(data[11]), Boolean.parseBoolean(data[12]),
+							data[10].split("-"), parseInt(data[11]), Boolean.parseBoolean(data[12]),
 							Boolean.parseBoolean(data[13]), Boolean.parseBoolean(data[14]), 
-							data);
+							data[15].split("-"));
 					break;
 				case "SSD":
 					hardW = new SSD(Double.parseDouble(data[2]), data[3], data[4],
@@ -213,14 +218,35 @@ public class HardwareSystem {
 			
 			//For field where there is an order list
 			if (order_list!=null) {
-				int indexP1 = order_list.indexOf(c1.getValue(field.getName()));
-				int indexP2 = order_list.indexOf(c2.getValue(field.getName()));		
+				Object value1 = c1.getValue(field.getName());
+				Object value2 = c2.getValue(field.getName());
 				
-				if (indexP1 < indexP2) {
-					points1++;
+				if (value1 instanceof String[] && value2 instanceof String[]) {
+					int length = Math.min(((String[])value1).length, ((String[])value2).length);
+					for (int i=0; i<length; i++) {
+						int indexP1 = order_list.indexOf(value1);
+						int indexP2 = order_list.indexOf(value2);		
+						
+						if (indexP1 < indexP2) {
+							points1++;
+						}
+						else if (indexP1 > indexP2) {
+							points2++;
+						}
+					}
+					points1 += Math.max(0, ((String[]) value1).length - ((String[]) value2).length);
+					points2 += Math.max(0, ((String[]) value2).length - ((String[]) value1).length);
 				}
-				else if (indexP1 > indexP2) {
-					points2++;
+				else {
+					int indexP1 = order_list.indexOf(value1);
+					int indexP2 = order_list.indexOf(value2);		
+					
+					if (indexP1 < indexP2) {
+						points1++;
+					}
+					else if (indexP1 > indexP2) {
+						points2++;
+					}
 				}
 			}
 			// Special Condition for dates
@@ -244,7 +270,7 @@ public class HardwareSystem {
 					points2++;
 				}
 			}			
-			else { // Integer or Double values
+			else { // Integer, Double or Boolean values
 				// Special condition for price
 				if (field.getName().equals("recommendedPrice")) {
 					 if (c1.getRecommendedPrice() > c2.getRecommendedPrice()) {
@@ -274,6 +300,14 @@ public class HardwareSystem {
 						if (((Double)value1).compareTo(((Double)value2)) > 0) {
 							points1++;
 						} else if (((Double)value1).compareTo(((Double)value2)) < 0) {
+							points2++;
+						}
+					}
+					if (value1 instanceof Boolean) {
+						if ((Boolean)value1) {
+							points1++;
+						}
+						if ((Boolean)value2) {
 							points2++;
 						}
 					}

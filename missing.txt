@@ -1,4 +1,2 @@
-1) Motherboard: String[] ioPorts are missing
-
-2) Computer Data 
+1) Computer Data 
 

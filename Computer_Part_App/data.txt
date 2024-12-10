@@ -8,11 +8,11 @@ HardwareComponent::RAM::120::15/04/2024::G.SKILL::32::DDR5::5600
 HardwareComponent::RAM::80::10/02/2024::Kingston::8::DDR4::2666
 HardwareComponent::RAM::140::05/05/2024::TEAMGROUP::16::DDR5::4800
 HardwareComponent::RAM::90::01/01/2024::Patriot::16::DDR4::3600
-HardwareComponent::Motherboard::250::20/12/2024::ASUS::AM5::4::128::1::2::NVMe-SATA::1000::true::true::true
-HardwareComponent::Motherboard::180::15/11/2024::MSI::AM4::2::64::1::1::SATA::100::false::false::true
-HardwareComponent::Motherboard::300::10/10/2024::GIGABYTE::LGA1700::4::128::2::1::NVMe-SATA::2500::true::true::true
-HardwareComponent::Motherboard::150::05/09/2024::ASROCK::AM4::2::64::1::1::SATA::100::false::false::false
-HardwareComponent::Motherboard::270::01/08/2024::MSI::LGA1700::4::128::1::2::NVMe-SATA::1000::true::true::false
+HardwareComponent::Motherboard::250::20/12/2024::ASUS::AM5::4::128::1::2::NVMe-SATA::1000::true::true::true::VGA-HDMI-USB 3.0
+HardwareComponent::Motherboard::180::15/11/2024::MSI::AM4::2::64::1::1::SATA::100::false::false::true::HDMI-Display Port-USB 3.1
+HardwareComponent::Motherboard::300::10/10/2024::GIGABYTE::LGA1700::4::128::2::1::NVMe-SATA::2500::true::true::true::VGA-USB 2.0-USB 3.0-USB 3.2
+HardwareComponent::Motherboard::150::05/09/2024::ASROCK::AM4::2::64::1::1::SATA::100::false::false::false::Display Port-HDMI-USB 3.1
+HardwareComponent::Motherboard::270::01/08/2024::MSI::LGA1700::4::128::1::2::NVMe-SATA::1000::true::true::false::VGA-USB 2.0-USB 3.1-USB 3.2
 HardwareComponent::SSD::120::20/12/2024::Samsung::500::3500::3000::M.2::NVMe
 HardwareComponent::SSD::100::15/11/2024::WD::1::3000::2500::2.5"::SATA
 HardwareComponent::SSD::140::10/10/2024::Crucial::2::5600::5100::M.2::NVMe

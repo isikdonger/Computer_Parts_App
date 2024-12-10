@@ -8,7 +8,7 @@ import java.util.List;
 public class SSD extends MemoryUnit {
 	private int readSpeed;
 	private int writeSpeed;
-	private String formFactor;
+	private String form;
 	private String interfaceName;
 	
 	public SSD(double recommendedPrice, String releaseDate, String brand, int capacity, int readSpeed, int writeSpeed,
@@ -16,7 +16,7 @@ public class SSD extends MemoryUnit {
 		super(recommendedPrice, releaseDate, brand, capacity);
 		this.readSpeed = readSpeed;
 		this.writeSpeed = writeSpeed;
-		this.formFactor = formFactor;
+		this.form = formFactor;
 		this.interfaceName = interfaceName;
 	}
 
@@ -29,7 +29,7 @@ public class SSD extends MemoryUnit {
 	}
 
 	public String getFormFactor() {
-		return formFactor;
+		return form;
 	}
 
 	public String getInterfaceName() {
@@ -38,7 +38,7 @@ public class SSD extends MemoryUnit {
 
 	@Override
 	public String toString() {
-		return "SSD:\nreadSpeed: " + readSpeed + "\nwriteSpeed: " + writeSpeed + "\nformFactor: " + formFactor
+		return "SSD:\nreadSpeed: " + readSpeed + "\nwriteSpeed: " + writeSpeed + "\nformFactor: " + form
 				+ "\ninterfaceName: " + interfaceName + "\ncapacity: " + capacity + "\nrecommendedPrice: "
 				+ recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand;
 	}
