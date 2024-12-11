@@ -8,6 +8,7 @@ public class ComputerMain {
 		try {
 			HardwareSystem.readComponentData();
 			HardwareSystem.readComputerData();
+			System.out.println(HardwareSystem.getComputers());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

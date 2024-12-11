@@ -13,10 +13,11 @@ public class CPU extends ProcessingUnit {
 	private int maxMemorySize;
 	private String ramCompatibility;
 
-	public CPU(double recommendedPrice, String releaseDate, String brand, double baseClockSpeed, double turboClockSpeed,
-			int benchmarkScore, String architecture, int threadCount, int coreCount, int memoryChannel,
-			int maxMemorySize, String ramCompatibility) {
-		super(recommendedPrice, releaseDate, brand, baseClockSpeed, turboClockSpeed, benchmarkScore);
+	public CPU(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice,
+			double baseClockSpeed, double turboClockSpeed, int benchmarkScore, String architecture, int threadCount,
+			int coreCount, int memoryChannel, int maxMemorySize, String ramCompatibility) {
+		super(modelNumber, brand, model, releaseDate, recommendedPrice, baseClockSpeed, turboClockSpeed,
+				benchmarkScore);
 		this.architecture = architecture;
 		this.threadCount = threadCount;
 		this.coreCount = coreCount;

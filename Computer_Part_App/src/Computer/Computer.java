@@ -7,13 +7,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public abstract class Computer implements HardwarePart {
+public abstract class Computer implements HardwarePart, Comparable<Computer> {
 	protected static int count=0;
+	protected int modelNumber;
 	protected String brand;
+	protected String model;
 	protected double devicePrice;
 	protected CPU cpu;
 	protected GPU gpu;
@@ -25,7 +29,7 @@ public abstract class Computer implements HardwarePart {
 	
 	public Computer() {}
 	
-	public Computer(String brand, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd, Motherboard motherboard,
+	public Computer(int modelNumber, String brand, String model, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd, Motherboard motherboard,
 			PowerSupply powerSupply, Case Case) {
 		this.brand = brand;
 		this.devicePrice = devicePrice;
@@ -77,16 +81,23 @@ public abstract class Computer implements HardwarePart {
 		return values;
 	}
 
-
 	public abstract Computer buildComputer();
 	public abstract String toFile();
 	
 	public static int getCount() {
 		return count;
 	}
+	
+	public int getModelNumber() {
+		return modelNumber;
+	}
 
 	public String getBrand() {
 		return brand;
+	}
+	
+	public String getModel() {
+		return model;
 	}
 
 	public double getDevicePrice() {
@@ -135,6 +146,30 @@ public abstract class Computer implements HardwarePart {
 			total += s.getCapacity();
 		}
 		return total;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(modelNumber);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Computer other = (Computer) obj;
+		return modelNumber == other.modelNumber;
+	}
+	
+	@Override
+	public int compareTo(Computer o) {
+		String name1 = brand + " " + model;
+		String name2 = o.getBrand() + " " + o.getModel();
+		return name1.compareToIgnoreCase(name2);
 	}
 
 	@Override

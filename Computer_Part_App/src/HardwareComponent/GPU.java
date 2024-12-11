@@ -6,22 +6,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GPU extends ProcessingUnit {
-	private String gpuName;
 	private String gpuType;
 	private int vram;
 	private int psu;
 
-	public GPU(double recommendedPrice, String releaseDate, String brand, double baseClockSpeed, double turboClockSpeed,
-			int benchmarkScore, String gpuName, String gpuType, int vram, int psu) {
-		super(recommendedPrice, releaseDate, brand, baseClockSpeed, turboClockSpeed, benchmarkScore);
-		this.gpuName = gpuName;
+	public GPU(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice,
+			double baseClockSpeed, double turboClockSpeed, int benchmarkScore, String gpuType, int vram,
+			int psu) {
+		super(modelNumber, brand, model, releaseDate, recommendedPrice, baseClockSpeed, turboClockSpeed,
+				benchmarkScore);
 		this.gpuType = gpuType;
 		this.vram = vram;
 		this.psu = psu;
-	}
-
-	public String getGpuName() {
-		return gpuName;
 	}
 
 	public String getGpuType() {
@@ -39,7 +35,7 @@ public class GPU extends ProcessingUnit {
 	@Override
 	public String toString() {
 		return "GPU:\ngpuType: " + gpuType + "\nvram: " + vram + "\npsu: " + psu + "\nbaseClockSpeed: " + baseClockSpeed
-				+ "\nturboClockSpeed: " + turboClockSpeed + "\nName: " + gpuName + "\nbenchmarkScore: "
+				+ "\nturboClockSpeed: " + turboClockSpeed + "\nbenchmarkScore: "
 				+ benchmarkScore + "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
 				+ "\nbrand: " + brand + "\n";
 	}

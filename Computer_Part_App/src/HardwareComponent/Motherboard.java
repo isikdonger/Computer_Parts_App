@@ -18,11 +18,11 @@ public class Motherboard extends HardwareComponent {
 	private boolean soundCard;
 	private String[] ioPorts;
 	private static final String FILENAME = "cpuComptability.txt";
-
-	public Motherboard(double recommendedPrice, String releaseDate, String brand, String chipset, int memorySlots,
-			int maxMemory, int hdmiPorts, int displayPorts, String[] storageSlot, int ethernetCapacity, boolean wifi,
-			boolean bluetooth, boolean soundCard, String[] ioPorts) {
-		super(recommendedPrice, releaseDate, brand);
+	
+	public Motherboard(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice,
+			String chipset, int memorySlots, int maxMemory, int hdmiPorts, int displayPorts, String[] storageSlot,
+			int ethernetCapacity, boolean wifi, boolean bluetooth, boolean soundCard, String[] ioPorts) {
+		super(modelNumber, brand, model, releaseDate, recommendedPrice);
 		this.chipset = chipset;
 		this.memorySlots = memorySlots;
 		this.maxMemory = maxMemory;
@@ -35,7 +35,7 @@ public class Motherboard extends HardwareComponent {
 		this.soundCard = soundCard;
 		this.ioPorts = ioPorts;
 	}
-	
+
 	public boolean cpuCompatibility(CPU cpu) throws FileNotFoundException {
 		File file = new File(FILENAME);
 		Scanner scanner = new Scanner(file);

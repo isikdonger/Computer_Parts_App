@@ -9,9 +9,9 @@ public class RAM extends MemoryUnit {
 	private String technology;
 	private int transferSpeed;
 
-	public RAM(double recommendedPrice, String releaseDate, String brand, int capacity, String technology,
-			int transferSpeed) {
-		super(recommendedPrice, releaseDate, brand, capacity);
+	public RAM(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice, int capacity,
+			String technology, int transferSpeed) {
+		super(modelNumber, brand, model, releaseDate, recommendedPrice, capacity);
 		this.technology = technology;
 		this.transferSpeed = transferSpeed;
 	}

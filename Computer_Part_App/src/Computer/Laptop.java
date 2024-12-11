@@ -10,9 +10,9 @@ public class Laptop extends Computer {
 
 	public Laptop() {}
 
-	public Laptop(String brand, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd, Motherboard motherboard,
+	public Laptop(int modelNumber, String brand, String model, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd, Motherboard motherboard,
 			PowerSupply powerSupply, Case Case, String screenResolution) {
-		super(brand, devicePrice, cpu, gpu, ram, ssd, motherboard, powerSupply, Case);
+		super(modelNumber, brand, model, devicePrice, cpu, gpu, ram, ssd, motherboard, powerSupply, Case);
 		this.screenResolution = screenResolution;
 	}
 

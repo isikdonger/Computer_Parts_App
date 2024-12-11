@@ -1,35 +1,35 @@
-HardwareComponent::CPU::500::20/12/2024::Intel::3.6::4.9::15000::Alder Lake::10::20::2::128::DDR5
-HardwareComponent::CPU::400::15/11/2024::Intel::3.8::5.1::16000::Raptor Lake::12::24::2::128::DDR5
-HardwareComponent::CPU::350::10/10/2024::AMD::4.0::4.8::14000::Zen 4::8::16::2::64::DDR5
-HardwareComponent::CPU::450::05/09/2024::AMD::4.2::5.0::17000::Zen 5::16::32::2::128::DDR5
-HardwareComponent::CPU::300::01/08/2024::Intel::3.5::4.4::12000::Alder Lake::6::12::1::64::DDR4
-HardwareComponent::RAM::100::01/03/2024::Corsair::16::DDR4::2666
-HardwareComponent::RAM::120::15/04/2024::G.SKILL::32::DDR5::5600
-HardwareComponent::RAM::80::10/02/2024::Kingston::8::DDR4::2666
-HardwareComponent::RAM::140::05/05/2024::TEAMGROUP::16::DDR5::4800
-HardwareComponent::RAM::90::01/01/2024::Patriot::16::DDR4::3600
-HardwareComponent::Motherboard::250::20/12/2024::ASUS::AM5::4::128::1::2::NVMe-SATA::1000::true::true::true::VGA-HDMI-USB 3.0
-HardwareComponent::Motherboard::180::15/11/2024::MSI::AM4::2::64::1::1::SATA::100::false::false::true::HDMI-Display Port-USB 3.1
-HardwareComponent::Motherboard::300::10/10/2024::GIGABYTE::LGA1700::4::128::2::1::NVMe-SATA::2500::true::true::true::VGA-USB 2.0-USB 3.0-USB 3.2
-HardwareComponent::Motherboard::150::05/09/2024::ASROCK::AM4::2::64::1::1::SATA::100::false::false::false::Display Port-HDMI-USB 3.1
-HardwareComponent::Motherboard::270::01/08/2024::MSI::LGA1700::4::128::1::2::NVMe-SATA::1000::true::true::false::VGA-USB 2.0-USB 3.1-USB 3.2
-HardwareComponent::SSD::120::20/12/2024::Samsung::500::3500::3000::M.2::NVMe
-HardwareComponent::SSD::100::15/11/2024::WD::1::3000::2500::2.5"::SATA
-HardwareComponent::SSD::140::10/10/2024::Crucial::2::5600::5100::M.2::NVMe
-HardwareComponent::SSD::80::05/09/2024::Kingston::256::2100::2000::2.5"::SATA
-HardwareComponent::SSD::200::01/08/2024::Seagate::4::4500::4300::M.2::NVMe
-HardwareComponent::GPU::700::20/12/2024::NVIDIA::5.0::5.5::32000::RTX 4090::External::24::1000
-HardwareComponent::GPU::500::15/11/2024::AMD::4.0::4.2::28000::RX 7900 XT::External::20::750
-HardwareComponent::GPU::400::10/10/2024::Intel::3.5::3.7::23500::Arc A780::External::16::550
-HardwareComponent::GPU::600::05/09/2024::NVIDIA::4.5::4.7::26500::RTX 4080::External::16::850
-HardwareComponent::GPU::450::01/08/2024::AMD::3.8::4.0::25000::RX 7800 XT::External::16::650
-HardwareComponent::PowerSupply::150::20/12/2024::Corsair::650::ATX::80+ Gold
-HardwareComponent::PowerSupply::120::15/11/2024::EVGA::750::ATX::80+ Bronze
-HardwareComponent::PowerSupply::180::10/10/2024::Cooler Master::850::ATX::80+ Platinum
-HardwareComponent::PowerSupply::100::05/09/2024::Thermaltake::500::SFX::80+ Bronze
-HardwareComponent::PowerSupply::200::01/08/2024::Seasonic::1000::ATX::80+ Titanium
-HardwareComponent::Case::100::20/12/2024::Corsair::ATX::Aluminum
-HardwareComponent::Case::80::15/11/2024::NZXT::Micro-ATX::Steel
-HardwareComponent::Case::120::10/10/2024::Cooler Master::ATX::Plastic
-HardwareComponent::Case::60::05/09/2024::Thermaltake::Mini-ITX::Glass
-HardwareComponent::Case::150::01/08/2024::Lian Li::E-ATX::Aluminum
+HardwareComponent::CPU::01::Intel::Core i5-12600K::20/12/2024::500::3.6::4.9::15000::Alder Lake::10::20::2::128::DDR5
+HardwareComponent::CPU::02::Intel::Core i7-13700K::15/11/2024::400::3.8::5.1::16000::Raptor Lake::12::24::2::128::DDR5
+HardwareComponent::CPU::03::AMD::Ryzen 5 7600X::10/10/2024::350::4.0::4.8::14000::Zen 4::8::16::2::64::DDR5
+HardwareComponent::CPU::04::AMD::Ryzen 9 7900X::05/09/2024::450::4.2::5.0::17000::Zen 5::16::32::2::128::DDR5
+HardwareComponent::CPU::05::Intel::Core i3-12100::01/08/2024::300::3.5::4.4::12000::Alder Lake::6::12::1::64::DDR4
+HardwareComponent::GPU::21::NVIDIA::GeForce RTX 4090::20/12/2024::700::5.0::5.5::32000::External::24::1000
+HardwareComponent::GPU::22::AMD::Radeon RX 7900 XT::15/11/2024::500::4.0::4.2::28000::External::20::750
+HardwareComponent::GPU::23::Intel::Arc A780::10/10/2024::400::3.5::3.7::23500::External::16::550
+HardwareComponent::GPU::24::NVIDIA::GeForce RTX 4080::05/09/2024::600::4.5::4.7::26500::External::16::850
+HardwareComponent::GPU::25::AMD::Radeon RX 7800 XT::01/08/2024::450::3.8::4.0::25000::External::16::650
+HardwareComponent::RAM::06::Corsair::Vengeance LPX::01/03/2024::100::16::DDR4::2666
+HardwareComponent::RAM::07::G.SKILL::Trident Z5::15/04/2024::120::32::DDR5::5600
+HardwareComponent::RAM::08::Kingston::Fury Beast::10/02/2024::80::8::DDR4::2666
+HardwareComponent::RAM::09::TEAMGROUP::T-Force Vulcan::05/05/2024::140::16::DDR5::4800
+HardwareComponent::RAM::10::Patriot::Viper Steel::01/01/2024::90::16::DDR4::3600
+HardwareComponent::Motherboard::11::ASUS::ROG STRIX B650E::20/12/2024::250::AM5::4::128::1::2::NVMe-SATA::1000::true::true::true::VGA-HDMI-USB 3.0
+HardwareComponent::Motherboard::12::MSI::MAG B550M::15/11/2024::180::AM4::2::64::1::1::SATA::100::false::false::true::HDMI-Display Port-USB 3.1
+HardwareComponent::Motherboard::13::GIGABYTE::Z790 AORUS::10/10/2024::300::LGA1700::4::128::2::1::NVMe-SATA::2500::true::true::true::VGA-USB 2.0-USB 3.0-USB 3.2
+HardwareComponent::Motherboard::14::ASROCK::B450M Steel Legend::05/09/2024::150::AM4::2::64::1::1::SATA::100::false::false::false::Display Port-HDMI-USB 3.1
+HardwareComponent::Motherboard::15::MSI::PRO Z690-A::01/08/2024::270::LGA1700::4::128::1::2::NVMe-SATA::1000::true::true::false::VGA-USB 2.0-USB 3.1-USB 3.2
+HardwareComponent::SSD::16::Samsung::970 EVO Plus::20/12/2024::120::500::3500::3000::M.2::NVMe
+HardwareComponent::SSD::17::WD::Blue SN550::15/11/2024::100::1::3000::2500::2.5::SATA
+HardwareComponent::SSD::18::Crucial::P5 Plus::10/10/2024::140::2::5600::5100::M.2::NVMe
+HardwareComponent::SSD::19::Kingston::A2000::05/09/2024::80::256::2100::2000::2.5::SATA
+HardwareComponent::SSD::20::Seagate::FireCuda 530::21/08/2024::00::04::4500::4300::M.2::NVMe
+HardwareComponent::PowerSupply::26::Corsair::RM650x::20/12/2024::150::650::ATX::80+ Gold
+HardwareComponent::PowerSupply::27::EVGA::SuperNOVA 750 GA::15/11/2024::120::750::ATX::80+ Bronze
+HardwareComponent::PowerSupply::28::Cooler Master::V850 SFX Gold::10/10/2024::180::850::ATX::80+ Platinum
+HardwareComponent::PowerSupply::29::Thermaltake::Smart 500W::05/09/2024::100::500::SFX::80+ Bronze
+HardwareComponent::PowerSupply::30::Seasonic::Prime TX-1000::01/08/2024::200::1000::ATX::80+ Titanium
+HardwareComponent::Case::31::Corsair::4000D Airflow::20/12/2024::100::ATX::Aluminum
+HardwareComponent::Case::32::NZXT::H510 Flow::15/11/2024::80::Micro-ATX::Steel
+HardwareComponent::Case::33::Cooler Master::MasterBox TD500::10/10/2024::120::ATX::Plastic
+HardwareComponent::Case::34::Thermaltake::Core V1::05/09/2024::60::Mini-ITX::Glass
+HardwareComponent::Case::35::Lian Li::O11 Dynamic::01/08/2024::150::E-ATX::Aluminum

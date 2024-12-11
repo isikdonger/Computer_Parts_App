@@ -10,10 +10,10 @@ public class PowerSupply extends HardwareComponent {
 	private int wattage;
 	private String formFactor;
 	private String efficiencyTier;
-	
-	public PowerSupply(double recommendedPrice, String releaseDate, String brand, int wattage, String formFactor,
-			String efficiencyTier) {
-		super(recommendedPrice, releaseDate, brand);
+
+	public PowerSupply(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice,
+			int wattage, String formFactor, String efficiencyTier) {
+		super(modelNumber, brand, model, releaseDate, recommendedPrice);
 		this.wattage = wattage;
 		this.formFactor = formFactor;
 		this.efficiencyTier = efficiencyTier;

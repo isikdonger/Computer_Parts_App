@@ -8,8 +8,9 @@ public abstract class ProcessingUnit extends HardwareComponent {
 	protected double turboClockSpeed;
 	protected int benchmarkScore;
 	
-	public ProcessingUnit(double recommendedPrice, String releaseDate, String brand, double baseClockSpeed, double turboClockSpeed, int benchmarkScore) {
-		super(recommendedPrice, releaseDate, brand);
+	public ProcessingUnit(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice,
+			double baseClockSpeed, double turboClockSpeed, int benchmarkScore) {
+		super(modelNumber, brand, model, releaseDate, recommendedPrice);
 		this.baseClockSpeed = baseClockSpeed;
 		this.turboClockSpeed = turboClockSpeed;
 		this.benchmarkScore = benchmarkScore;

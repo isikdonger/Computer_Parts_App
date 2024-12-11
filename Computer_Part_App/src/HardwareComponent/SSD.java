@@ -10,13 +10,13 @@ public class SSD extends MemoryUnit {
 	private int writeSpeed;
 	private String form;
 	private String interfaceName;
-	
-	public SSD(double recommendedPrice, String releaseDate, String brand, int capacity, int readSpeed, int writeSpeed,
-			String formFactor, String interfaceName) {
-		super(recommendedPrice, releaseDate, brand, capacity);
+
+	public SSD(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice, int capacity,
+			int readSpeed, int writeSpeed, String form, String interfaceName) {
+		super(modelNumber, brand, model, releaseDate, recommendedPrice, capacity);
 		this.readSpeed = readSpeed;
 		this.writeSpeed = writeSpeed;
-		this.form = formFactor;
+		this.form = form;
 		this.interfaceName = interfaceName;
 	}
 

@@ -11,13 +11,14 @@ public class Case extends HardwareComponent {
 	private String material;
 	private int durability;
 
-	public Case(double recommendedPrice, String releaseDate, String brand, String formFactor, String material) {
-		super(recommendedPrice, releaseDate, brand);
+	public Case(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice,
+			String formFactor, String material) {
+		super(modelNumber, brand, model, releaseDate, recommendedPrice);
 		this.formFactor = formFactor;
 		this.material = material;
 		this.durability = findDurability();
 	}
-
+	
 	public String getMaterial() {
 		return material;
 	}

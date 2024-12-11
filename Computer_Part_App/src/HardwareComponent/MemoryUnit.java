@@ -6,8 +6,9 @@ import java.util.Map;
 public abstract class MemoryUnit extends HardwareComponent {
 	protected int capacity;
 
-	public MemoryUnit(double recommendedPrice, String releaseDate, String brand, int capacity) {
-		super(recommendedPrice, releaseDate, brand);
+	public MemoryUnit(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice,
+			int capacity) {
+		super(modelNumber, brand, model, releaseDate, recommendedPrice);
 		this.capacity = capacity;
 	}
 

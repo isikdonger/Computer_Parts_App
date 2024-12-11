@@ -6,22 +6,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import Interface.HardwarePart;
 
-public abstract class HardwareComponent implements HardwarePart {
+public abstract class HardwareComponent implements HardwarePart, Comparable<HardwareComponent> {
 	protected static int count=0;
-	protected double recommendedPrice;
-	protected String releaseDate;
+	protected int modelNumber;
 	protected String brand;
+	protected String model;
+	protected String releaseDate;
+	protected double recommendedPrice;
 	
-	public HardwareComponent(double recommendedPrice, String releaseDate, String brand) {
-		count++;
-		this.recommendedPrice = recommendedPrice;
-		this.releaseDate = releaseDate;
+	public HardwareComponent(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice) {
+		super();
+		this.modelNumber = modelNumber;
 		this.brand = brand;
+		this.model = model;
+		this.releaseDate = releaseDate;
+		this.recommendedPrice = recommendedPrice;
 	}
-	
+
 	public Field[] getAllFields(Class<?> clazz) {
 		List<Field> fields = new ArrayList<>();
 		while (clazz != null && clazz != Object.class) { // Stop at Object class
@@ -60,6 +65,18 @@ public abstract class HardwareComponent implements HardwarePart {
 		return count;
 	}
 
+	public int getModelNumber() {
+		return modelNumber;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
 	public double getRecommendedPrice() {
 		return recommendedPrice;
 	}
@@ -68,7 +85,28 @@ public abstract class HardwareComponent implements HardwarePart {
 		return releaseDate;
 	}
 
-	public String getBrand() { return brand; }
+	@Override
+	public int hashCode() {
+		return Objects.hash(modelNumber);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HardwareComponent other = (HardwareComponent) obj;
+		return modelNumber == other.modelNumber;
+	}
+	
+	public int compareTo(HardwareComponent o) {
+		String name1 = brand + " " + model;
+		String name2 = o.getBrand() + " " + o.getModel();
+		return name1.compareToIgnoreCase(name2);
+	}
 
 	@Override
 	public String toString() {

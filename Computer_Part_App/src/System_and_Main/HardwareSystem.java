@@ -11,7 +11,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -19,8 +20,8 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class HardwareSystem {
-	private static ArrayList<HardwareComponent> HardwareComponents = new ArrayList<HardwareComponent>();
-	private static ArrayList<Computer> Computers = new ArrayList<Computer>();
+	private static HashSet<HardwareComponent> HardwareComponents = new HashSet<HardwareComponent>();
+	private static HashSet<Computer> Computers = new HashSet<Computer>();
 	private static final List<String> BRAND_ORDER = Arrays.asList("Nvidia", "AMD", "Intel", "Samsung", "Kingston", "G_SKILL", "Asus", "MSI", "ASROCK", "Gigabyte", "Seagate", "Lian Li", "EVGA", "Seasonic", "Cooler Master", "Corsair", "Thermaltake");
 	private static final List<String> ARCHITECTURE_ORDER = Arrays.asList("Zen 5", "Raptor Lake", "Zen 4", "Alder Lake");
 	private static final List<String> TECHNOLOGY_ORDER = Arrays.asList("DDR5", "DDR4", "M.2", "NVMe", "SATA");
@@ -78,8 +79,8 @@ public class HardwareSystem {
 			String[] computerData = input.nextLine().split("\\|\\|");
 			String[] computerInfo = computerData[0].split("::");
 			HardwareComponent[] components = new HardwareComponent[7];
-			ArrayList<RAM> rams = new ArrayList<RAM>();
-			ArrayList<SSD> ssds = new ArrayList<SSD>();
+			HashSet<RAM> rams = new HashSet<RAM>();
+			HashSet<SSD> ssds = new HashSet<SSD>();
 			for (int i=0; i<components.length; i++) {
 				if (computerData[i+1].contains("[")) {
 					computerData[i+1] = computerData[i+1].substring(1, computerData[i+1].length()-1);
@@ -104,19 +105,21 @@ public class HardwareSystem {
 			SSD[] s = ssds.toArray(new SSD[0]);
 			switch (computerInfo[1]) {
 				case "Laptop":
-					computer = new Laptop(computerInfo[2], Double.parseDouble(computerInfo[3]), 
+					computer = new Laptop(Integer.parseInt(computerInfo[2]), computerInfo[3], computerInfo[4], Double.parseDouble(computerInfo[3]), 
 							(CPU)components[0], (GPU)components[1], r, s,
 							(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
 							computerData[computerData.length-1]);
 					break;
 				case "PersonelComputer":
-					computer = new PersonalComputer(computerInfo[2], Double.parseDouble(computerInfo[3]), 
+					computer = new PersonalComputer(Integer.parseInt(computerInfo[2]), computerInfo[3], computerInfo[4],
+							Double.parseDouble(computerInfo[3]), 
 							(CPU)components[0], (GPU)components[1], r, s,
 							(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
 							Boolean.parseBoolean(computerData[computerData.length-1]));
 					break;
 				case "Notebook":
-					computer = new Notebook(computerInfo[2], Double.parseDouble(computerInfo[3]), 
+					computer = new Notebook(Integer.parseInt(computerInfo[2]), computerInfo[3], computerInfo[4],
+							Double.parseDouble(computerInfo[3]), 
 							(CPU)components[0], (GPU)components[1], r, s,
 							(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
 							computerData[computerData.length-1]);
@@ -132,42 +135,50 @@ public class HardwareSystem {
 		HardwareComponent hardW = null;
 		switch (data[1]) {
 			case "CPU":
-				hardW = new CPU(Double.parseDouble(data[2]), data[3], data[4], 
-						Double.parseDouble(data[5]), Double.parseDouble(data[6]), 
-						parseInt(data[7]), data[8], parseInt(data[9]),
-						parseInt(data[10]), parseInt(data[11]),
-						parseInt(data[12]), data[13]);
-				break;
-			case "RAM":
-				hardW = new RAM(Double.parseDouble(data[2]), data[3], data[4], 
-						parseInt(data[5]), data[6], parseInt(data[7]));
-				break;
-			case "Motherboard":
-				hardW = new Motherboard(Double.parseDouble(data[2]), data[3], data[4], 
-						data[5], parseInt(data[6]), parseInt(data[7]),
-						parseInt(data[8]), parseInt(data[9]),
-						data[10].split("-"), parseInt(data[11]), Boolean.parseBoolean(data[12]),
-						Boolean.parseBoolean(data[13]), Boolean.parseBoolean(data[14]), 
-						data[15].split("-"));
-				break;
-			case "SSD":
-				hardW = new SSD(Double.parseDouble(data[2]), data[3], data[4],
-					parseInt(data[5]), parseInt(data[6]),
-					parseInt(data[7]), data[8], data[9]);
+				hardW = new CPU(Integer.parseInt(data[2]), data[3], data[4], 
+						data[5], Double.parseDouble(data[6]),
+						Double.parseDouble(data[7]), Double.parseDouble(data[8]), 
+						parseInt(data[9]), data[10], parseInt(data[11]),
+						parseInt(data[12]), parseInt(data[13]),
+						parseInt(data[14]), data[15]);
 				break;
 			case "GPU":
-				hardW = new GPU(Double.parseDouble(data[2]), data[3], data[4],
-						Double.parseDouble(data[5]), Double.parseDouble(data[6]), 
-						parseInt(data[7]), data[8], data[9],
-						parseInt(data[10]), parseInt(data[11]));
+				hardW = new GPU(Integer.parseInt(data[2]), data[3], data[4], 
+						data[5], Double.parseDouble(data[6]),
+						Double.parseDouble(data[7]), Double.parseDouble(data[8]), 
+						parseInt(data[9]), data[10],
+						parseInt(data[11]), parseInt(data[12]));
 				break;
-			case "Case":
-				hardW = new Case(Double.parseDouble(data[2]), data[3], data[4],
-						data[5], data[6]);
+			case "RAM":
+				hardW = new RAM(Integer.parseInt(data[2]), data[3], data[4], 
+						data[5], Double.parseDouble(data[6]), 
+						Integer.parseInt(data[7]), data[8], parseInt(data[9]));
+				break;
+			case "Motherboard":
+				hardW = new Motherboard(Integer.parseInt(data[2]), data[3], data[4], 
+						data[5], Double.parseDouble(data[6]), 
+						data[7], parseInt(data[8]), parseInt(data[9]),
+						parseInt(data[10]), parseInt(data[11]),
+						data[12].split("-"), parseInt(data[13]), Boolean.parseBoolean(data[14]),
+						Boolean.parseBoolean(data[15]), Boolean.parseBoolean(data[16]), 
+						data[17].split("-"));
+				break;
+			case "SSD":
+				hardW = new SSD(Integer.parseInt(data[2]), data[3], data[4], 
+						data[5], Double.parseDouble(data[6]),
+					parseInt(data[7]), parseInt(data[8]),
+					parseInt(data[9]), data[10], data[11]);
 				break;
 			case "PowerSupply":
-				hardW = new PowerSupply(Double.parseDouble(data[2]), data[3], data[4],
-						parseInt(data[5]), data[6], data[7]);
+				hardW = new PowerSupply(Integer.parseInt(data[2]), data[3], data[4], 
+						data[5], Double.parseDouble(data[6]),
+						parseInt(data[7]), data[8], data[9]);
+				break;
+			case "Case":
+				hardW = new Case(Integer.parseInt(data[2]), data[3], data[4], 
+						data[5], Double.parseDouble(data[6]),
+						data[7], data[8]);
+				break;
 		}
 		return hardW;
 	}
@@ -392,12 +403,12 @@ public class HardwareSystem {
 	}
 
 
-	public static ArrayList<Computer> getComputers() {
+	public static HashSet<Computer> getComputers() {
 		return Computers;
 	}
 	
-	public static ArrayList<PersonalComputer> getPersonalComputers() {
-		ArrayList<PersonalComputer> computers = new ArrayList<PersonalComputer>();
+	public static HashSet<PersonalComputer> getPersonalComputers() {
+		HashSet<PersonalComputer> computers = new HashSet<PersonalComputer>();
 		for (Computer computer: Computers) {
 			if (computer instanceof PersonalComputer) {
 				computers.add((PersonalComputer)computer);
@@ -406,8 +417,8 @@ public class HardwareSystem {
 		return computers;
 	}
 	
-	public static ArrayList<Laptop> getLaptops() {
-		ArrayList<Laptop> computers = new ArrayList<Laptop>();
+	public static HashSet<Laptop> getLaptops() {
+		HashSet<Laptop> computers = new HashSet<Laptop>();
 		for (Computer computer: Computers) {
 			if (computer instanceof Laptop) {
 				computers.add((Laptop)computer);
@@ -416,8 +427,8 @@ public class HardwareSystem {
 		return computers;
 	}
 	
-	public static ArrayList<Notebook> getNotebooks() {
-		ArrayList<Notebook> computers = new ArrayList<Notebook>();
+	public static HashSet<Notebook> getNotebooks() {
+		HashSet<Notebook> computers = new HashSet<Notebook>();
 		for (Computer computer: Computers) {
 			if (computer instanceof Notebook) {
 				computers.add((Notebook)computer);
@@ -426,12 +437,12 @@ public class HardwareSystem {
 		return computers;
 	}
 	
-	public static ArrayList<HardwareComponent> getHardwareComponents() {
+	public static HashSet<HardwareComponent> getHardwareComponents() {
 		return HardwareComponents;
 	}
 	
-	public static ArrayList<ProcessingUnit> getProcessingUnits() {
-		ArrayList<ProcessingUnit> components = new ArrayList<ProcessingUnit>();
+	public static HashSet<ProcessingUnit> getProcessingUnits() {
+		HashSet<ProcessingUnit> components = new HashSet<ProcessingUnit>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof ProcessingUnit) {
 				components.add((ProcessingUnit)component);
@@ -440,8 +451,8 @@ public class HardwareSystem {
 		return components;
 	}
 	
-	public static ArrayList<CPU> getCPUs() {
-		ArrayList<CPU> components = new ArrayList<CPU>();
+	public static HashSet<CPU> getCPUs() {
+		HashSet<CPU> components = new HashSet<CPU>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof CPU) {
 				components.add((CPU)component);
@@ -450,8 +461,8 @@ public class HardwareSystem {
 		return components;
 	}
 	
-	public static ArrayList<GPU> getGPUs() {
-		ArrayList<GPU> components = new ArrayList<GPU>();
+	public static HashSet<GPU> getGPUs() {
+		HashSet<GPU> components = new HashSet<GPU>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof GPU) {
 				components.add((GPU)component);
@@ -460,8 +471,8 @@ public class HardwareSystem {
 		return components;
 	}
 	
-	public static ArrayList<MemoryUnit> getMemoryUnits() {
-		ArrayList<MemoryUnit> components = new ArrayList<MemoryUnit>();
+	public static HashSet<MemoryUnit> getMemoryUnits() {
+		HashSet<MemoryUnit> components = new HashSet<MemoryUnit>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof MemoryUnit) {
 				components.add((MemoryUnit)component);
@@ -470,8 +481,8 @@ public class HardwareSystem {
 		return components;
 	}
 	
-	public static ArrayList<RAM> getRAMs() {
-		ArrayList<RAM> components = new ArrayList<RAM>();
+	public static HashSet<RAM> getRAMs() {
+		HashSet<RAM> components = new HashSet<RAM>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof RAM) {
 				components.add((RAM)component);
@@ -480,8 +491,8 @@ public class HardwareSystem {
 		return components;
 	}
 	
-	public static ArrayList<SSD> getSSDs() {
-		ArrayList<SSD> components = new ArrayList<SSD>();
+	public static HashSet<SSD> getSSDs() {
+		HashSet<SSD> components = new HashSet<SSD>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof SSD) {
 				components.add((SSD)component);
@@ -490,8 +501,8 @@ public class HardwareSystem {
 		return components;
 	}
 	
-	public static ArrayList<Motherboard> getMotherboards() {
-		ArrayList<Motherboard> components = new ArrayList<Motherboard>();
+	public static HashSet<Motherboard> getMotherboards() {
+		HashSet<Motherboard> components = new HashSet<Motherboard>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof Motherboard) {
 				components.add((Motherboard)component);
@@ -500,8 +511,8 @@ public class HardwareSystem {
 		return components;
 	}
 	
-	public static ArrayList<PowerSupply> getPowerSupplys() {
-		ArrayList<PowerSupply> components = new ArrayList<PowerSupply>();
+	public static HashSet<PowerSupply> getPowerSupplys() {
+		HashSet<PowerSupply> components = new HashSet<PowerSupply>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof PowerSupply) {
 				components.add((PowerSupply)component);
@@ -510,8 +521,8 @@ public class HardwareSystem {
 		return components;
 	}
 	
-	public static ArrayList<Case> getCases() {
-		ArrayList<Case> components = new ArrayList<Case>();
+	public static HashSet<Case> getCases() {
+		HashSet<Case> components = new HashSet<Case>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof Case) {
 				components.add((Case)component);
@@ -558,7 +569,7 @@ public class HardwareSystem {
 		return part.toString();
 	}
 	
-	public static <T> String displayHardwarePartList(ArrayList<T> partList) {
+	public static <T> String displayHardwarePartList(HashSet<T> partList) {
 		String str = "";
 		for (Object part: partList) {
 			if (part instanceof HardwareComponent || part instanceof Computer) {
