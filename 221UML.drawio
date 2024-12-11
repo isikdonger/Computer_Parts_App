@@ -757,10 +757,10 @@
         <mxCell id="FOO_KDk0KmY5DdG3qkgy-20" value="+ getMemoryUnits(): HashSet&amp;lt;MemoryUnit&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
           <mxGeometry y="790" width="590" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="FOO_KDk0KmY5DdG3qkgy-21" value="+ getRAM(): HashSet&amp;lt;RAM&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
+        <mxCell id="FOO_KDk0KmY5DdG3qkgy-21" value="+ getRAMs(): HashSet&amp;lt;RAM&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
           <mxGeometry y="816" width="590" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="FOO_KDk0KmY5DdG3qkgy-22" value="+ getSSD(): HashSet&amp;lt;SSD&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
+        <mxCell id="FOO_KDk0KmY5DdG3qkgy-22" value="+ getSSDs(): HashSet&amp;lt;SSD&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
           <mxGeometry y="842" width="590" height="26" as="geometry" />
         </mxCell>
         <mxCell id="FOO_KDk0KmY5DdG3qkgy-25" value="+ getMotherBoard(): HashSet&amp;lt;Motherboard&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
