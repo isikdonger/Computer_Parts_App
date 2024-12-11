@@ -31,7 +31,9 @@ public abstract class Computer implements HardwarePart, Comparable<Computer> {
 	
 	public Computer(int modelNumber, String brand, String model, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd, Motherboard motherboard,
 			PowerSupply powerSupply, Case Case) {
+		this.modelNumber = modelNumber;
 		this.brand = brand;
+		this.model = model;
 		this.devicePrice = devicePrice;
 		this.cpu = cpu;
 		this.gpu = gpu;

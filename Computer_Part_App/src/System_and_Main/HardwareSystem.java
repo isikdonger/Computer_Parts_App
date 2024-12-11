@@ -105,26 +105,27 @@ public class HardwareSystem {
 			SSD[] s = ssds.toArray(new SSD[0]);
 			switch (computerInfo[1]) {
 				case "Laptop":
-					computer = new Laptop(Integer.parseInt(computerInfo[2]), computerInfo[3], computerInfo[4], Double.parseDouble(computerInfo[3]), 
-							(CPU)components[0], (GPU)components[1], r, s,
+					computer = new Laptop(Integer.parseInt(computerInfo[2]), computerInfo[3], computerInfo[4], 
+							Double.parseDouble(computerInfo[5]), (CPU)components[0], (GPU)components[1], r, s,
 							(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
 							computerData[computerData.length-1]);
 					break;
 				case "PersonelComputer":
 					computer = new PersonalComputer(Integer.parseInt(computerInfo[2]), computerInfo[3], computerInfo[4],
-							Double.parseDouble(computerInfo[3]), 
+							Double.parseDouble(computerInfo[5]), 
 							(CPU)components[0], (GPU)components[1], r, s,
 							(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
 							Boolean.parseBoolean(computerData[computerData.length-1]));
 					break;
 				case "Notebook":
 					computer = new Notebook(Integer.parseInt(computerInfo[2]), computerInfo[3], computerInfo[4],
-							Double.parseDouble(computerInfo[3]), 
+							Double.parseDouble(computerInfo[5]), 
 							(CPU)components[0], (GPU)components[1], r, s,
 							(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
 							computerData[computerData.length-1]);
 					break;
 			}
+			
 			Computers.add(computer);
 		}
 		
