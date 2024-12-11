@@ -17,11 +17,13 @@ public class Laptop extends Computer {
 	}
 
 	// For test purposes
+	/*
 	public Laptop(String brand, double devicePrice, CPU cpu) {
 		this.brand = brand;
 		this.devicePrice = devicePrice;
 		this.cpu = cpu;
 	}
+	*/
 	// End Test
 
 

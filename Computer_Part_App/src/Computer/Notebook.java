@@ -16,11 +16,13 @@ public class Notebook extends Computer {
 	}
 
 	// For test purposes
+	/*
 	public Notebook(String brand, double devicePrice, CPU cpu) {
 		this.brand = brand;
 		this.devicePrice = devicePrice;
 		this.cpu = cpu;
 	}
+	*/
 	// End Test
 	
 	public String getScreenResolution() {
