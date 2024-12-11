@@ -748,10 +748,10 @@
         <mxCell id="79grwEKTlOBAW2LvvFiv-51" value="&lt;span&gt;+ getProcessingUnits():&amp;nbsp;&lt;/span&gt;&lt;span&gt;HashSet&lt;/span&gt;&lt;span&gt;&amp;lt;ProcessingUnit&amp;gt;&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
           <mxGeometry y="712" width="590" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="FOO_KDk0KmY5DdG3qkgy-18" value="+ getCPU(): HashSet&amp;lt;CPU&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
+        <mxCell id="FOO_KDk0KmY5DdG3qkgy-18" value="+ getCPUs(): HashSet&amp;lt;CPU&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
           <mxGeometry y="738" width="590" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="FOO_KDk0KmY5DdG3qkgy-19" value="+ getGPU(): HashSet&amp;lt;GPU&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
+        <mxCell id="FOO_KDk0KmY5DdG3qkgy-19" value="+ getGPUs(): HashSet&amp;lt;GPU&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
           <mxGeometry y="764" width="590" height="26" as="geometry" />
         </mxCell>
         <mxCell id="FOO_KDk0KmY5DdG3qkgy-20" value="+ getMemoryUnits(): HashSet&amp;lt;MemoryUnit&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" parent="79grwEKTlOBAW2LvvFiv-3" vertex="1">
