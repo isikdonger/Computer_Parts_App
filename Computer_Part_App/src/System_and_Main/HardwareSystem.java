@@ -1,5 +1,6 @@
 package System_and_Main;
 import Computer.*;
+import GUI.CompareFrame;
 import HardwareComponent.*;
 import Interface.HardwarePart;
 
@@ -10,14 +11,24 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeSet;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import static java.lang.Integer.parseInt;
+
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class HardwareSystem {
 	private static HashSet<HardwareComponent> HardwareComponents = new HashSet<HardwareComponent>();
@@ -110,7 +121,7 @@ public class HardwareSystem {
 							(Motherboard)components[4], (PowerSupply)components[5], (Case)components[6], 
 							computerData[computerData.length-1]);
 					break;
-				case "PersonelComputer":
+				case "PersonalComputer":
 					computer = new PersonalComputer(Integer.parseInt(computerInfo[2]), computerInfo[3], computerInfo[4],
 							Double.parseDouble(computerInfo[5]), 
 							(CPU)components[0], (GPU)components[1], r, s,
@@ -125,7 +136,6 @@ public class HardwareSystem {
 							computerData[computerData.length-1]);
 					break;
 			}
-			
 			Computers.add(computer);
 		}
 		
@@ -185,14 +195,14 @@ public class HardwareSystem {
 	}
 	
 	public static boolean addData(Computer computer) throws FileNotFoundException {
-		File file = new File(C_FILENAME);
+		File file = new File("test.txt");
 		if (!file.exists()) {
 			System.out.println("File does not exists!");
 			return false;
 		}
 		else {
 			PrintWriter pw = new PrintWriter(file);
-			pw.append(computer.toFile());
+			pw.println(computer.toFile().replaceAll("[ \n]", ""));
 			pw.close();
 			
 			return true;
@@ -200,7 +210,7 @@ public class HardwareSystem {
 	}
 
 	// Compare method for computers and components, gets two HardwarePart objects
-	public static HardwarePart compare(HardwarePart p1, HardwarePart p2) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	public static HardwarePart compare(HardwarePart p1, HardwarePart p2) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {	
 		// Base case for type matching, p1 and p2 object should be instantiated from the same class
 		if (!(p1.getClass().equals(p2.getClass()))) {
 			System.out.println("Type mismatch");
@@ -262,7 +272,6 @@ public class HardwareSystem {
 				else if (indexP1 > indexP2)
 					points2++;
 			}
-
 		}
 		else {
 			// For others: bigger the value, better, create dynamic getter
@@ -402,10 +411,38 @@ public class HardwareSystem {
 		// 1 if c1 has won, 0 if c2 has won
 		return points1 > points2;
 	}
-
+	
+	public static double buildComputer(CPU cpu, GPU gpu, RAM ram, int ramAmount, SSD ssd, int ssdAmount, Motherboard motherboard,
+			PowerSupply powerSupply, Case Case, boolean monitor) {
+		PersonalComputer pc = new PersonalComputer();
+		Double price = pc.buildComputer(cpu, gpu, ram, ramAmount, ssd, ssdAmount, motherboard, powerSupply, Case, monitor);
+		Computers.add(pc);
+		/*try {
+			addData(pc);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		return price;
+	}
 
 	public static HashSet<Computer> getComputers() {
 		return Computers;
+	}
+	
+	public static String[] getComputersArray(Computer object) {
+		TreeSet<Computer> set = new TreeSet<Computer>();
+		set.addAll(Computers);
+		if (object!=null)  {
+			set.remove(object);
+		}
+		String[] arr = new String[set.size()];
+		int i=0;
+		for (Computer c: set) {
+			arr[i] = c.getModelName();
+			i++;
+		}
+		return arr;
 	}
 	
 	public static HashSet<PersonalComputer> getPersonalComputers() {
@@ -442,6 +479,19 @@ public class HardwareSystem {
 		return HardwareComponents;
 	}
 	
+	public static String[] getHardwareComponentsArray(HardwareComponent object) {
+		TreeSet<HardwareComponent> set = new TreeSet<HardwareComponent>();
+		set.addAll(HardwareComponents);
+		if (object!=null)  { set.remove(object); }
+		String[] arr = new String[set.size()];
+		int i=0;
+		for (HardwareComponent c: set) {
+			arr[i] = c.getModelName();
+			i++;
+		}
+		return arr;
+	}
+	
 	public static HashSet<ProcessingUnit> getProcessingUnits() {
 		HashSet<ProcessingUnit> components = new HashSet<ProcessingUnit>();
 		for (HardwareComponent component: HardwareComponents) {
@@ -452,24 +502,43 @@ public class HardwareSystem {
 		return components;
 	}
 	
-	public static HashSet<CPU> getCPUs() {
+	public static String[] getCPUs(Motherboard mb) {
 		HashSet<CPU> components = new HashSet<CPU>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof CPU) {
-				components.add((CPU)component);
+				try {
+					if (mb.cpuCompatibility((CPU)component)) {
+						components.add((CPU)component);
+					}
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
-		return components;
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
 	}
 	
-	public static HashSet<GPU> getGPUs() {
+	public static String[] getGPUs() {
 		HashSet<GPU> components = new HashSet<GPU>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof GPU) {
 				components.add((GPU)component);
 			}
 		}
-		return components;
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
 	}
 	
 	public static HashSet<MemoryUnit> getMemoryUnits() {
@@ -482,69 +551,102 @@ public class HardwareSystem {
 		return components;
 	}
 	
-	public static HashSet<RAM> getRAMs() {
+	public static String[] getRAMs(Motherboard mb, CPU cpu, int amount) {
 		HashSet<RAM> components = new HashSet<RAM>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof RAM) {
-				components.add((RAM)component);
+				if (((RAM)component).getTechnology().equalsIgnoreCase(cpu.getRamCompatibility()) && ((RAM)component).getCapacity()<=mb.getMaxMemory()/amount) {
+					components.add((RAM)component);
+				}
 			}
 		}
-		return components;
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
 	}
 	
-	public static HashSet<SSD> getSSDs() {
+	public static String[] getSSDs(Motherboard mb) {
 		HashSet<SSD> components = new HashSet<SSD>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof SSD) {
-				components.add((SSD)component);
+				HashSet<String> slots = new HashSet<String>(Arrays.asList(mb.getStorageSlot()));
+				if (slots.contains(((SSD)component).getInterfaceName())) {
+					components.add((SSD)component);
+				}
 			}
 		}
-		return components;
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
 	}
 	
-	public static HashSet<Motherboard> getMotherboards() {
+	public static String[] getMotherboards() {
 		HashSet<Motherboard> components = new HashSet<Motherboard>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof Motherboard) {
 				components.add((Motherboard)component);
 			}
 		}
-		return components;
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
 	}
 	
-	public static HashSet<PowerSupply> getPowerSupplys() {
+	public static String[] getPowerSupplys(GPU gpu, Case Case) {
 		HashSet<PowerSupply> components = new HashSet<PowerSupply>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof PowerSupply) {
-				components.add((PowerSupply)component);
+				if (((PowerSupply)component).getWattage()>=gpu.getPsu() && ((PowerSupply)component).getFormFactor().equalsIgnoreCase(Case.getFormFactor())) {
+					components.add((PowerSupply)component);
+				}
 			}
 		}
-		return components;
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
 	}
 	
-	public static HashSet<Case> getCases() {
+	public static String[] getCases() {
 		HashSet<Case> components = new HashSet<Case>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof Case) {
 				components.add((Case)component);
 			}
 		}
-		return components;
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
 	}
 	
-	public static Object findHardwarePart(Object part) {
-		if (part instanceof HardwareComponent) {
-			for (HardwareComponent component: HardwareComponents) {
-				if (component.equals(part)) {
-					return component;
-				}
+	public static HardwarePart findHardwarePart(int modelNumber) {
+		for (Computer c: Computers) {
+			if (c.getModelNumber()==modelNumber) {
+				return c;
 			}
 		}
-		else if (part instanceof Computer) {
-			for (Computer computer: Computers) {
-				if (computer.equals(part)) {
-					return computer;
-				}
+		for (HardwareComponent c: HardwareComponents) {
+			if (c.getModelNumber()==modelNumber) {
+				return c;
 			}
 		}
 		return null;
@@ -562,22 +664,23 @@ public class HardwareSystem {
 		return false;
 	}
 	
-	public static String displayHardwarePart(HardwareComponent part) {
+	public static String displayHardwarePart(HardwarePart part) {
 		return part.toString();
 	}
 	
-	public static String displayHardwarePart(Computer part) {
-		return part.toString();
-	}
-	
-	public static <T> String displayHardwarePartList(HashSet<T> partList) {
+	public static String displayComponents() {
 		String str = "";
-		for (Object part: partList) {
-			if (part instanceof HardwareComponent || part instanceof Computer) {
-				str += part.toString();
-			}
+		for (HardwareComponent part: HardwareComponents) {
+			str += part.toString();
 		}
-		System.out.println(str);
+		return str;
+	}
+	
+	public static String displayComputers() {
+		String str = "";
+		for (Computer computer: Computers) {
+			str += computer.toString();
+		}
 		return str;
 	}
 }

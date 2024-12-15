@@ -17,7 +17,7 @@ public class Motherboard extends HardwareComponent {
 	private boolean bluetooth;
 	private boolean soundCard;
 	private String[] ioPorts;
-	private static final String FILENAME = "cpuComptability.txt";
+	private static final String FILENAME = "cpuCompatibility.txt";
 	
 	public Motherboard(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice,
 			String chipset, int memorySlots, int maxMemory, int hdmiPorts, int displayPorts, String[] storageSlot,
@@ -100,10 +100,9 @@ public class Motherboard extends HardwareComponent {
 
 	@Override
 	public String toString() {
-		return "Motherboard:\nchipset: " + chipset + "\nmemorySlots: " + memorySlots + "\nmaxMemory: " + maxMemory
-				+ "\nhdmiPorts: " + hdmiPorts + "\ndisplayPorts: " + displayPorts + "\nstorageSlot: "
-				+ Arrays.toString(storageSlot) + "\nethernetCapacity: " + ethernetCapacity + "\nwifi: " + wifi
-				+ "\nbluetooth: " + bluetooth + "\nsoundCard: " + soundCard + "\nioPorts: " + Arrays.toString(ioPorts)
-				+ "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand + "\n";
+		return super.toString() + "Component Type: Motherboard\nChipset: " + chipset + "\nMemory Slots: " + memorySlots + "\nMax Memory: " + maxMemory
+				+ "\nHdmi Ports: " + hdmiPorts + "\nDisplay Ports: " + displayPorts + "\nStorage Slots: "
+				+ Arrays.toString(storageSlot) + "\nEthernet Capacity: " + ethernetCapacity + "\nWifi: " + wifi
+				+ "\nBluetooth: " + bluetooth + "\nSound Card: " + soundCard + "\nIO Ports: " + Arrays.toString(ioPorts) + "\n\n";
 	}
 }

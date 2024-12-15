@@ -18,8 +18,7 @@ public abstract class MemoryUnit extends HardwareComponent {
 
 	@Override
 	public String toString() {
-		return "MemoryUnity:\ncapacity: " + capacity + "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: "
-				+ releaseDate + "\nbrand: " + brand + "\n";
+		return super.toString() + "Capacity: " + capacity + "\n";
 	}
 	
 }

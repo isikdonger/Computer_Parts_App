@@ -19,7 +19,7 @@ public abstract class HardwareComponent implements HardwarePart, Comparable<Hard
 	protected double recommendedPrice;
 	
 	public HardwareComponent(int modelNumber, String brand, String model, String releaseDate, double recommendedPrice) {
-		super();
+		count++;
 		this.modelNumber = modelNumber;
 		this.brand = brand;
 		this.model = model;
@@ -76,6 +76,10 @@ public abstract class HardwareComponent implements HardwarePart, Comparable<Hard
 	public String getModel() {
 		return model;
 	}
+	
+	public String getModelName() {
+		return modelNumber + ". " + brand + " " + model;
+	}
 
 	public double getRecommendedPrice() {
 		return recommendedPrice;
@@ -110,7 +114,6 @@ public abstract class HardwareComponent implements HardwarePart, Comparable<Hard
 
 	@Override
 	public String toString() {
-		return "HardwareComponent:\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
-				+ "\nbrand: " + brand + "\n";
+		return "Brand: " +  brand + "\nRecommended Price: " + recommendedPrice + "\nRelease Date: " + releaseDate;
 	}
 }

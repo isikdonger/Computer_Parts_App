@@ -34,10 +34,7 @@ public class GPU extends ProcessingUnit {
 
 	@Override
 	public String toString() {
-		return "GPU:\ngpuType: " + gpuType + "\nvram: " + vram + "\npsu: " + psu + "\nbaseClockSpeed: " + baseClockSpeed
-				+ "\nturboClockSpeed: " + turboClockSpeed + "\nbenchmarkScore: "
-				+ benchmarkScore + "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
-				+ "\nbrand: " + brand + "\n";
+		return "Component Type: GPU\n" + super.toString() + "Gpu Type: " + gpuType + "\nVram: " + vram + "\nPsu: " + psu + "\n\n";
 	}
 	
 }

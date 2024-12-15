@@ -38,9 +38,8 @@ public class SSD extends MemoryUnit {
 
 	@Override
 	public String toString() {
-		return "SSD:\nreadSpeed: " + readSpeed + "\nwriteSpeed: " + writeSpeed + "\nformFactor: " + form
-				+ "\ninterfaceName: " + interfaceName + "\ncapacity: " + capacity + "\nrecommendedPrice: "
-				+ recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand + "\n";
+		return "Component Type: SSD\n" + super.toString() + "Read Speed: " + readSpeed + "\nWrite Speed: " + writeSpeed + "\nForm Factor: " + form + "\nInterface Name: "
+				+ interfaceName + "\n\n";
 	}
 	
 }

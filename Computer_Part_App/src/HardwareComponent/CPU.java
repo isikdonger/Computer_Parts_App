@@ -56,11 +56,9 @@ public class CPU extends ProcessingUnit {
 
 	@Override
 	public String toString() {
-		return "CPU:\nthreadCount: " + threadCount + "\ncoreCount: " + coreCount + "\nmemoryChannel: " + memoryChannel
-				+ "\nmaxMemorySize: " + maxMemorySize + "\nramCompatibility: " + ramCompatibility + "\nbaseClockSpeed: "
-				+ baseClockSpeed + "\nturboClockSpeed: " + turboClockSpeed + "\nArchitecture: " + architecture
-				+ "\nbenchmarkScore: " + benchmarkScore + "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: "
-				+ releaseDate + "\nbrand: " + brand + "\n";
+		return "Component Type: CPU\n" + super.toString() + "\nArchitecture: " + architecture + "\nThread Count: " + threadCount + "\nCore Count: " + coreCount
+				+ "\nMemory Channel: " + memoryChannel + "\nMax Memory Size: " + maxMemorySize + "\nRam Compatibility: "
+				+ ramCompatibility + "\n\n";
 	}
 	
 }

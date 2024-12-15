@@ -30,8 +30,7 @@ public abstract class ProcessingUnit extends HardwareComponent {
 
 	@Override
 	public String toString() {
-		return "ProcessingUnit:\nbaseClockSpeed: " + baseClockSpeed + "\nturboClockSpeed: " + turboClockSpeed
-				+ "\narchitecture: " + "\nbenchmarkScore: " + benchmarkScore + "\nrecommendedPrice: "
-				+ recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand + "\n";
+		return super.toString() + "Base Clock Speed: " + baseClockSpeed + "\nTurbo Clock Speed: " + turboClockSpeed
+				+ "\nBenchmark Score: " + benchmarkScore + "\n";
 	}
 }

@@ -4,6 +4,8 @@ import HardwareComponent.*;
 import java.lang.reflect.Field;
 import java.util.*;
 
+import javax.swing.JFrame;
+
 public class Notebook extends Computer {
 	private String screenResolution;
 	
@@ -30,22 +32,20 @@ public class Notebook extends Computer {
 	}
 	
 	@Override
-	public Computer buildComputer() {
-		return null;
+	public double buildComputer(CPU cpu, GPU gpu, RAM ram, int ramAmount, SSD ssd, int ssdAmount, Motherboard motherboard,
+			PowerSupply powerSupply, Case Case, boolean monitor) {
+		return 0.0;
 	}
-
-	@Override
-	public String toString() {
-		return "Notebook:\nscreenResolution: " + screenResolution + "\nbrand: " + brand + "\ndevicePrice: "
-				+ devicePrice + "\ncpu: " + cpu + "\ngpu: " + gpu + "\nram: " + Arrays.toString(ram) + "\nssd: "
-				+ Arrays.toString(ssd) + "\nmotherboard: " + motherboard + "\npowerSupply: " + powerSupply + "\nCase: "
-				+ Case;
-	}
-
+	
 	@Override
 	public String toFile() {
 		return "Computer::Laptop::"+ devicePrice + "::" + brand +
 				"||" + cpu + "||" + gpu + "||" + ram + "||" + ssd + "||" + motherboard + "||" + powerSupply +
 				"||" + Case + "||" + screenResolution + "\n";
+	}
+
+	@Override
+	public String toString() {
+		return "Computer Type: Notebook\n" + super.toString() + "Screen Resolution: " + screenResolution + "\n\n";
 	}
 }

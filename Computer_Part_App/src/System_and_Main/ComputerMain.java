@@ -1,7 +1,6 @@
 package System_and_Main;
 
 import java.io.FileNotFoundException;
-
 import GUI.MainFrame;
 
 public class ComputerMain {
@@ -11,13 +10,11 @@ public class ComputerMain {
 			HardwareSystem.readComponentData();
 			HardwareSystem.readComputerData();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		MainFrame mf = new MainFrame();
 		mf.setVisible(true);
 	}
-
 
 }

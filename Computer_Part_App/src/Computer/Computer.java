@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.swing.JFrame;
+
 public abstract class Computer implements HardwarePart, Comparable<Computer> {
 	protected static int count=0;
 	protected int modelNumber;
@@ -27,7 +29,9 @@ public abstract class Computer implements HardwarePart, Comparable<Computer> {
 	protected PowerSupply powerSupply;
 	protected Case Case;
 	
-	public Computer() {}
+	public Computer() {
+		count++;
+	}
 	
 	public Computer(int modelNumber, String brand, String model, double devicePrice, CPU cpu, GPU gpu, RAM[] ram, SSD[] ssd, Motherboard motherboard,
 			PowerSupply powerSupply, Case Case) {
@@ -83,7 +87,8 @@ public abstract class Computer implements HardwarePart, Comparable<Computer> {
 		return values;
 	}
 
-	public abstract Computer buildComputer();
+	public abstract double buildComputer(CPU cpu, GPU gpu, RAM ram, int ramAmount, SSD ssd, int ssdAmount, Motherboard motherboard,
+			PowerSupply powerSupply, Case Case, boolean monitor);
 	public abstract String toFile();
 	
 	public static int getCount() {
@@ -100,6 +105,10 @@ public abstract class Computer implements HardwarePart, Comparable<Computer> {
 	
 	public String getModel() {
 		return model;
+	}
+	
+	public String getModelName() {
+		return modelNumber + ". " + brand + " " + model;
 	}
 
 	public double getDevicePrice() {
@@ -176,8 +185,9 @@ public abstract class Computer implements HardwarePart, Comparable<Computer> {
 
 	@Override
 	public String toString() {
-		return "Computer:\nbrand: " + brand + "\ndevicePrice: " + devicePrice + "\ncpu: " + cpu + "\ngpu: " + gpu
-				+ "\nram: " + Arrays.toString(ram) + "\nssd: " + Arrays.toString(ssd) + "\nmotherboard: " + motherboard
-				+ "\npowerSupply: " + powerSupply + "\nCase: " + Case + "\n";
+		return "Model Number: " + modelNumber + "\nBrand: " + brand + "\nModel: " + model + "\nDevice Price: "
+				+ devicePrice + "\nCpu: " + cpu + "\nGpu: " + gpu + "\nRams: " + Arrays.toString(ram).substring(1, Arrays.toString(ram).length()-1) + "\nSsds: "
+				+ Arrays.toString(ssd).substring(1, Arrays.toString(ssd).length()-1) + "\nMotherboard: " + motherboard + "\nPowerSupply: " + powerSupply + "\nCase: "
+				+ Case + "\n";
 	}
 }

@@ -33,8 +33,7 @@ public class PowerSupply extends HardwareComponent {
 
 	@Override
 	public String toString() {
-		return "PowerSupply:\nwattage: " + wattage + "\nformFactor: " + formFactor + "\nefficiencyTier: "
-				+ efficiencyTier + "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate
-				+ "\nbrand: " + brand + "\n";
+		return super.toString() + "Component Type: Power Supply\nWattage: " + wattage + "\nForm Factor: " + formFactor + "\nEfficiency Tier: "
+				+ efficiencyTier + "\n\n";
 	}
 }

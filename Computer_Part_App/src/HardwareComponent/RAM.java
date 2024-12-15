@@ -26,8 +26,7 @@ public class RAM extends MemoryUnit {
 
 	@Override
 	public String toString() {
-		return "RAM:\ntechnology: " + technology + "\ntransferSpeed: " + transferSpeed + "\ncapacity: " + capacity
-				+ "\nrecommendedPrice: " + recommendedPrice + "\nreleaseDate: " + releaseDate + "\nbrand: " + brand + "\n";
+		return "Component Type: RAM\n" + super.toString() + "Technology: " + technology + "\nTransfer Speed: " + transferSpeed + "\n\n";
 	}
 	
 }
