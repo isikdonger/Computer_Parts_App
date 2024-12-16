@@ -116,4 +116,13 @@ public abstract class HardwareComponent implements HardwarePart, Comparable<Hard
 	public String toString() {
 		return "Brand: " +  brand + "\nRecommended Price: " + recommendedPrice + "\nRelease Date: " + releaseDate;
 	}
+	
+	public String fileString() {
+		return modelNumber + "::" 
+			    + brand + "::" 
+				+ model + "::" 
+			    + releaseDate + "::" 
+				+ recommendedPrice + "::";
+	}
+	
 }

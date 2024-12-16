@@ -6,6 +6,8 @@ import Interface.HardwarePart;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -194,17 +196,22 @@ public class HardwareSystem {
 		return hardW;
 	}
 	
-	public static boolean addData(Computer computer) throws FileNotFoundException {
+	public static boolean addData(Computer computer) throws IOException {
 		File file = new File("test.txt");
+		FileWriter fw = null;
+		PrintWriter pw = null;
+		
 		if (!file.exists()) {
 			System.out.println("File does not exists!");
 			return false;
 		}
 		else {
-			PrintWriter pw = new PrintWriter(file);
-			pw.println(computer.toFile().replaceAll("[ \n]", ""));
+			fw = new FileWriter(file, true);
+			pw = new PrintWriter(fw);
+			//String str = ((PersonalComputer) computer).fileString();
+			String str = computer.fileString();
+			pw.println(str);
 			pw.close();
-			
 			return true;
 		}
 	}

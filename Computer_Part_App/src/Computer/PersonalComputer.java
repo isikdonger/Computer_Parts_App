@@ -60,4 +60,9 @@ public class PersonalComputer extends Computer {
 	public String toString() {
 		return "Computer Type: Personel Computer\n" + super.toString() + "Monitor Status: " + monitorConnected + "\n\n";
 	}
+	
+	public String fileString() {
+		return super.fileString() 
+				+ monitorConnected;
+	}
 }

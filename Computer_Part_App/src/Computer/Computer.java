@@ -190,4 +190,37 @@ public abstract class Computer implements HardwarePart, Comparable<Computer> {
 				+ Arrays.toString(ssd).substring(1, Arrays.toString(ssd).length()-1) + "\nMotherboard: " + motherboard + "\nPowerSupply: " + powerSupply + "\nCase: "
 				+ Case + "\n";
 	}
+	
+
+public String arrayWrite(Object[] arr) {
+		String outp = "[";
+		
+		
+		for (Object o : arr) {
+			if (o instanceof RAM) {
+				outp += ((RAM) o).fileString() + "<>";		
+			}
+			else if (o instanceof SSD) {
+				outp += ((SSD) o).fileString() + "<>";
+			}
+		}
+		outp = outp.substring(0, outp.length()-2) + "]||";
+		
+		return outp;
+	}
+	
+	public String fileString() {
+		return "Computer::PersonalComputer::"
+				+ modelNumber + "::" 
+			    + brand + "::" 
+				+ model + "::" 
+				+ devicePrice + "||"
+				+ cpu.fileString()
+				+ gpu.fileString()
+				+ arrayWrite(ram)
+				+ arrayWrite(ssd)
+				+ motherboard.fileString()
+				+ powerSupply.fileString()
+				+ Case.fileString();
+	}
 }

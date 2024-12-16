@@ -36,4 +36,12 @@ public class PowerSupply extends HardwareComponent {
 		return super.toString() + "Component Type: Power Supply\nWattage: " + wattage + "\nForm Factor: " + formFactor + "\nEfficiency Tier: "
 				+ efficiencyTier + "\n\n";
 	}
+	
+	public String fileString() {
+		return "HardwareComponent::PowerSupply::"
+				+ super.fileString() 
+				+ wattage + "::"
+				+ formFactor + "::"
+				+ efficiencyTier + "||";
+	}
 }

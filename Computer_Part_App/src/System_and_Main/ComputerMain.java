@@ -1,11 +1,14 @@
 package System_and_Main;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import Computer.*;
 import GUI.MainFrame;
 
 public class ComputerMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		try {
 			HardwareSystem.readComponentData();
 			HardwareSystem.readComputerData();
@@ -13,8 +16,15 @@ public class ComputerMain {
 			e.printStackTrace();
 		}
 		
+		
+		Computer c = (Computer) HardwareSystem.findHardwarePart(37);
+		HardwareSystem.addData(c);
+	
+		
 		MainFrame mf = new MainFrame();
 		mf.setVisible(true);
+		
+		
 	}
 
 }

@@ -61,4 +61,15 @@ public class CPU extends ProcessingUnit {
 				+ ramCompatibility + "\n\n";
 	}
 	
+	public String fileString() {
+		return "HardwareComponent::CPU::"
+				+ super.fileString() 
+				+ architecture + "::"
+				+ threadCount + "::"
+				+ coreCount + "::" 
+				+ memoryChannel + "::" 
+				+ maxMemorySize + "::" 
+				+ ramCompatibility + "||";
+	}
+	
 }

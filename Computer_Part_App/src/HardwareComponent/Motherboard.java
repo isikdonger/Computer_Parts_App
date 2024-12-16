@@ -105,4 +105,30 @@ public class Motherboard extends HardwareComponent {
 				+ Arrays.toString(storageSlot) + "\nEthernet Capacity: " + ethernetCapacity + "\nWifi: " + wifi
 				+ "\nBluetooth: " + bluetooth + "\nSound Card: " + soundCard + "\nIO Ports: " + Arrays.toString(ioPorts) + "\n\n";
 	}
+	
+	public String arrayWrite(String[] arr) {
+		String outp = "";
+		for (String s : arr) {
+			outp += s + " ";
+		}
+		outp.trim();
+		return null;
+	}
+	
+
+	public String fileString() {
+		return "HardwareComponent::Motherboard::"
+				+ super.fileString() 
+				+ chipset + "::"
+				+ memorySlots + "::"
+				+ maxMemory + "::"
+				+ hdmiPorts + "::"
+				+ displayPorts + "::"
+				+ arrayWrite(storageSlot) + "::"
+				+ ethernetCapacity + "::"
+				+ wifi + "::"
+				+ bluetooth + "::"
+				+ soundCard + "::"
+				+ arrayWrite(ioPorts) + "||";
+	}
 }

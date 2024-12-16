@@ -33,4 +33,11 @@ public abstract class ProcessingUnit extends HardwareComponent {
 		return super.toString() + "Base Clock Speed: " + baseClockSpeed + "\nTurbo Clock Speed: " + turboClockSpeed
 				+ "\nBenchmark Score: " + benchmarkScore + "\n";
 	}
+	
+	public String fileString() {
+		return super.fileString() 
+				+ baseClockSpeed + "::"
+				+ turboClockSpeed + "::"
+				+ benchmarkScore + "::";
+	}
 }

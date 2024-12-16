@@ -21,4 +21,8 @@ public abstract class MemoryUnit extends HardwareComponent {
 		return super.toString() + "Capacity: " + capacity + "\n";
 	}
 	
+	public String fileString() {
+		return super.fileString() 
+				+ capacity + "::";
+	}
 }

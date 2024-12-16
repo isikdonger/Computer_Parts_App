@@ -1,8 +1,14 @@
 package HardwareComponent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Map;
+
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,5 +43,12 @@ public class Case extends HardwareComponent {
 	@Override
 	public String toString() {
 		return "Component Type: Case\n" + super.toString() + "Form Factor: " + formFactor + "\nMaterial: " + material + "\nDurability: " + durability + "\n\n";
+	}
+	
+	public String fileString() {
+		return "HardwareComponent::Case::"
+			    + super.fileString() 
+				+ formFactor + "::"
+				+ material + "||";
 	}
 }

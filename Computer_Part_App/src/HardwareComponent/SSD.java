@@ -42,4 +42,13 @@ public class SSD extends MemoryUnit {
 				+ interfaceName + "\n\n";
 	}
 	
+	public String fileString() {
+		return "HardwareComponent::SSD::"
+				+ super.fileString() 
+				+ readSpeed + "::"
+				+ writeSpeed + "::"
+				+ form + "::"
+				+ interfaceName;
+	}
+	
 }
