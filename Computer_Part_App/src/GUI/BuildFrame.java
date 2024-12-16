@@ -101,8 +101,8 @@ public class BuildFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				mb = (Motherboard) HardwareSystem.findHardwarePart(Integer.parseInt(MotherboardCB.getSelectedItem().toString().replaceAll("\\D*(\\d+).*", "$1")));
 				cpuCB.setModel(new DefaultComboBoxModel(HardwareSystem.getCPUs(mb)));
-				ramSpinner.setModel(new SpinnerNumberModel(1, 0, mb.getMemorySlots(), 1));
-				ssdSpinner.setModel(new SpinnerNumberModel(1, 0, mb.getStorageSlot().length, 1));
+				ramSpinner.setModel(new SpinnerNumberModel(1, 1, mb.getMemorySlots(), 1));
+				ssdSpinner.setModel(new SpinnerNumberModel(1, 1, mb.getStorageSlot().length, 1));
 			}
 		});
 		GridBagConstraints gbc_motherboardCB = new GridBagConstraints();
@@ -173,7 +173,7 @@ public class BuildFrame extends JFrame {
 		contentPane.add(ramAmountLB, gbc_ramAmountLB);
 		
 		ramSpinner = new JSpinner();
-		ramSpinner.setModel(new SpinnerNumberModel(0, 0, 0, 1));
+		ramSpinner.setModel(new SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
 		ramSpinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -220,7 +220,7 @@ public class BuildFrame extends JFrame {
 		contentPane.add(ssdAmountLB, gbc_ssdAmountLB);
 		
 		ssdSpinner = new JSpinner();
-		ssdSpinner.setModel(new SpinnerNumberModel(0, 0, 0, 1));
+		ssdSpinner.setModel(new SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
 		GridBagConstraints gbc_ssdSpinner = new GridBagConstraints();
 		gbc_ssdSpinner.anchor = GridBagConstraints.NORTH;
 		gbc_ssdSpinner.fill = GridBagConstraints.HORIZONTAL;

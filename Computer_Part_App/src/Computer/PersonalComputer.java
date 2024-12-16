@@ -66,7 +66,7 @@ public class PersonalComputer extends Computer {
 	}
 	
 	public String toFile() {
-		return "Computer::PersonalComputer::"
+		return "\nComputer::PersonalComputer::"
 				+ modelNumber + "::" 
 			    + brand + "::" 
 				+ model + "::" 

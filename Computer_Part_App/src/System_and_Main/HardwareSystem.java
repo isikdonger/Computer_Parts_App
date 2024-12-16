@@ -208,7 +208,6 @@ public class HardwareSystem {
 		else {
 			fw = new FileWriter(file, true);
 			pw = new PrintWriter(fw);
-			//String str = ((PersonalComputer) computer).fileString();
 			String str = computer.toFile();
 			pw.println(str);
 			pw.close();
@@ -424,12 +423,12 @@ public class HardwareSystem {
 		PersonalComputer pc = new PersonalComputer();
 		Double price = pc.buildComputer(cpu, gpu, ram, ramAmount, ssd, ssdAmount, motherboard, powerSupply, Case, monitor);
 		Computers.add(pc);
-		/*try {
+		try {
 			addData(pc);
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		return price;
 	}
 
