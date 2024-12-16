@@ -16,15 +16,8 @@ public class ComputerMain {
 			e.printStackTrace();
 		}
 		
-		
-		Computer c = (Computer) HardwareSystem.findHardwarePart(37);
-		HardwareSystem.addData(c);
-	
-		
 		MainFrame mf = new MainFrame();
 		mf.setVisible(true);
-		
-		
 	}
 
 }

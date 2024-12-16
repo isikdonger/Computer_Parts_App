@@ -34,8 +34,8 @@ public abstract class ProcessingUnit extends HardwareComponent {
 				+ "\nBenchmark Score: " + benchmarkScore + "\n";
 	}
 	
-	public String fileString() {
-		return super.fileString() 
+	public String toFile() {
+		return super.toFile() 
 				+ baseClockSpeed + "::"
 				+ turboClockSpeed + "::"
 				+ benchmarkScore + "::";

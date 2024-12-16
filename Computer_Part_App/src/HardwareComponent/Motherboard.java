@@ -116,9 +116,9 @@ public class Motherboard extends HardwareComponent {
 	}
 	
 
-	public String fileString() {
+	public String toFile() {
 		return "HardwareComponent::Motherboard::"
-				+ super.fileString() 
+				+ super.toFile() 
 				+ chipset + "::"
 				+ memorySlots + "::"
 				+ maxMemory + "::"

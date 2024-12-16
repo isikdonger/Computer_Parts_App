@@ -40,13 +40,6 @@ public class Laptop extends Computer {
 	}
 	
 	@Override
-	public String toFile() {
-		return "Computer::Laptop::"+ devicePrice + "::" + brand +
-				"||" + cpu + "||" + gpu + "||" + ram + "||" + ssd + "||" + motherboard + "||" + powerSupply +
-				"||" + Case + "||" + screenResolution + "\n";
-	}
-	
-	@Override
 	public String toString() {
 		return "Computer Type: Laptop\n" + super.toString() + "Screen Resolution: " + screenResolution + "\n\n";
 	}

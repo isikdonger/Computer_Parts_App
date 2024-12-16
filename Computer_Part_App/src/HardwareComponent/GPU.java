@@ -37,9 +37,9 @@ public class GPU extends ProcessingUnit {
 		return "Component Type: GPU\n" + super.toString() + "Gpu Type: " + gpuType + "\nVram: " + vram + "\nPsu: " + psu + "\n\n";
 	}
 	
-	public String fileString() {
+	public String toFile() {
 		return "HardwareComponent::GPU::"
-				+ super.fileString() 
+				+ super.toFile() 
 				+ gpuType + "::"
 				+ vram + "::"
 				+ psu + "||";

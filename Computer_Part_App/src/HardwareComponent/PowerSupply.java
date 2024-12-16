@@ -37,9 +37,9 @@ public class PowerSupply extends HardwareComponent {
 				+ efficiencyTier + "\n\n";
 	}
 	
-	public String fileString() {
+	public String toFile() {
 		return "HardwareComponent::PowerSupply::"
-				+ super.fileString() 
+				+ super.toFile() 
 				+ wattage + "::"
 				+ formFactor + "::"
 				+ efficiencyTier + "||";

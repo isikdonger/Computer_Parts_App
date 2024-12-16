@@ -45,9 +45,9 @@ public class Case extends HardwareComponent {
 		return "Component Type: Case\n" + super.toString() + "Form Factor: " + formFactor + "\nMaterial: " + material + "\nDurability: " + durability + "\n\n";
 	}
 	
-	public String fileString() {
+	public String toFile() {
 		return "HardwareComponent::Case::"
-			    + super.fileString() 
+			    + super.toFile() 
 				+ formFactor + "::"
 				+ material + "||";
 	}

@@ -36,13 +36,6 @@ public class Notebook extends Computer {
 			PowerSupply powerSupply, Case Case, boolean monitor) {
 		return 0.0;
 	}
-	
-	@Override
-	public String toFile() {
-		return "Computer::Laptop::"+ devicePrice + "::" + brand +
-				"||" + cpu + "||" + gpu + "||" + ram + "||" + ssd + "||" + motherboard + "||" + powerSupply +
-				"||" + Case + "||" + screenResolution + "\n";
-	}
 
 	@Override
 	public String toString() {

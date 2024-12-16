@@ -92,8 +92,8 @@ public class HardwareSystem {
 			String[] computerData = input.nextLine().split("\\|\\|");
 			String[] computerInfo = computerData[0].split("::");
 			HardwareComponent[] components = new HardwareComponent[7];
-			HashSet<RAM> rams = new HashSet<RAM>();
-			HashSet<SSD> ssds = new HashSet<SSD>();
+			ArrayList<RAM> rams = new ArrayList<RAM>();
+			ArrayList<SSD> ssds = new ArrayList<SSD>();
 			for (int i=0; i<components.length; i++) {
 				if (computerData[i+1].contains("[")) {
 					computerData[i+1] = computerData[i+1].substring(1, computerData[i+1].length()-1);
@@ -196,8 +196,8 @@ public class HardwareSystem {
 		return hardW;
 	}
 	
-	public static boolean addData(Computer computer) throws IOException {
-		File file = new File("test.txt");
+	public static boolean addData(PersonalComputer computer) throws IOException {
+		File file = new File(C_FILENAME);
 		FileWriter fw = null;
 		PrintWriter pw = null;
 		
@@ -209,7 +209,7 @@ public class HardwareSystem {
 			fw = new FileWriter(file, true);
 			pw = new PrintWriter(fw);
 			//String str = ((PersonalComputer) computer).fileString();
-			String str = computer.fileString();
+			String str = computer.toFile();
 			pw.println(str);
 			pw.close();
 			return true;

@@ -49,20 +49,40 @@ public class PersonalComputer extends Computer {
 		return devicePrice;
 	}
 	
-	@Override
+	private String arrayWrite(Object[] arr) {
+		String outp = "[";
+		
+		for (Object o : arr) {
+			if (o instanceof RAM) {
+				outp += ((RAM) o).toFile() + "<>";
+			}
+			else if (o instanceof SSD) {
+				outp += ((SSD) o).toFile() + "<>";
+			}
+		}
+		outp = outp.substring(0, outp.length()-2) + "]||";
+		
+		return outp;
+	}
+	
 	public String toFile() {
-		return "Computer::PersonelComputer::"+ devicePrice + "::" + brand +
-				"||" + cpu + "||" + gpu + "||" + ram + "||" + ssd + "||" + motherboard + "||" + powerSupply +
-				"||" + Case + "||" + monitorConnected + "\n";
+		return "Computer::PersonalComputer::"
+				+ modelNumber + "::" 
+			    + brand + "::" 
+				+ model + "::" 
+				+ devicePrice + "||"
+				+ cpu.toFile()
+				+ gpu.toFile()
+				+ arrayWrite(ram)
+				+ arrayWrite(ssd)
+				+ motherboard.toFile()
+				+ powerSupply.toFile()
+				+ Case.toFile()
+				+ monitorConnected;
 	}
 
 	@Override
 	public String toString() {
 		return "Computer Type: Personel Computer\n" + super.toString() + "Monitor Status: " + monitorConnected + "\n\n";
-	}
-	
-	public String fileString() {
-		return super.fileString() 
-				+ monitorConnected;
 	}
 }

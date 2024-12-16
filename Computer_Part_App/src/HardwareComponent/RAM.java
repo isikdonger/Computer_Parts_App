@@ -29,9 +29,9 @@ public class RAM extends MemoryUnit {
 		return "Component Type: RAM\n" + super.toString() + "Technology: " + technology + "\nTransfer Speed: " + transferSpeed + "\n\n";
 	}
 	
-	public String fileString() {
+	public String toFile() {
 		return "HardwareComponent::RAM::"
-				+ super.fileString() 
+				+ super.toFile() 
 				+ technology + "::"
 				+ transferSpeed;
 	}

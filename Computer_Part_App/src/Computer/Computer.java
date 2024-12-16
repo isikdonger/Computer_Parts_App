@@ -89,7 +89,6 @@ public abstract class Computer implements HardwarePart, Comparable<Computer> {
 
 	public abstract double buildComputer(CPU cpu, GPU gpu, RAM ram, int ramAmount, SSD ssd, int ssdAmount, Motherboard motherboard,
 			PowerSupply powerSupply, Case Case, boolean monitor);
-	public abstract String toFile();
 	
 	public static int getCount() {
 		return count;
@@ -189,38 +188,5 @@ public abstract class Computer implements HardwarePart, Comparable<Computer> {
 				+ devicePrice + "\nCpu: " + cpu + "\nGpu: " + gpu + "\nRams: " + Arrays.toString(ram).substring(1, Arrays.toString(ram).length()-1) + "\nSsds: "
 				+ Arrays.toString(ssd).substring(1, Arrays.toString(ssd).length()-1) + "\nMotherboard: " + motherboard + "\nPowerSupply: " + powerSupply + "\nCase: "
 				+ Case + "\n";
-	}
-	
-
-public String arrayWrite(Object[] arr) {
-		String outp = "[";
-		
-		
-		for (Object o : arr) {
-			if (o instanceof RAM) {
-				outp += ((RAM) o).fileString() + "<>";		
-			}
-			else if (o instanceof SSD) {
-				outp += ((SSD) o).fileString() + "<>";
-			}
-		}
-		outp = outp.substring(0, outp.length()-2) + "]||";
-		
-		return outp;
-	}
-	
-	public String fileString() {
-		return "Computer::PersonalComputer::"
-				+ modelNumber + "::" 
-			    + brand + "::" 
-				+ model + "::" 
-				+ devicePrice + "||"
-				+ cpu.fileString()
-				+ gpu.fileString()
-				+ arrayWrite(ram)
-				+ arrayWrite(ssd)
-				+ motherboard.fileString()
-				+ powerSupply.fileString()
-				+ Case.fileString();
 	}
 }
