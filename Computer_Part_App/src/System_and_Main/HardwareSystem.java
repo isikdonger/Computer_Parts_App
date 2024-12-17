@@ -711,6 +711,7 @@ public class HardwareSystem {
 		HashSet<PowerSupply> components = new HashSet<PowerSupply>();
 		for (HardwareComponent component: HardwareComponents) {
 			if (component instanceof PowerSupply) {
+		
 					components.add((PowerSupply)component);
 				}
 			}
