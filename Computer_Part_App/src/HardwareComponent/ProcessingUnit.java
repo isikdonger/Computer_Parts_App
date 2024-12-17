@@ -31,7 +31,7 @@ public abstract class ProcessingUnit extends HardwareComponent {
 	@Override
 	public String toString() {
 		return super.toString() + "Base Clock Speed: " + baseClockSpeed + "\nTurbo Clock Speed: " + turboClockSpeed
-				+ "\nBenchmark Score: " + benchmarkScore + "\n";
+				+ "\nBenchmark Score: " + benchmarkScore;
 	}
 	
 	public String toFile() {

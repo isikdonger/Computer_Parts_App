@@ -18,7 +18,7 @@ public abstract class MemoryUnit extends HardwareComponent {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Capacity: " + capacity + "\n";
+		return super.toString() + "Capacity: " + capacity;
 	}
 	
 	public String toFile() {

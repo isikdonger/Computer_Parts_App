@@ -218,7 +218,7 @@ public class HardwareSystem {
 	// Compare method for computers and components, gets two HardwarePart objects
 	public static HardwarePart compare(HardwarePart p1, HardwarePart p2) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {	
 		// Base case for type matching, p1 and p2 object should be instantiated from the same class
-		if (!(p1.getClass().equals(p2.getClass()))) {
+		if (!(p1.getClass().getSuperclass().equals(p2.getClass().getSuperclass()))) {
 			System.out.println("Type mismatch");
 			return null;
 		}
@@ -228,13 +228,34 @@ public class HardwareSystem {
 		if (p1 instanceof Computer) {
 			int pointsForComp1 = 0, pointsForComp2 = 0;
 
-			Map<String, HardwareComponent> componentsOfP1 = p1.getValues(); // Put the components of p1 in a Map Structure
-			Map<String, HardwareComponent> componentsOfP2 = p2.getValues(); // Put the components of p2 in a Map Structure
+			Map<String, Object> componentsOfP1 = p1.getValues(); // Put the components of p1 in a Map Structure
+			Map<String, Object> componentsOfP2 = p2.getValues(); // Put the components of p2 in a Map Structure
 
-			for (Map.Entry<String, HardwareComponent> entry : componentsOfP1.entrySet()) {
-				if (entry.getValue() instanceof HardwareComponent) {
-					HardwareComponent comp1 = entry.getValue();
-					HardwareComponent comp2 = componentsOfP2.get(entry.getKey());
+			for (Map.Entry<String, Object> entry : componentsOfP1.entrySet()) {
+				if (entry.getValue().getClass().isArray()) {
+					MemoryUnit[] arr1 = (MemoryUnit[]) entry.getValue();
+					MemoryUnit[] arr2 = (MemoryUnit[]) componentsOfP2.get(entry.getKey());
+					int length = Math.min(arr1.length, arr2.length);
+
+				    // Compare common elements
+				    for (int i = 0; i < length; i++) {
+				        if (compareComponents(arr1[i], arr2[i], arr1[i].getAllFields(arr1[i].getClass()))) {
+				            pointsForComp1++;
+				        } else {
+				            pointsForComp2++;
+				        }
+				    }
+				    
+				    // Assign extra points for the larger array
+				    if (arr1.length > arr2.length) {
+				        pointsForComp1 += arr1.length - arr2.length;
+				    } else if (arr2.length > arr1.length) {
+				        pointsForComp2 += arr2.length - arr1.length;
+				    }
+				}
+				else if (entry.getValue() instanceof HardwareComponent) {
+					HardwareComponent comp1 = (HardwareComponent) entry.getValue();
+					HardwareComponent comp2 = (HardwareComponent) componentsOfP2.get(entry.getKey());
 
 					if (compareComponents(comp1, comp2, comp1.getAllFields(comp1.getClass()))) {
 						pointsForComp1++;
@@ -281,6 +302,7 @@ public class HardwareSystem {
 		}
 		else {
 			// For others: bigger the value, better, create dynamic getter
+			if (!type.equals("ModelNumber")) {
 				Double num1 = (Double) c1;
 				Double num2 = (Double) c2;
 
@@ -302,6 +324,7 @@ public class HardwareSystem {
 						}
 					}
 				}
+			}
 		}
 		return points1 > points2;
 	}
