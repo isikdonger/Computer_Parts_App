@@ -157,7 +157,7 @@ public class CompareFrame extends JFrame {
 		compareBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					compare();
+					HardwarePart winner = compare();
 				} catch (IllegalArgumentException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -221,7 +221,7 @@ public class CompareFrame extends JFrame {
 		comboBox_2.setModel(new DefaultComboBoxModel(arr));
 	}
 	
-	private void compare() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-		// HardwareSystem.compare(this, firstObject, secondObject);
+	private HardwarePart compare() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+		return HardwareSystem.compare(firstObject, secondObject);
 	}
 }
