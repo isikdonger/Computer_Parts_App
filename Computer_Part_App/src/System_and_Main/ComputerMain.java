@@ -16,7 +16,7 @@ public class ComputerMain {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			System.out.println(HardwareSystem.compare(HardwareSystem.findHardwarePart(37), HardwareSystem.findHardwarePart(41)));
 		} catch (IllegalArgumentException e) {
@@ -29,9 +29,9 @@ public class ComputerMain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//MainFrame mf = new MainFrame();
-		//mf.setVisible(true);
+
+		MainFrame mf = new MainFrame();
+		mf.setVisible(true);
 	}
 
 }

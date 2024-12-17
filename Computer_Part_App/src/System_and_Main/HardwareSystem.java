@@ -554,6 +554,26 @@ public class HardwareSystem {
 		return str;
 	}
 	
+	// Added for getting array of CPUs
+	public static String[] getCPUs() {
+		HashSet<CPU> components = new HashSet<CPU>();
+		
+		for (HardwareComponent component: HardwareComponents) {
+			if (component instanceof CPU) {
+				components.add((CPU)component);
+			}
+		}
+		
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
+		
+	}
+	
 	public static String[] getGPUs() {
 		HashSet<GPU> components = new HashSet<GPU>();
 		for (HardwareComponent component: HardwareComponents) {
@@ -598,6 +618,24 @@ public class HardwareSystem {
 		return str;
 	}
 	
+	// Added for getting array of RAMs
+	public static String[] getRAMs() {
+		HashSet<RAM> components = new HashSet<RAM>();
+		for (HardwareComponent component: HardwareComponents) {
+			if (component instanceof RAM) {
+					components.add((RAM)component);
+				}
+			}
+		
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
+	}
+	
 	public static String[] getSSDs(Motherboard mb) {
 		HashSet<SSD> components = new HashSet<SSD>();
 		for (HardwareComponent component: HardwareComponents) {
@@ -606,6 +644,24 @@ public class HardwareSystem {
 				if (slots.contains(((SSD)component).getInterfaceName())) {
 					components.add((SSD)component);
 				}
+			}
+		}
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
+	}
+	
+	// Added for getting array of SSDs
+	public static String[] getSSDs() {
+		HashSet<SSD> components = new HashSet<SSD>();
+		for (HardwareComponent component: HardwareComponents) {
+			if (component instanceof SSD) {
+				components.add((SSD)component);
+		
 			}
 		}
 		String[] str = new String[components.size()];
@@ -642,6 +698,23 @@ public class HardwareSystem {
 				}
 			}
 		}
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
+	}
+	
+	public static String[] getPowerSupplys() {
+		HashSet<PowerSupply> components = new HashSet<PowerSupply>();
+		for (HardwareComponent component: HardwareComponents) {
+			if (component instanceof PowerSupply) {
+					components.add((PowerSupply)component);
+				}
+			}
+		
 		String[] str = new String[components.size()];
 		int i=0;
 		for (HardwareComponent component: components) {

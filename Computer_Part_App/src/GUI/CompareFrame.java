@@ -28,18 +28,19 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 public class CompareFrame extends JFrame {
-
+	
 	private JPanel contentPane;
 	private String type;
 	private JComboBox comboBox_1 = null;
 	private JComboBox comboBox_2 = null;
 	private HardwarePart firstObject;
 	private HardwarePart secondObject;
-
+	MainFrame mfb; 
 	/**
 	 * Create the frame.
 	 */
 	public CompareFrame(MainFrame mf) {
+		mfb = mf; 
 		setTitle("Compare Hardware/Computers");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 763, 522);
@@ -74,9 +75,16 @@ public class CompareFrame extends JFrame {
 		contentPane.add(componentTypeLbl, gbc_componentTypeLbl);
 		
 		JComboBox componentComboBox = new JComboBox();
+		componentComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				type = componentComboBox.getSelectedItem().toString();
+				fillFirstComboBox();
+				fillSecondComboBox();
+			}
+		});
 		componentComboBox.setVisible(false);
 		componentComboBox.setFont(new Font("Tahoma", Font.BOLD, 12));
-		componentComboBox.setModel(new DefaultComboBoxModel(new String[] {"Cpu", "Gpu", "Ram", "Ssd", "Motherboard", "PowerSupply", "Case"}));
+		componentComboBox.setModel(new DefaultComboBoxModel(new String[] {"CPU", "GPU", "RAM", "SSD", "Motherboard", "PowerSupply", "Case"}));
 		GridBagConstraints gbc_componentComboBox = new GridBagConstraints();
 		gbc_componentComboBox.anchor = GridBagConstraints.EAST;
 		gbc_componentComboBox.insets = new Insets(0, 0, 5, 0);
@@ -89,9 +97,11 @@ public class CompareFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (typeBox.getSelectedItem().toString().equalsIgnoreCase("Computer")) {
 					type = "Computer";
+					componentTypeLbl.setVisible(false); // Hide component-specific controls
+			        componentComboBox.setVisible(false);
 				}
 				else {
-					type = "HardwareComponent";
+					type = componentComboBox.getSelectedItem().toString();
 					componentTypeLbl.setVisible(true);
 					componentComboBox.setVisible(true);
 				}
@@ -153,11 +163,20 @@ public class CompareFrame extends JFrame {
 		gbc_comboBox_2.gridy = 4;
 		contentPane.add(comboBox_2, gbc_comboBox_2);
 		
+		JLabel resLbl = new JLabel("");
+		GridBagConstraints gbc_resLbl = new GridBagConstraints();
+		gbc_resLbl.gridwidth = 3;
+		gbc_resLbl.insets = new Insets(0, 0, 5, 5);
+		gbc_resLbl.gridx = 1;
+		gbc_resLbl.gridy = 8;
+		contentPane.add(resLbl, gbc_resLbl);
+		
 		JButton compareBtn = new JButton("Compare");
 		compareBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					HardwarePart winner = compare();
+					resLbl.setText(winner.toString()); 
 				} catch (IllegalArgumentException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -182,8 +201,9 @@ public class CompareFrame extends JFrame {
 		backBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mf.setVisible(true);
+				resLbl.setText("");
 				dispose();
+				mfb.setVisible(true);
 			}
 		});
 		
@@ -193,33 +213,74 @@ public class CompareFrame extends JFrame {
 		gbc_backBtn.gridx = 3;
 		gbc_backBtn.gridy = 6;
 		contentPane.add(backBtn, gbc_backBtn);
+		
+		
+	    
 	}
 	
 	public JPanel getContentPane() {
 		return contentPane;
 	}
-
-	private void fillFirstComboBox() {
+	
+	
+public void fillFirstComboBox() {
+		
 		String[] arr;
 		if (type.equalsIgnoreCase("Computer")) {
 			arr = (String[])HardwareSystem.getComputersArray(null);
 		}
 		else {
-			arr = (String[])HardwareSystem.getHardwareComponentsArray(null);
+			try {
+		        // Convert type to method name, e.g., "CPU" -> "getCPUs"
+		        String methodName = "get" + type + "s";
+		        java.lang.reflect.Method method = HardwareSystem.class.getMethod(methodName);
+		        
+		        // Invoke the method
+		        arr = (String[]) method.invoke(null);
+		        
+		    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+		        e.printStackTrace();
+		        arr = new String[0]; // Empty array if an error occurs
+		    }
+
+		    
 		}
-		comboBox_1.setModel(new DefaultComboBoxModel(arr));
+		// Populate the combo box
+	    comboBox_1.setModel(new DefaultComboBoxModel(arr));
 	}
 	
 	private void fillSecondComboBox() {
-		String[] arr;
-		if (type.equalsIgnoreCase("Computer")) {
-			arr = HardwareSystem.getComputersArray((Computer)firstObject);
-		}
-		else {
-			arr = HardwareSystem.getHardwareComponentsArray((HardwareComponent)firstObject);
-		}
-		comboBox_2.setModel(new DefaultComboBoxModel(arr));
+	    String[] arr;
+
+	    if (type.equalsIgnoreCase("Computer")) {
+	        // Fetch related computers excluding the first selected one
+	    	arr = (String[])HardwareSystem.getComputersArray((Computer) firstObject);
+	    } else {
+	        try {
+	            // Convert the type to the corresponding method name
+	            String methodName = "get" + type + "s"; // E.g., "CPU" -> "getCPUs"
+	            java.lang.reflect.Method method = HardwareSystem.class.getMethod(methodName);
+	            
+	            // Invoke the method with the selected first object
+	            arr = (String[]) method.invoke(null);
+	        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+	            e.printStackTrace();
+	            arr = new String[0]; // Empty array if an error occurs
+	        }
+	    }
+	    // Remove the selected item from the first combo box from the second combo box's options
+        String selectedItem = comboBox_1.getSelectedItem().toString();
+        ArrayList<String> filteredList = new ArrayList<>(Arrays.asList(arr));
+        filteredList.remove(selectedItem); // Remove the selected item
+
+        // Convert the list back to an array
+        String[] filteredArr = filteredList.toArray(new String[0]);
+
+        // Set the new model for the second combo box
+        comboBox_2.setModel(new DefaultComboBoxModel(filteredArr));
 	}
+
+	
 	
 	private HardwarePart compare() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		return HardwareSystem.compare(firstObject, secondObject);
