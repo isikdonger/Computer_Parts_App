@@ -33,5 +33,5 @@ public class ComputerMain {
 		//MainFrame mf = new MainFrame();
 		//mf.setVisible(true);
 	}
-
+	
 }
