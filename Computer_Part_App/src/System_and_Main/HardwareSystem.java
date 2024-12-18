@@ -145,7 +145,7 @@ public class HardwareSystem {
 		return true;
 	}
 	
-	public static HardwareComponent createHardwareComponent(String[] data) {
+	private static HardwareComponent createHardwareComponent(String[] data) {
 		HardwareComponent hardW = null;
 		switch (data[1]) {
 			case "CPU":
@@ -197,7 +197,7 @@ public class HardwareSystem {
 		return hardW;
 	}
 	
-	public static boolean addData(PersonalComputer computer) throws IOException {
+	private static boolean addData(PersonalComputer computer) throws IOException {
 		File file = new File(C_FILENAME);
 		FileWriter fw = null;
 		PrintWriter pw = null;
@@ -329,7 +329,7 @@ public class HardwareSystem {
 		}
 	}
 
-	public static boolean compareComponents(Object type, Object c1, Object c2) {
+	private static boolean compareComponents(Object type, Object c1, Object c2) {
 		int points1 = 0, points2 = 0;
 		if (c1 instanceof String) {
 			String c1Str = (String) c1;
@@ -374,7 +374,7 @@ public class HardwareSystem {
 		return points1 > points2;
 	}
 
-	public static boolean compareComponents(CompareFrame frame, HardwareComponent c1, HardwareComponent c2, Field[] fields, boolean isComputer) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	private static boolean compareComponents(CompareFrame frame, HardwareComponent c1, HardwareComponent c2, Field[] fields, boolean isComputer) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		int points1 = 0;
 		int points2 = 0;
 		int curInd = 0;
