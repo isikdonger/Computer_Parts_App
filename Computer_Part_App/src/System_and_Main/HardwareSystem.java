@@ -210,7 +210,7 @@ public class HardwareSystem {
 			fw = new FileWriter(file, true);
 			pw = new PrintWriter(fw);
 			String str = computer.toFile();
-			pw.println(str);
+			pw.print(str);
 			pw.close();
 			return true;
 		}
@@ -250,13 +250,13 @@ public class HardwareSystem {
 			    	for (int i = 0; i < length; i++) {
 				        if (compareComponents(frame, arr1[i], arr2[i], arr1[i].getAllFields(arr1[i].getClass()), true)) {
 				            pointsForComp1++;
-				            labels[curInd][1].setForeground(Color.green);
-							labels[curInd][2].setForeground(Color.red);
+				            labels[curInd][1].setForeground(new Color(32, 140, 13));
+							labels[curInd][2].setForeground(new Color(219, 57, 37));
 				        }
 				        else {
 				            pointsForComp2++;
-				            labels[curInd][1].setForeground(Color.red);
-							labels[curInd][2].setForeground(Color.green);
+				            labels[curInd][1].setForeground(new Color(219, 57, 37));
+							labels[curInd][2].setForeground(new Color(32, 140, 13));
 				        }
 			    	}
 			    	
@@ -281,12 +281,12 @@ public class HardwareSystem {
 
 					if (compareComponents(frame, comp1, comp2, comp1.getAllFields(comp1.getClass()), true)) {
 						pointsForComp1++;
-						labels[curInd][1].setForeground(Color.green);
-						labels[curInd][2].setForeground(Color.red);
+						labels[curInd][1].setForeground(new Color(32, 140, 13));
+						labels[curInd][2].setForeground(new Color(219, 57, 37));
 					} else {
 						pointsForComp2++;
-						labels[curInd][1].setForeground(Color.red);
-						labels[curInd][2].setForeground(Color.green);
+						labels[curInd][1].setForeground(new Color(219, 57, 37));
+						labels[curInd][2].setForeground(new Color(32, 140, 13));
 					}
 				}
 				else {
@@ -301,13 +301,13 @@ public class HardwareSystem {
 					
 					if(compareComponents(entry.getKey(), entry.getValue(), componentsOfP2.get(entry.getKey()))) {
 						pointsForComp1++;
-						labels[curInd][1].setForeground(Color.green);
-						labels[curInd][2].setForeground(Color.red);
+						labels[curInd][1].setForeground(new Color(32, 140, 13));
+						labels[curInd][2].setForeground(new Color(219, 57, 37));
 					}
 					else {
 						pointsForComp2++;
-						labels[curInd][1].setForeground(Color.red);
-						labels[curInd][2].setForeground(Color.green);
+						labels[curInd][1].setForeground(new Color(219, 57, 37));
+						labels[curInd][2].setForeground(new Color(32, 140, 13));
 					}
 				}
 				curInd++;
@@ -408,15 +408,15 @@ public class HardwareSystem {
 						if (indexP1 < indexP2) {
 							points1++;
 							if (!isComputer) {
-								labels[curInd][1].setForeground(Color.green);
-								labels[curInd][2].setForeground(Color.red);
+								labels[curInd][1].setForeground(new Color(32, 140, 13));
+								labels[curInd][2].setForeground(new Color(219, 57, 37));
 							}
 						}
 						else if (indexP1 > indexP2) {
 							points2++;
 							if (!isComputer) {
-								labels[curInd][1].setForeground(Color.red);
-								labels[curInd][2].setForeground(Color.green);
+								labels[curInd][1].setForeground(new Color(219, 57, 37));
+								labels[curInd][2].setForeground(new Color(32, 140, 13));
 							}
 						}
 					}
@@ -439,15 +439,15 @@ public class HardwareSystem {
 					if (indexP1 < indexP2) {
 						points1++;
 						if (!isComputer) {
-							labels[curInd][1].setForeground(Color.green);
-							labels[curInd][2].setForeground(Color.red);
+							labels[curInd][1].setForeground(new Color(32, 140, 13));
+							labels[curInd][2].setForeground(new Color(219, 57, 37));
 						}
 					}
 					else if (indexP1 > indexP2) {
 						points2++;
 						if (!isComputer) {
-							labels[curInd][1].setForeground(Color.red);
-							labels[curInd][2].setForeground(Color.green);
+							labels[curInd][1].setForeground(new Color(219, 57, 37));
+							labels[curInd][2].setForeground(new Color(32, 140, 13));
 						}
 					}
 				}
@@ -478,15 +478,15 @@ public class HardwareSystem {
 				if (date1.isAfter(date2)) {
 					points1++;
 					if (!isComputer) {
-						labels[curInd][1].setForeground(Color.green);
-						labels[curInd][2].setForeground(Color.red);
+						labels[curInd][1].setForeground(new Color(32, 140, 13));
+						labels[curInd][2].setForeground(new Color(219, 57, 37));
 					}
 				}
 				else if (date1.isBefore(date2)) {
 					points2++;
 					if (!isComputer) {
-						labels[curInd][1].setForeground(Color.red);
-						labels[curInd][2].setForeground(Color.green);
+						labels[curInd][1].setForeground(new Color(219, 57, 37));
+						labels[curInd][2].setForeground(new Color(32, 140, 13));
 					}
 				}
 			}			
@@ -505,14 +505,14 @@ public class HardwareSystem {
 					 if (c1.getRecommendedPrice() > c2.getRecommendedPrice()) {
 						 points2++;
 						 if (!isComputer) {
-							 labels[curInd][1].setForeground(Color.red);
-							 labels[curInd][2].setForeground(Color.green);
+							 labels[curInd][1].setForeground(new Color(219, 57, 37));
+							 labels[curInd][2].setForeground(new Color(32, 140, 13));
 						 }
 					 } else if (c1.getRecommendedPrice() < c2.getRecommendedPrice()) {
 						 points1++;
 						 if (!isComputer) {
-							 labels[curInd][1].setForeground(Color.green);
-							 labels[curInd][2].setForeground(Color.red);
+							 labels[curInd][1].setForeground(new Color(32, 140, 13));
+							 labels[curInd][2].setForeground(new Color(219, 57, 37));
 						 }
 					 }
 				 }
@@ -539,14 +539,14 @@ public class HardwareSystem {
 						if (((Integer)value1).compareTo(((Integer)value2)) > 0) {
 							points1++;
 							if (!isComputer) {
-								labels[curInd][1].setForeground(Color.green);
-								labels[curInd][2].setForeground(Color.red);
+								labels[curInd][1].setForeground(new Color(32, 140, 13));
+								labels[curInd][2].setForeground(new Color(219, 57, 37));
 							}
 						} else if (((Integer)value1).compareTo(((Integer)value2)) < 0) {
 							points2++;
 							if (!isComputer) {
-								labels[curInd][1].setForeground(Color.red);
-								labels[curInd][2].setForeground(Color.green);
+								labels[curInd][1].setForeground(new Color(219, 57, 37));
+								labels[curInd][2].setForeground(new Color(32, 140, 13));
 							}
 						}
 					}
@@ -563,14 +563,14 @@ public class HardwareSystem {
 						if (((Double)value1).compareTo(((Double)value2)) > 0) {
 							points1++;
 							if (!isComputer) {
-								labels[curInd][1].setForeground(Color.green);
-								labels[curInd][2].setForeground(Color.red);
+								labels[curInd][1].setForeground(new Color(32, 140, 13));
+								labels[curInd][2].setForeground(new Color(219, 57, 37));
 							}
 						} else if (((Double)value1).compareTo(((Double)value2)) < 0) {
 							points2++;
 							if (!isComputer) {
-								labels[curInd][1].setForeground(Color.red);
-								labels[curInd][2].setForeground(Color.green);
+								labels[curInd][1].setForeground(new Color(219, 57, 37));
+								labels[curInd][2].setForeground(new Color(32, 140, 13));
 							}
 						}
 					}
@@ -587,20 +587,20 @@ public class HardwareSystem {
 						if ((Boolean)value1) {
 							points1++;
 							if (!isComputer) {
-								labels[curInd][1].setForeground(Color.green);
+								labels[curInd][1].setForeground(new Color(32, 140, 13));
 							}
 						}
 						else if (!isComputer) {
-							labels[curInd][1].setForeground(Color.red);
+							labels[curInd][1].setForeground(new Color(219, 57, 37));
 						}
 						if ((Boolean)value2) {
 							points2++;
 							if (!isComputer) {
-								labels[curInd][2].setForeground(Color.green);
+								labels[curInd][2].setForeground(new Color(32, 140, 13));
 							}
 						}
 						else if (!isComputer) {
-							labels[curInd][2].setForeground(Color.red);
+							labels[curInd][2].setForeground(new Color(219, 57, 37));
 						}
 					}
 				} catch (Exception e) {

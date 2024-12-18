@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,7 +35,8 @@ public class CompareFrame extends JFrame {
 	GridBagConstraints gbc_compareBtn;
 	JButton backBtn;
 	GridBagConstraints gbc_backBtn;
-	private JLabel[][] labels = new JLabel[16][3];
+	private JLabel[][] labels = new JLabel[18][3];
+	JLabel winnerLbl;
 	JLabel resLbl;
 	private JComboBox comboBox_1 = null;
 	private JComboBox comboBox_2 = null;
@@ -49,7 +51,7 @@ public class CompareFrame extends JFrame {
 		mfb = mf; 
 		setTitle("Compare Hardware/Computers");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 763, 522);
+		setBounds(100, 100, 763, 595);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -173,14 +175,26 @@ public class CompareFrame extends JFrame {
 		contentPane.add(comboBox_2, gbc_comboBox_2);
 		
 		resLbl = new JLabel("");
+		resLbl.setForeground(Color.blue);
+		resLbl.setVisible(false);
 		GridBagConstraints gbc_resLbl = new GridBagConstraints();
 		gbc_resLbl.gridwidth = 3;
 		gbc_resLbl.insets = new Insets(0, 0, 5, 5);
-		gbc_resLbl.gridx = 1;
+		gbc_resLbl.gridx = 2;
 		gbc_resLbl.gridy = 5;
+		gbc_resLbl.gridwidth = 2;
 		contentPane.add(resLbl, gbc_resLbl);
 		
-		for (int i=0;i<16;i++) {
+		winnerLbl = new JLabel("Winner:");
+		winnerLbl.setVisible(false);
+		GridBagConstraints gbc_winnerLbl = new GridBagConstraints();
+		gbc_winnerLbl.gridwidth = 3;
+		gbc_winnerLbl.insets = new Insets(0, 0, 5, 5);
+		gbc_winnerLbl.gridx = 1;
+		gbc_winnerLbl.gridy = 5;
+		contentPane.add(winnerLbl, gbc_winnerLbl);
+		
+		for (int i=0;i<18;i++) {
 			for (int j=0;j<3;j++) {
 				labels[i][j] = new JLabel();
 				labels[i][j].setVisible(false);
@@ -200,9 +214,13 @@ public class CompareFrame extends JFrame {
 					HardwarePart winner = compare();
 					if (winner instanceof Computer) {
 						resLbl.setText(((Computer)winner).getModelName());
+						resLbl.setVisible(true);
+						winnerLbl.setVisible(true);
 					}
 					else {
 						resLbl.setText(((HardwareComponent)winner).getModelName());
+						resLbl.setVisible(true);
+						winnerLbl.setVisible(true);
 					}
 				} catch (IllegalArgumentException e1) {
 					// TODO Auto-generated catch block
@@ -326,9 +344,10 @@ public class CompareFrame extends JFrame {
 	}
 	
 	private void clear() {
+		winnerLbl.setVisible(false);
 		resLbl.setText("");
 		resLbl.setVisible(false);
-		for (int i=0;i<16;i++) {
+		for (int i=0;i<18;i++) {
 			for (int j=0;j<3;j++) {
 				labels[i][j].setText("");
 				labels[i][j].setVisible(false);
