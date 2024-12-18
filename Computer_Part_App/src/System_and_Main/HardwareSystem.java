@@ -248,7 +248,7 @@ public class HardwareSystem {
 
 					// Compare common elements
 			    	for (int i = 0; i < length; i++) {
-				        if (compareComponents(arr1[i], arr2[i], arr1[i].getAllFields(arr1[i].getClass()))) {
+				        if (compareComponents(frame, arr1[i], arr2[i], arr1[i].getAllFields(arr1[i].getClass()), true)) {
 				            pointsForComp1++;
 				            labels[curInd][1].setForeground(Color.green);
 							labels[curInd][2].setForeground(Color.red);
@@ -279,7 +279,7 @@ public class HardwareSystem {
 					labels[curInd][2].setText(comp2.getModelName());
 					labels[curInd][2].setVisible(true);
 
-					if (compareComponents(comp1, comp2, comp1.getAllFields(comp1.getClass()))) {
+					if (compareComponents(frame, comp1, comp2, comp1.getAllFields(comp1.getClass()), true)) {
 						pointsForComp1++;
 						labels[curInd][1].setForeground(Color.green);
 						labels[curInd][2].setForeground(Color.red);
@@ -321,7 +321,7 @@ public class HardwareSystem {
 			return pointsForComp1 > pointsForComp2 ? p1 : p2;
 		}
 		else if (p1 instanceof HardwareComponent) {
-			return compareComponents((HardwareComponent)p1, (HardwareComponent)p2, p1.getAllFields(p1.getClass())) ? p1 : p2;
+			return compareComponents(frame, (HardwareComponent)p1, (HardwareComponent)p2, p1.getAllFields(p1.getClass()), false) ? p1 : p2;
 		}
 		else { // If the type is neither Computer nor HardwareComponent
 			System.out.println("Type not allowed for comparing.");
@@ -374,9 +374,11 @@ public class HardwareSystem {
 		return points1 > points2;
 	}
 
-	public static boolean compareComponents(HardwareComponent c1, HardwareComponent c2, Field[] fields) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	public static boolean compareComponents(CompareFrame frame, HardwareComponent c1, HardwareComponent c2, Field[] fields, boolean isComputer) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		int points1 = 0;
 		int points2 = 0;
+		int curInd = 0;
+		JLabel[][] labels = frame.getLabels();
 
 		// Iterate through all fields and increment points of CPUs accordingly
 		for (Field field : fields) {
@@ -389,15 +391,33 @@ public class HardwareSystem {
 				
 				if (value1 instanceof String[] && value2 instanceof String[]) {
 					int length = Math.min(((String[])value1).length, ((String[])value2).length);
+					
+					if (!isComputer) {
+						labels[curInd][0].setText(field.getName());
+						labels[curInd][0].setVisible(true);
+						labels[curInd][1].setText(((String[])value1)[0].toString());
+						labels[curInd][1].setVisible(true);
+						labels[curInd][2].setText(((String[])value2)[0].toString());
+						labels[curInd][2].setVisible(true);
+					}
+					
 					for (int i=0; i<length; i++) {
 						int indexP1 = order_list.indexOf(value1);
 						int indexP2 = order_list.indexOf(value2);		
 						
 						if (indexP1 < indexP2) {
 							points1++;
+							if (!isComputer) {
+								labels[curInd][1].setForeground(Color.green);
+								labels[curInd][2].setForeground(Color.red);
+							}
 						}
 						else if (indexP1 > indexP2) {
 							points2++;
+							if (!isComputer) {
+								labels[curInd][1].setForeground(Color.red);
+								labels[curInd][2].setForeground(Color.green);
+							}
 						}
 					}
 					points1 += Math.max(0, ((String[]) value1).length - ((String[]) value2).length);
@@ -405,13 +425,30 @@ public class HardwareSystem {
 				}
 				else {
 					int indexP1 = order_list.indexOf(value1);
-					int indexP2 = order_list.indexOf(value2);		
+					int indexP2 = order_list.indexOf(value2);
+					
+					if (!isComputer) {
+						labels[curInd][0].setText(field.getName());
+						labels[curInd][0].setVisible(true);
+						labels[curInd][1].setText(value1.toString());
+						labels[curInd][1].setVisible(true);
+						labels[curInd][2].setText(value2.toString());
+						labels[curInd][2].setVisible(true);
+					}
 					
 					if (indexP1 < indexP2) {
 						points1++;
+						if (!isComputer) {
+							labels[curInd][1].setForeground(Color.green);
+							labels[curInd][2].setForeground(Color.red);
+						}
 					}
 					else if (indexP1 > indexP2) {
 						points2++;
+						if (!isComputer) {
+							labels[curInd][1].setForeground(Color.red);
+							labels[curInd][2].setForeground(Color.green);
+						}
 					}
 				}
 			}
@@ -427,22 +464,56 @@ public class HardwareSystem {
 				// Parse the strings into LocalDate objects
 				LocalDate date1 = LocalDate.parse(dateStr1, formatter);
 				LocalDate date2 = LocalDate.parse(dateStr2, formatter);
+				
+				if (!isComputer) {
+					labels[curInd][0].setText(field.getName());
+					labels[curInd][0].setVisible(true);
+					labels[curInd][1].setText(date1.toString());
+					labels[curInd][1].setVisible(true);
+					labels[curInd][2].setText(date2.toString());
+					labels[curInd][2].setVisible(true);
+				}
 
 				// Compare the two dates using isAfter() and isBefore()
 				if (date1.isAfter(date2)) {
 					points1++;
+					if (!isComputer) {
+						labels[curInd][1].setForeground(Color.green);
+						labels[curInd][2].setForeground(Color.red);
+					}
 				}
 				else if (date1.isBefore(date2)) {
 					points2++;
+					if (!isComputer) {
+						labels[curInd][1].setForeground(Color.red);
+						labels[curInd][2].setForeground(Color.green);
+					}
 				}
 			}			
 			else { // Integer, Double or Boolean values
 				// Special condition for price
 				if (field.getName().equals("recommendedPrice")) {
+					if (!isComputer) {
+						labels[curInd][0].setText(field.getName());
+						labels[curInd][0].setVisible(true);
+						labels[curInd][1].setText(Double.toString(c1.getRecommendedPrice()));
+						labels[curInd][1].setVisible(true);
+						labels[curInd][2].setText(Double.toString(c2.getRecommendedPrice()));
+						labels[curInd][2].setVisible(true);
+					}
+					
 					 if (c1.getRecommendedPrice() > c2.getRecommendedPrice()) {
 						 points2++;
+						 if (!isComputer) {
+							 labels[curInd][1].setForeground(Color.red);
+							 labels[curInd][2].setForeground(Color.green);
+						 }
 					 } else if (c1.getRecommendedPrice() < c2.getRecommendedPrice()) {
 						 points1++;
+						 if (!isComputer) {
+							 labels[curInd][1].setForeground(Color.green);
+							 labels[curInd][2].setForeground(Color.red);
+						 }
 					 }
 				 }
 				// For others: bigger the value, better, create dynamic getter
@@ -456,33 +527,97 @@ public class HardwareSystem {
 
 					// Compare values (adjust comparison logic as needed)
 					if (value1 instanceof Integer) {
+						if (!isComputer) {
+							labels[curInd][0].setText(field.getName());
+							labels[curInd][0].setVisible(true);
+							labels[curInd][1].setText(Integer.toString((Integer)value1));
+							labels[curInd][1].setVisible(true);
+							labels[curInd][2].setText(Integer.toString((Integer)value2));
+							labels[curInd][2].setVisible(true);
+						}
+						
 						if (((Integer)value1).compareTo(((Integer)value2)) > 0) {
 							points1++;
+							if (!isComputer) {
+								labels[curInd][1].setForeground(Color.green);
+								labels[curInd][2].setForeground(Color.red);
+							}
 						} else if (((Integer)value1).compareTo(((Integer)value2)) < 0) {
 							points2++;
+							if (!isComputer) {
+								labels[curInd][1].setForeground(Color.red);
+								labels[curInd][2].setForeground(Color.green);
+							}
 						}
 					}
 					if (value1 instanceof Double) {
+						if (!isComputer) {
+							labels[curInd][0].setText(field.getName());
+							labels[curInd][0].setVisible(true);
+							labels[curInd][1].setText(Double.toString((Double)value1));
+							labels[curInd][1].setVisible(true);
+							labels[curInd][2].setText(Double.toString((Double)value2));
+							labels[curInd][2].setVisible(true);
+						}
+						
 						if (((Double)value1).compareTo(((Double)value2)) > 0) {
 							points1++;
+							if (!isComputer) {
+								labels[curInd][1].setForeground(Color.green);
+								labels[curInd][2].setForeground(Color.red);
+							}
 						} else if (((Double)value1).compareTo(((Double)value2)) < 0) {
 							points2++;
+							if (!isComputer) {
+								labels[curInd][1].setForeground(Color.red);
+								labels[curInd][2].setForeground(Color.green);
+							}
 						}
 					}
 					if (value1 instanceof Boolean) {
+						if (!isComputer) {
+							labels[curInd][0].setText(field.getName());
+							labels[curInd][0].setVisible(true);
+							labels[curInd][1].setText(Boolean.toString((Boolean)value1));
+							labels[curInd][1].setVisible(true);
+							labels[curInd][2].setText(Boolean.toString((Boolean)value2));
+							labels[curInd][2].setVisible(true);
+						}
+						
 						if ((Boolean)value1) {
 							points1++;
+							if (!isComputer) {
+								labels[curInd][1].setForeground(Color.green);
+							}
+						}
+						else if (!isComputer) {
+							labels[curInd][1].setForeground(Color.red);
 						}
 						if ((Boolean)value2) {
 							points2++;
+							if (!isComputer) {
+								labels[curInd][2].setForeground(Color.green);
+							}
+						}
+						else if (!isComputer) {
+							labels[curInd][2].setForeground(Color.red);
 						}
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
+			curInd++;
 		}
 		// 1 if c1 has won, 0 if c2 has won
+		if (!isComputer) {
+			GridBagConstraints compare = frame.getGbc_compareBtn();
+			compare.gridy = curInd + 7;
+			GridBagConstraints back = frame.getGbc_backBtn();
+			back.gridy = curInd + 7;
+			frame.getContentPane().add(frame.getCompareBtn(), compare);
+			frame.getContentPane().add(frame.getBackBtn(), back);
+		}
 		return points1 > points2;
 	}
 	
