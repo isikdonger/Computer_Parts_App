@@ -46,11 +46,12 @@ public class BuildFrame extends JFrame {
 	private Motherboard mb;
 	private PowerSupply ps;
 	private Case Case;
-
+	MainFrame mfb; 
 	/**
 	 * Create the frame.
 	 */
 	public BuildFrame(MainFrame mf) {
+		mfb = mf; 
 		setTitle("Build a Computer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 613, 540);
@@ -290,8 +291,8 @@ public class BuildFrame extends JFrame {
 		JButton backBtn = new JButton("Go Back");
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mf.setVisible(true);
 				dispose();
+				mfb.setVisible(true);
 			}
 		});
 		

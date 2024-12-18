@@ -24,22 +24,7 @@ public class MainFrame extends JFrame {
 	CompareFrame cf = new CompareFrame(this);
 	BuildFrame bf = new BuildFrame(this);
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -74,8 +59,8 @@ public class MainFrame extends JFrame {
 		compareBtn.setBounds(226, 279, 152, 37);
 		compareBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				cf.setVisible(true);
-				setVisible(false);
 			}
 		});
 		contentPane.add(compareBtn);

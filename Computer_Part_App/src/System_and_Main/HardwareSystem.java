@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 
 import static java.lang.Integer.parseInt;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -216,7 +217,7 @@ public class HardwareSystem {
 	}
 
 	// Compare method for computers and components, gets two HardwarePart objects
-	public static HardwarePart compare(HardwarePart p1, HardwarePart p2) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {	
+	public static HardwarePart compare(CompareFrame frame, HardwarePart p1, HardwarePart p2) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {	
 		// Base case for type matching, p1 and p2 object should be instantiated from the same class
 		if (!(p1.getClass().getSuperclass().equals(p2.getClass().getSuperclass()))) {
 			System.out.println("Type mismatch");
@@ -226,7 +227,8 @@ public class HardwareSystem {
 		// Comparison system for computers is by point,
 		// which is incremented by one if one component is better than the other
 		if (p1 instanceof Computer) {
-			int pointsForComp1 = 0, pointsForComp2 = 0;
+			int pointsForComp1 = 0, pointsForComp2 = 0, curInd = 0;
+			JLabel[][] labels = frame.getLabels();
 
 			Map<String, Object> componentsOfP1 = p1.getValues(); // Put the components of p1 in a Map Structure
 			Map<String, Object> componentsOfP2 = p2.getValues(); // Put the components of p2 in a Map Structure
@@ -236,43 +238,86 @@ public class HardwareSystem {
 					MemoryUnit[] arr1 = (MemoryUnit[]) entry.getValue();
 					MemoryUnit[] arr2 = (MemoryUnit[]) componentsOfP2.get(entry.getKey());
 					int length = Math.min(arr1.length, arr2.length);
+					
+					labels[curInd][0].setText(entry.getValue().getClass().getName().substring(entry.getValue().getClass().getName().length() - 4, entry.getValue().getClass().getName().length() - 1));
+					labels[curInd][0].setVisible(true);
+					labels[curInd][1].setText(arr1[0].getModelName());
+					labels[curInd][1].setVisible(true);
+					labels[curInd][2].setText(arr2[0].getModelName());
+					labels[curInd][2].setVisible(true);
 
-				    // Compare common elements
-				    for (int i = 0; i < length; i++) {
+					// Compare common elements
+			    	for (int i = 0; i < length; i++) {
 				        if (compareComponents(arr1[i], arr2[i], arr1[i].getAllFields(arr1[i].getClass()))) {
 				            pointsForComp1++;
-				        } else {
-				            pointsForComp2++;
+				            labels[curInd][1].setForeground(Color.green);
+							labels[curInd][2].setForeground(Color.red);
 				        }
-				    }
-				    
+				        else {
+				            pointsForComp2++;
+				            labels[curInd][1].setForeground(Color.red);
+							labels[curInd][2].setForeground(Color.green);
+				        }
+			    	}
+			    	
 				    // Assign extra points for the larger array
 				    if (arr1.length > arr2.length) {
 				        pointsForComp1 += arr1.length - arr2.length;
-				    } else if (arr2.length > arr1.length) {
+				    }
+				    else if (arr2.length > arr1.length) {
 				        pointsForComp2 += arr2.length - arr1.length;
 				    }
 				}
 				else if (entry.getValue() instanceof HardwareComponent) {
 					HardwareComponent comp1 = (HardwareComponent) entry.getValue();
 					HardwareComponent comp2 = (HardwareComponent) componentsOfP2.get(entry.getKey());
+					
+					labels[curInd][0].setText(entry.getValue().getClass().getName().substring(entry.getValue().getClass().getName().indexOf(".")+  1));
+					labels[curInd][0].setVisible(true);
+					labels[curInd][1].setText(comp1.getModelName());
+					labels[curInd][1].setVisible(true);
+					labels[curInd][2].setText(comp2.getModelName());
+					labels[curInd][2].setVisible(true);
 
 					if (compareComponents(comp1, comp2, comp1.getAllFields(comp1.getClass()))) {
 						pointsForComp1++;
+						labels[curInd][1].setForeground(Color.green);
+						labels[curInd][2].setForeground(Color.red);
 					} else {
 						pointsForComp2++;
+						labels[curInd][1].setForeground(Color.red);
+						labels[curInd][2].setForeground(Color.green);
 					}
 				}
 				else {
+					if (!entry.getKey().equals("ModelNumber")) {
+						labels[curInd][0].setText(entry.getKey());
+						labels[curInd][0].setVisible(true);
+						labels[curInd][1].setText(entry.getValue().toString());
+						labels[curInd][1].setVisible(true);
+						labels[curInd][2].setText(componentsOfP2.get(entry.getKey()).toString());
+						labels[curInd][2].setVisible(true);
+					}
+					
 					if(compareComponents(entry.getKey(), entry.getValue(), componentsOfP2.get(entry.getKey()))) {
 						pointsForComp1++;
+						labels[curInd][1].setForeground(Color.green);
+						labels[curInd][2].setForeground(Color.red);
 					}
 					else {
 						pointsForComp2++;
+						labels[curInd][1].setForeground(Color.red);
+						labels[curInd][2].setForeground(Color.green);
 					}
 				}
+				curInd++;
 			}
-
+			GridBagConstraints compare = frame.getGbc_compareBtn();
+			compare.gridy = curInd + 7;
+			GridBagConstraints back = frame.getGbc_backBtn();
+			back.gridy = curInd + 7;
+			frame.getContentPane().add(frame.getCompareBtn(), compare);
+			frame.getContentPane().add(frame.getBackBtn(), back);
 			return pointsForComp1 > pointsForComp2 ? p1 : p2;
 		}
 		else if (p1 instanceof HardwareComponent) {
@@ -554,6 +599,26 @@ public class HardwareSystem {
 		return str;
 	}
 	
+	// Added for getting array of CPUs
+	public static String[] getCPUs() {
+		HashSet<CPU> components = new HashSet<CPU>();
+		
+		for (HardwareComponent component: HardwareComponents) {
+			if (component instanceof CPU) {
+				components.add((CPU)component);
+			}
+		}
+		
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
+		
+	}
+	
 	public static String[] getGPUs() {
 		HashSet<GPU> components = new HashSet<GPU>();
 		for (HardwareComponent component: HardwareComponents) {
@@ -598,6 +663,24 @@ public class HardwareSystem {
 		return str;
 	}
 	
+	// Added for getting array of RAMs
+	public static String[] getRAMs() {
+		HashSet<RAM> components = new HashSet<RAM>();
+		for (HardwareComponent component: HardwareComponents) {
+			if (component instanceof RAM) {
+					components.add((RAM)component);
+				}
+			}
+		
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
+	}
+	
 	public static String[] getSSDs(Motherboard mb) {
 		HashSet<SSD> components = new HashSet<SSD>();
 		for (HardwareComponent component: HardwareComponents) {
@@ -606,6 +689,24 @@ public class HardwareSystem {
 				if (slots.contains(((SSD)component).getInterfaceName())) {
 					components.add((SSD)component);
 				}
+			}
+		}
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
+	}
+	
+	// Added for getting array of SSDs
+	public static String[] getSSDs() {
+		HashSet<SSD> components = new HashSet<SSD>();
+		for (HardwareComponent component: HardwareComponents) {
+			if (component instanceof SSD) {
+				components.add((SSD)component);
+		
 			}
 		}
 		String[] str = new String[components.size()];
@@ -642,6 +743,24 @@ public class HardwareSystem {
 				}
 			}
 		}
+		String[] str = new String[components.size()];
+		int i=0;
+		for (HardwareComponent component: components) {
+			str[i]=component.getModelName();
+			i++;
+		}
+		return str;
+	}
+	
+	public static String[] getPowerSupplys() {
+		HashSet<PowerSupply> components = new HashSet<PowerSupply>();
+		for (HardwareComponent component: HardwareComponents) {
+			if (component instanceof PowerSupply) {
+		
+					components.add((PowerSupply)component);
+				}
+			}
+		
 		String[] str = new String[components.size()];
 		int i=0;
 		for (HardwareComponent component: components) {
