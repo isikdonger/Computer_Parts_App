@@ -35,9 +35,10 @@ public class CompareFrame extends JFrame {
 	JButton backBtn;
 	GridBagConstraints gbc_backBtn;
 	private JLabel[][] labels = new JLabel[16][3];
-	private String type;
+	JLabel resLbl;
 	private JComboBox comboBox_1 = null;
 	private JComboBox comboBox_2 = null;
+	private String type;
 	private HardwarePart firstObject;
 	private HardwarePart secondObject;
 	MainFrame mfb; 
@@ -84,7 +85,7 @@ public class CompareFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				type = componentComboBox.getSelectedItem().toString();
 				fillFirstComboBox();
-				fillSecondComboBox();
+				clear();
 			}
 		});
 		componentComboBox.setVisible(false);
@@ -111,6 +112,7 @@ public class CompareFrame extends JFrame {
 					componentComboBox.setVisible(true);
 				}
 				fillFirstComboBox();
+				clear();
 			}
 		});
 		typeBox.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -136,6 +138,7 @@ public class CompareFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				firstObject = HardwareSystem.findHardwarePart(Integer.parseInt(comboBox_1.getSelectedItem().toString().replaceAll("\\D*(\\d+).*", "$1")));
 				fillSecondComboBox();
+				clear();
 			}
 		});
 		
@@ -158,6 +161,7 @@ public class CompareFrame extends JFrame {
 		comboBox_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				secondObject = HardwareSystem.findHardwarePart(Integer.parseInt(comboBox_2.getSelectedItem().toString().replaceAll("\\D*(\\d+).*", "$1")));
+				clear();
 			}
 		});
 		comboBox_2.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -168,7 +172,7 @@ public class CompareFrame extends JFrame {
 		gbc_comboBox_2.gridy = 4;
 		contentPane.add(comboBox_2, gbc_comboBox_2);
 		
-		JLabel resLbl = new JLabel("");
+		resLbl = new JLabel("");
 		GridBagConstraints gbc_resLbl = new GridBagConstraints();
 		gbc_resLbl.gridwidth = 3;
 		gbc_resLbl.insets = new Insets(0, 0, 5, 5);
@@ -235,9 +239,6 @@ public class CompareFrame extends JFrame {
 		gbc_backBtn.gridx = 3;
 		gbc_backBtn.gridy = 6;
 		contentPane.add(backBtn, gbc_backBtn);
-		
-		
-	    
 	}
 	
 	public JPanel getContentPane() {
@@ -322,6 +323,21 @@ public class CompareFrame extends JFrame {
 	
 	private HardwarePart compare() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		return HardwareSystem.compare(this, firstObject, secondObject);
+	}
+	
+	private void clear() {
+		resLbl.setText("");
+		resLbl.setVisible(false);
+		for (int i=0;i<16;i++) {
+			for (int j=0;j<3;j++) {
+				labels[i][j].setText("");
+				labels[i][j].setVisible(false);
+			}
+		}
+		gbc_compareBtn.gridy = 6;
+		contentPane.add(compareBtn, gbc_compareBtn);
+		gbc_backBtn.gridy = 6;
+		contentPane.add(backBtn, gbc_backBtn);
 	}
 	
 }
