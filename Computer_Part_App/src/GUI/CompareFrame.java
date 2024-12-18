@@ -30,6 +30,11 @@ import java.awt.Insets;
 public class CompareFrame extends JFrame {
 	
 	private JPanel contentPane;
+	JButton compareBtn;
+	GridBagConstraints gbc_compareBtn;
+	JButton backBtn;
+	GridBagConstraints gbc_backBtn;
+	private JLabel[][] labels = new JLabel[16][3];
 	private String type;
 	private JComboBox comboBox_1 = null;
 	private JComboBox comboBox_2 = null;
@@ -50,7 +55,7 @@ public class CompareFrame extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{102, 99, 0, 242, 0};
-		gbl_contentPane.rowHeights = new int[]{38, 46, 0, 35, 41, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{38, 46, 0, 35, 41, 0, 38, 0, 13, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
@@ -168,15 +173,33 @@ public class CompareFrame extends JFrame {
 		gbc_resLbl.gridwidth = 3;
 		gbc_resLbl.insets = new Insets(0, 0, 5, 5);
 		gbc_resLbl.gridx = 1;
-		gbc_resLbl.gridy = 8;
+		gbc_resLbl.gridy = 5;
 		contentPane.add(resLbl, gbc_resLbl);
 		
-		JButton compareBtn = new JButton("Compare");
+		for (int i=0;i<16;i++) {
+			for (int j=0;j<3;j++) {
+				labels[i][j] = new JLabel();
+				labels[i][j].setVisible(false);
+				GridBagConstraints gbc_Lbl = new GridBagConstraints();
+				gbc_Lbl.gridwidth = 3;
+				gbc_Lbl.insets = new Insets(0, 0, 5, 5);
+				gbc_Lbl.gridx = j;
+				gbc_Lbl.gridy = i + 6;
+				contentPane.add(labels[i][j], gbc_Lbl);
+			}
+		}
+		
+		compareBtn = new JButton("Compare");
 		compareBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					HardwarePart winner = compare();
-					resLbl.setText(winner.toString()); 
+					if (winner instanceof Computer) {
+						resLbl.setText(((Computer)winner).getModelName());
+					}
+					else {
+						resLbl.setText(((HardwareComponent)winner).getModelName());
+					}
 				} catch (IllegalArgumentException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -190,14 +213,14 @@ public class CompareFrame extends JFrame {
 			}
 		});
 		compareBtn.setFont(new Font("Tahoma", Font.BOLD, 12));
-		GridBagConstraints gbc_compareBtn = new GridBagConstraints();
+		gbc_compareBtn = new GridBagConstraints();
 		gbc_compareBtn.fill = GridBagConstraints.VERTICAL;
 		gbc_compareBtn.insets = new Insets(0, 0, 5, 5);
 		gbc_compareBtn.gridx = 1;
 		gbc_compareBtn.gridy = 6;
 		contentPane.add(compareBtn, gbc_compareBtn);
 		
-		JButton backBtn = new JButton("Go Back");
+		backBtn = new JButton("Go Back");
 		backBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -206,8 +229,7 @@ public class CompareFrame extends JFrame {
 				mfb.setVisible(true);
 			}
 		});
-		
-		GridBagConstraints gbc_backBtn = new GridBagConstraints();
+		gbc_backBtn = new GridBagConstraints();
 		gbc_backBtn.insets = new Insets(0, 0, 5, 0);
 		gbc_backBtn.fill = GridBagConstraints.VERTICAL;
 		gbc_backBtn.gridx = 3;
@@ -222,9 +244,27 @@ public class CompareFrame extends JFrame {
 		return contentPane;
 	}
 	
-	
-public void fillFirstComboBox() {
-		
+	public JButton getCompareBtn() {
+		return compareBtn;
+	}
+
+	public GridBagConstraints getGbc_compareBtn() {
+		return gbc_compareBtn;
+	}
+
+	public JButton getBackBtn() {
+		return backBtn;
+	}
+
+	public GridBagConstraints getGbc_backBtn() {
+		return gbc_backBtn;
+	}
+
+	public JLabel[][] getLabels() {
+		return labels;
+	}
+
+	public void fillFirstComboBox() {
 		String[] arr;
 		if (type.equalsIgnoreCase("Computer")) {
 			arr = (String[])HardwareSystem.getComputersArray(null);
@@ -279,10 +319,9 @@ public void fillFirstComboBox() {
         // Set the new model for the second combo box
         comboBox_2.setModel(new DefaultComboBoxModel(filteredArr));
 	}
-
-	
 	
 	private HardwarePart compare() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-		return HardwareSystem.compare(firstObject, secondObject);
+		return HardwareSystem.compare(this, firstObject, secondObject);
 	}
+	
 }
