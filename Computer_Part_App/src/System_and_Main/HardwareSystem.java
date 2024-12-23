@@ -57,6 +57,7 @@ public class HardwareSystem {
 		Map.entry("form", SSDFORM_ORDER),
 		Map.entry("material", MATERIAL_ORDER)
 	);
+	private static int lastModelNumber;
 	private static final String HC_FILENAME = "data.txt";
 	private static final String C_FILENAME = "computer.txt";
 	
@@ -140,6 +141,9 @@ public class HardwareSystem {
 					break;
 			}
 			Computers.add(computer);
+			if (!input.hasNext()) {
+				lastModelNumber = Integer.parseInt(computerInfo[2]);
+			}
 		}
 		
 		return true;
@@ -195,6 +199,10 @@ public class HardwareSystem {
 				break;
 		}
 		return hardW;
+	}
+	
+	public static int getLastModelNumber() {
+		return lastModelNumber;
 	}
 	
 	private static boolean addData(PersonalComputer computer) throws IOException {

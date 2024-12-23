@@ -1,6 +1,7 @@
 package Computer;
 import HardwareComponent.*;
 import Interface.HardwarePart;
+import System_and_Main.HardwareSystem;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -25,7 +26,7 @@ public class PersonalComputer extends Computer {
 	@Override
 	public double buildComputer(CPU cpu, GPU gpu, RAM ram, int ramAmount, SSD ssd, int ssdAmount, Motherboard motherboard,
 			PowerSupply powerSupply, Case Case, boolean monitor) {
-		this.modelNumber = 42 + count;
+		this.modelNumber = HardwareSystem.getLastModelNumber() + count;
 		this.brand = "NoBrand";
 		this.model = "PersonelBuild";
 		this.cpu = cpu;
